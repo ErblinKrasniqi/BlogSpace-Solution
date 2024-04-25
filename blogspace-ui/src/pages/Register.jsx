@@ -3,10 +3,12 @@ import styles from "../Assets/scss/login.module.scss";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [comfirmPassword, setComfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const [passwordMatch, setPasswordMatch] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,6 +18,9 @@ const Login = () => {
     }
     if (!password) {
       tempErrors.push("Please fill all the password field ⛔");
+    }
+    if (password !== comfirmPassword) {
+      setPasswordMatch("Password does not match 🤔");
     }
     setErrors(tempErrors);
   };
@@ -50,21 +55,34 @@ const Login = () => {
               <Form.Text className="text-danger">{errors[1]}</Form.Text>
             )}
           </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Comfirm password</Form.Label>
+            <Form.Control
+              onChange={(e) => {
+                setComfirmPassword(e.target.value);
+              }}
+              type="password"
+              placeholder="Enter Password"
+            />
+            {passwordMatch && (
+              <Form.Text className="text-danger">{passwordMatch}</Form.Text>
+            )}
+          </Form.Group>
 
           <Form.Text className="text-muted"></Form.Text>
           <div>
             {" "}
             <Form.Text className="text-white">
-              Don't have an account? <br /> <Link to="/register"> Sign up</Link>
+              Already have an account? <br /> <Link to="/login"> Login</Link>
             </Form.Text>
           </div>
 
           <Button variant="primary" type="submit" className="py-2 px-4 mt-2">
-            Login
+            Register
           </Button>
         </Form>
       </Col>
     </Container>
   );
 };
-export default Login;
+export default Register;

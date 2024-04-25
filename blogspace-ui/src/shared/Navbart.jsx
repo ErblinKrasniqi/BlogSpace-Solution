@@ -98,15 +98,9 @@ const Navbart = () => {
                 </li>
 
                 <li>
-                  <a className="dropdown-item" href="event-listing.html">
-                    Edit post
-                  </a>
-                </li>
-
-                <li>
-                  <a className="dropdown-item" href="event-detail.html">
+                  <Link to="/dashboard" className="dropdown-item">
                     Dashboard
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>

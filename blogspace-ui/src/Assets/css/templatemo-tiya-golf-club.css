@@ -6,47 +6,47 @@ https://templatemo.com/tm-587-tiya-golf-club
 
 */
 
-
 /*---------------------------------------
   CUSTOM PROPERTIES ( VARIABLES )             
 -----------------------------------------*/
 :root {
-  --white-color:                  #ffffff;
-  --primary-color:                #81B29A;
-  --secondary-color:              #3D405B;
-  --section-bg-color:             #F4F1DE;
-  --custom-btn-bg-color:          #F2CC8F;
-  --custom-btn-bg-hover-color:    #E07A5F;
-  --dark-color:                   #000000;
-  --p-color:                      #717275;
-  --link-hover-color:             #F2CC8F;
+  --white-color: #ffffff;
+  --primary-color: #81b29a;
+  --secondary-color: #3d405b;
+  --section-bg-color: #f4f1de;
+  --custom-btn-bg-color: #f2cc8f;
+  --custom-danger-bg-color: #d04323;
 
-  --body-font-family:             'DM Sans', sans-serif;
+  --custom-btn-bg-hover-color: #e07a5f;
+  --dark-color: #000000;
+  --p-color: #717275;
+  --link-hover-color: #f2cc8f;
 
-  --h1-font-size:                 42px;
-  --h2-font-size:                 36px;
-  --h3-font-size:                 28px;
-  --h4-font-size:                 24px;
-  --h5-font-size:                 22px;
-  --h6-font-size:                 20px;
-  --p-font-size:                  18px;
-  --menu-font-size:               16px;
-  --btn-font-size:                14px;
+  --body-font-family: "DM Sans", sans-serif;
 
-  --border-radius-large:          100px;
-  --border-radius-medium:         20px;
-  --border-radius-small:          10px;
+  --h1-font-size: 42px;
+  --h2-font-size: 36px;
+  --h3-font-size: 28px;
+  --h4-font-size: 24px;
+  --h5-font-size: 22px;
+  --h6-font-size: 20px;
+  --p-font-size: 18px;
+  --menu-font-size: 16px;
+  --btn-font-size: 14px;
 
-  --font-weight-normal:           400;
-  --font-weight-medium:           500;
-  --font-weight-bold:             700;
+  --border-radius-large: 100px;
+  --border-radius-medium: 20px;
+  --border-radius-small: 10px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
 }
 
 body {
   background-color: var(--white-color);
-  font-family: var(--body-font-family); 
+  font-family: var(--body-font-family);
 }
-
 
 /*---------------------------------------
   TYPOGRAPHY               
@@ -108,7 +108,7 @@ ul li {
   font-weight: var(--font-weight-normal);
 }
 
-a, 
+a,
 button {
   touch-action: manipulation;
   transition: all 0.3s;
@@ -129,7 +129,6 @@ strong {
   font-weight: var(--font-weight-bold);
 }
 
-
 /*---------------------------------------
   SECTION               
 -----------------------------------------*/
@@ -144,7 +143,9 @@ strong {
 
 .section-overlay {
   content: "";
-  background: rgba(0, 0, 0, 0) linear-gradient(rgba(39, 48, 83, 0.01) 0%, rgb(39, 48, 83) 100%) repeat scroll 0% 0%;
+  background: rgba(0, 0, 0, 0)
+    linear-gradient(rgba(39, 48, 83, 0.01) 0%, rgb(39, 48, 83) 100%) repeat
+    scroll 0% 0%;
   position: absolute;
   top: 0;
   right: 0;
@@ -156,7 +157,6 @@ strong {
   background-color: var(--primary-color);
   color: var(--white-color);
 }
-
 
 /*---------------------------------------
   ANIMATED HEADLINE               
@@ -355,7 +355,6 @@ strong {
   }
 }
 
-
 /*---------------------------------------
   CUSTOM BUTTON               
 -----------------------------------------*/
@@ -369,6 +368,10 @@ strong {
   line-height: normal;
   transition: all 0.3s;
   padding: 10px 20px;
+}
+
+.custom-danger {
+  background: var(--custom-danger-bg-color) !important;
 }
 
 .custom-btn:hover {
@@ -401,7 +404,6 @@ strong {
 .custom-btn-group .link:hover {
   color: var(--link-hover-color);
 }
-
 
 /*---------------------------------------
   NAVIGATION BAR & OFFCANVAS              
@@ -500,14 +502,14 @@ strong {
   padding-bottom: 15px;
 }
 
-.navbar-nav .nav-link.active, 
+.navbar-nav .nav-link.active,
 .navbar-nav .nav-link:hover {
   color: var(--link-hover-color);
 }
 
 .navbar .dropdown-menu {
   background: var(--white-color);
-  box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
   border: 0;
   display: inherit;
   opacity: 0;
@@ -538,9 +540,9 @@ strong {
   position: relative;
 }
 
-.navbar .dropdown-item.active, 
+.navbar .dropdown-item.active,
 .navbar .dropdown-item:active,
-.navbar .dropdown-item:focus, 
+.navbar .dropdown-item:focus,
 .navbar .dropdown-item:hover {
   background: transparent;
   color: var(--link-hover-color);
@@ -556,7 +558,7 @@ strong {
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  vertical-align: -.125em;
+  vertical-align: -0.125em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
@@ -595,7 +597,8 @@ strong {
 .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:after {
   transition: top 300ms 50ms ease, -webkit-transform 300ms 350ms ease;
   transition: top 300ms 50ms ease, transform 300ms 350ms ease;
-  transition: top 300ms 50ms ease, transform 300ms 350ms ease, -webkit-transform 300ms 350ms ease;
+  transition: top 300ms 50ms ease, transform 300ms 350ms ease,
+    -webkit-transform 300ms 350ms ease;
   top: 0;
 }
 
@@ -620,14 +623,15 @@ strong {
 .navbar-toggler .navbar-toggler-icon:after {
   transition: top 300ms 350ms ease, -webkit-transform 300ms 50ms ease;
   transition: top 300ms 350ms ease, transform 300ms 50ms ease;
-  transition: top 300ms 350ms ease, transform 300ms 50ms ease, -webkit-transform 300ms 50ms ease;
+  transition: top 300ms 350ms ease, transform 300ms 50ms ease,
+    -webkit-transform 300ms 50ms ease;
   position: absolute;
   right: 0;
   left: 0;
   background: var(--white-color);
   width: 30px;
   height: 2px;
-  content: '';
+  content: "";
 }
 
 .navbar-toggler .navbar-toggler-icon::before {
@@ -638,12 +642,11 @@ strong {
   top: 8px;
 }
 
-
 /*---------------------------------------
   HERO        
 -----------------------------------------*/
 .hero-section {
-  background-image: url('../images/anna-rosar-ZxFyVBHMK-c-unsplash.jpg');
+  background-image: url("../images/anna-rosar-ZxFyVBHMK-c-unsplash.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -690,12 +693,11 @@ strong {
   z-index: 22;
 }
 
-
 /*---------------------------------------
   BACKGROUND IMAGE SECTION        
 -----------------------------------------*/
 .section-bg-image {
-  background-image: url('../images/frederik-rosar-NDSZcCfnsbY-unsplash.jpg');
+  background-image: url("../images/frederik-rosar-NDSZcCfnsbY-unsplash.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -745,7 +747,6 @@ strong {
   max-width: 150px;
 }
 
-
 /*---------------------------------------
   ABOUT SECTOIN              
 -----------------------------------------*/
@@ -792,7 +793,6 @@ strong {
 .member-block-info p {
   margin-bottom: 0;
 }
-
 
 /*---------------------------------------
   CUSTOM BLOCK              
@@ -847,7 +847,7 @@ strong {
   border-radius: 0;
   left: 0;
   width: 50%;
-  padding: 12.30px 20px;
+  padding: 12.3px 20px;
 }
 
 .custom-block-image-wrap .custom-btn-wrap {
@@ -855,7 +855,7 @@ strong {
   width: 50%;
 }
 
-.custom-block-image-wrap .custom-btn  {
+.custom-block-image-wrap .custom-btn {
   border-radius: 0;
   display: block;
   padding: 15px 20px;
@@ -898,7 +898,6 @@ strong {
   color: var(--white-color);
 }
 
-
 /*---------------------------------------
   EVENTS SECTION            
 -----------------------------------------*/
@@ -930,7 +929,6 @@ strong {
   font-weight: var(--font-weight-medium);
 }
 
-
 /*---------------------------------------
   MEMBERSHIP SECTION            
 -----------------------------------------*/
@@ -943,11 +941,11 @@ strong {
   border-radius: var(--border-radius-medium);
 }
 
-.table-responsive tbody, 
-.table-responsive td, 
-.table-responsive tfoot, 
-.table-responsive th, 
-.table-responsive thead, 
+.table-responsive tbody,
+.table-responsive td,
+.table-responsive tfoot,
+.table-responsive th,
+.table-responsive thead,
 .table-responsive tr {
   border: 0;
 }
@@ -965,7 +963,7 @@ strong {
   background-color: var(--section-bg-color);
 }
 
-.table>:not(caption)>*>* {
+.table > :not(caption) > * > * {
   padding: 18px 16px;
 }
 
@@ -983,16 +981,15 @@ strong {
   padding: 35px;
 }
 
-.membership-form .form-floating>textarea {
+.membership-form .form-floating > textarea {
   border-radius: var(--border-radius-medium);
   height: 100px;
 }
 
-
 /*---------------------------------------
   CONTACT               
 -----------------------------------------*/
-.contact-form .form-floating>textarea {
+.contact-form .form-floating > textarea {
   border-radius: var(--border-radius-medium);
   height: 120px;
 }
@@ -1036,7 +1033,6 @@ strong {
   font-weight: var(--font-weight-bold);
 }
 
-
 /*---------------------------------------
   SITE FOOTER            
 -----------------------------------------*/
@@ -1067,7 +1063,6 @@ strong {
   margin-right: auto;
 }
 
-
 /*---------------------------------------
   CUSTOM FORM               
 -----------------------------------------*/
@@ -1087,7 +1082,7 @@ strong {
   border-color: var(--dark-color);
 }
 
-.form-floating>label {
+.form-floating > label {
   padding-left: 20px;
 }
 
@@ -1125,7 +1120,6 @@ strong {
   margin-left: 15px;
 }
 
-
 /*---------------------------------------
   SOCIAL ICON               
 -----------------------------------------*/
@@ -1159,7 +1153,6 @@ strong {
   color: var(--white-color);
 }
 
-
 /*---------------------------------------
   RESPONSIVE STYLES               
 -----------------------------------------*/
@@ -1192,7 +1185,7 @@ strong {
     padding-top: 50px;
     padding-bottom: 50px;
   }
-  
+
   .navbar {
     background-color: var(--secondary-color);
   }
@@ -1286,4 +1279,3 @@ strong {
     padding: 4px 12px;
   }
 }
-

@@ -53,9 +53,9 @@ const Home = () => {
                     height="315"
                     src="https://www.youtube.com/embed/MGNgbNGOzh8"
                     title="YouTube video player"
-                    frameborder="0"
+                    frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen
+                    allowFullScreen
                   ></iframe>
                 </div>
               </div>
@@ -388,27 +388,27 @@ const Home = () => {
             <path
               fill="rgba(255, 255, 255, 1)"
               d="M 0 40 C 164 40 164 20 328 20 L 328 20 L 328 0 L 0 0 Z"
-              stroke-width="0"
+              strokeWidth="0"
             ></path>{" "}
             <path
               fill="rgba(255, 255, 255, 1)"
               d="M 327 20 C 445.5 20 445.5 89 564 89 L 564 89 L 564 0 L 327 0 Z"
-              stroke-width="0"
+              strokeWidth="0"
             ></path>{" "}
             <path
               fill="rgba(255, 255, 255, 1)"
               d="M 563 89 C 724.5 89 724.5 48 886 48 L 886 48 L 886 0 L 563 0 Z"
-              stroke-width="0"
+              strokeWidth="0"
             ></path>
             <path
               fill="rgba(255, 255, 255, 1)"
               d="M 885 48 C 1006.5 48 1006.5 67 1128 67 L 1128 67 L 1128 0 L 885 0 Z"
-              stroke-width="0"
+              strokeWidth="0"
             ></path>
             <path
               fill="rgba(255, 255, 255, 1)"
               d="M 1127 67 C 1196 67 1196 0 1265 0 L 1265 0 L 1265 0 L 1127 0 Z"
-              stroke-width="0"
+              strokeWidth="0"
             ></path>
           </svg>
 
@@ -458,27 +458,27 @@ const Home = () => {
             <path
               fill="rgba(255, 255, 255, 1)"
               d="M 0 40 C 164 40 164 20 328 20 L 328 20 L 328 0 L 0 0 Z"
-              stroke-width="0"
+              strokeWidth="0"
             ></path>{" "}
             <path
               fill="rgba(255, 255, 255, 1)"
               d="M 327 20 C 445.5 20 445.5 89 564 89 L 564 89 L 564 0 L 327 0 Z"
-              stroke-width="0"
+              strokeWidth="0"
             ></path>{" "}
             <path
               fill="rgba(255, 255, 255, 1)"
               d="M 563 89 C 724.5 89 724.5 48 886 48 L 886 48 L 886 0 L 563 0 Z"
-              stroke-width="0"
+              strokeWidth="0"
             ></path>
             <path
               fill="rgba(255, 255, 255, 1)"
               d="M 885 48 C 1006.5 48 1006.5 67 1128 67 L 1128 67 L 1128 0 L 885 0 Z"
-              stroke-width="0"
+              strokeWidth="0"
             ></path>
             <path
               fill="rgba(255, 255, 255, 1)"
               d="M 1127 67 C 1196 67 1196 0 1265 0 L 1265 0 L 1265 0 L 1127 0 Z"
-              stroke-width="0"
+              strokeWidth="0"
             ></path>
           </svg>
         </section>
@@ -642,7 +642,7 @@ const Home = () => {
                         required=""
                       />
 
-                      <label for="floatingInput">Full Name</label>
+                      <label htmlFor="floatingInput">Full Name</label>
                     </div>
 
                     <div className="form-floating">
@@ -656,7 +656,7 @@ const Home = () => {
                         required=""
                       />
 
-                      <label for="floatingInput">Email address</label>
+                      <label htmlFor="floatingInput">Email address</label>
                     </div>
 
                     <div className="form-floating">
@@ -667,7 +667,7 @@ const Home = () => {
                         placeholder="Describe message here"
                       ></textarea>
 
-                      <label for="floatingTextarea"> Comments</label>
+                      <label htmlFor="floatingTextarea"> Comments</label>
                     </div>
 
                     <button type="submit" className="form-control">
@@ -840,7 +840,7 @@ const Home = () => {
                           required=""
                         />
 
-                        <label for="floatingInput">Full Name</label>
+                        <label htmlFor="floatingInput">Full Name</label>
                       </div>
                     </div>
 
@@ -856,7 +856,7 @@ const Home = () => {
                           required=""
                         />
 
-                        <label for="floatingInput">Email address</label>
+                        <label htmlFor="floatingInput">Email address</label>
                       </div>
                     </div>
 
@@ -869,7 +869,7 @@ const Home = () => {
                           placeholder="Describe message here"
                         ></textarea>
 
-                        <label for="floatingTextarea">Message</label>
+                        <label htmlFor="floatingTextarea">Message</label>
                       </div>
 
                       <button type="submit" className="form-control">

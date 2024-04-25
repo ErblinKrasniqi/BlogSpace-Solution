@@ -1,6 +1,5 @@
 import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../../Assets/scss/login.module.scss";
-import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
 const CreatePost = () => {

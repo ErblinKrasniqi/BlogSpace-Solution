@@ -1,32 +1,27 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Navbart = () => {
-  const navigate = useNavigate();
   return (
     <nav
-      class="navbar navbar-expand-lg sticky-top"
+      className="navbar navbar-expand-lg sticky-top"
       style={{ backgroundColor: "#3D405B" }}
     >
-      <div class="container">
-        <a
-          class="navbar-brand d-flex align-items-center"
-          onClick={() => navigate("/")}
-          href="#index.html"
-        >
+      <div className="container">
+        <Link to="/" className="navbar-brand d-flex align-items-center">
           <img
             src="images/logo.png"
-            class="navbar-brand-image img-fluid"
+            className="navbar-brand-image img-fluid"
             alt="Blog Space"
           ></img>
-          <span class="navbar-brand-text">
+          <span className="navbar-brand-text">
             Blog Space
             <small className="mt-1">Posting blogs</small>
           </span>
-        </a>
+        </Link>
 
-        <div class="d-lg-none ms-auto me-3">
+        <div className="d-lg-none ms-auto me-3">
           <a
-            class="btn custom-btn custom-border-btn"
+            className="btn custom-btn custom-border-btn"
             data-bs-toggle="offcanvas"
             href="#offcanvasExample"
             role="button"
@@ -37,7 +32,7 @@ const Navbart = () => {
         </div>
 
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -45,44 +40,44 @@ const Navbart = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-lg-auto">
-            <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_1">
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-lg-auto">
+            <li className="nav-item">
+              <a className="nav-link click-scroll" href="#section_1">
                 Home
               </a>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_2">
+            <li className="nav-item">
+              <a className="nav-link click-scroll" href="#section_2">
                 About
               </a>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_3">
+            <li className="nav-item">
+              <a className="nav-link click-scroll" href="#section_3">
                 Membership
               </a>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_4">
+            <li className="nav-item">
+              <a className="nav-link click-scroll" href="#section_4">
                 Events
               </a>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link click-scroll" href="#section_5">
+            <li className="nav-item">
+              <a className="nav-link click-scroll" href="#section_5">
                 Contact Us
               </a>
             </li>
 
-            <li class="nav-item dropdown">
+            <li className="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
+                className="nav-link dropdown-toggle"
                 href="#trick"
                 id="navbarLightDropdownMenuLink"
                 role="button"
@@ -93,17 +88,17 @@ const Navbart = () => {
               </a>
 
               <ul
-                class="dropdown-menu dropdown-menu-light"
+                className="dropdown-menu dropdown-menu-light"
                 aria-labelledby="navbarLightDropdownMenuLink"
               >
                 <li>
-                  <a class="dropdown-item" href="event-listing.html">
+                  <a className="dropdown-item" href="event-listing.html">
                     Event Listing
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="event-detail.html">
+                  <a className="dropdown-item" href="event-detail.html">
                     Event Detail
                   </a>
                 </li>
@@ -111,17 +106,14 @@ const Navbart = () => {
             </li>
           </ul>
 
-          <div class="d-none d-lg-block ms-lg-3">
-            <a
-              class="btn custom-btn custom-border-btn"
+          <div className="d-none d-lg-block ms-lg-3">
+            <Link
+              className="btn custom-btn custom-border-btn"
               data-bs-toggle="offcanvas"
-              href="#trick"
-              role="button"
-              aria-controls="offcanvasExample"
-              onClick={() => navigate("/login")}
+              to="/login"
             >
               Login
-            </a>
+            </Link>
           </div>
         </div>
       </div>

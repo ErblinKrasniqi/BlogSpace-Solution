@@ -3,46 +3,49 @@ const Home = () => {
     <>
       <main>
         <section
-          class="hero-section d-flex justify-content-center align-items-center"
+          className="hero-section d-flex justify-content-center align-items-center"
           id="section_1"
         >
-          <div class="section-overlay"></div>
+          <div className="section-overlay"></div>
 
           <svg xlinkHref="http://www.w3.org/1999/xlink" viewBox="0 0 1440 320">
             <path
               fill="#3D405B"
-              fill-opacity="1"
+              fillOpacity="1"
               d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"
             ></path>
           </svg>
 
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6 col-12 mb-5 mb-lg-0">
-                <h2 class="text-white">Keep up with</h2>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6 col-12 mb-5 mb-lg-0">
+                <h2 className="text-white">Keep up with</h2>
 
-                <h1 class="cd-headline rotate-1 text-white mb-4 pb-2">
+                <h1 className="cd-headline rotate-1 text-white mb-4 pb-2">
                   <span>the best</span>
-                  <span class="cd-words-wrapper">
-                    <b class="is-visible">News</b>
+                  <span className="cd-words-wrapper">
+                    <b className="is-visible">News</b>
                     <b>Creative</b>
                     <b>Lifestyle</b>
                   </span>
                 </h1>
 
-                <div class="custom-btn-group">
-                  <a href="#section_2" class="btn custom-btn smoothscroll me-3">
+                <div className="custom-btn-group">
+                  <a
+                    href="#section_2"
+                    className="btn custom-btn smoothscroll me-3"
+                  >
                     Read
                   </a>
 
-                  <a href="#section_3" class="link smoothscroll">
+                  <a href="#section_3" className="link smoothscroll">
                     Become a member
                   </a>
                 </div>
               </div>
 
-              <div class="col-lg-6 col-12">
-                <div class="ratio ratio-16x9">
+              <div className="col-lg-6 col-12">
+                <div className="ratio ratio-16x9">
                   <iframe
                     width="560"
                     height="315"
@@ -60,218 +63,218 @@ const Home = () => {
           <svg xlinkHref="http://www.w3.org/1999/xlink" viewBox="0 0 1440 320">
             <path
               fill="#ffffff"
-              fill-opacity="1"
+              fillOpacity="1"
               d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"
             ></path>
           </svg>
         </section>
 
-        <section class="events-section section-padding" id="section_2">
-          <div class="container">
-            <div class="row ">
-              <div class="col-lg-12 col-12 mt-5">
-                <h2 class="mb-lg-5 mb-4">Latest Posts</h2>
+        <section className="events-section section-padding" id="section_2">
+          <div className="container">
+            <div className="row ">
+              <div className="col-lg-12 col-12 mt-5">
+                <h2 className="mb-lg-5 mb-4">Latest Posts</h2>
               </div>
 
-              <div class="col-lg-6 col-12 mb-5 mb-lg-0 mt-5">
-                <div class="custom-block-image-wrap">
+              <div className="col-lg-6 col-12 mb-5 mb-lg-0 mt-5">
+                <div className="custom-block-image-wrap">
                   <a href="event-detail.html">
                     <img
                       src={require("../Assets/images/anna-rosar-ZxFyVBHMK-c-unsplash.jpg")}
-                      class="custom-block-image img-fluid"
+                      className="custom-block-image img-fluid"
                       alt=""
                     ></img>
 
-                    <i class="custom-block-icon bi-link"></i>
+                    <i className="custom-block-icon bi-link"></i>
                   </a>
 
-                  <div class="custom-block-date-wrap">
-                    <strong class="text-white">18 Feb 2023</strong>
+                  <div className="custom-block-date-wrap">
+                    <strong className="text-white">18 Feb 2023</strong>
                   </div>
 
-                  <div class="custom-btn-wrap">
-                    <a href="event-detail.html" class="btn custom-btn">
+                  <div className="custom-btn-wrap">
+                    <a href="event-detail.html" className="btn custom-btn">
                       Vew Post
                     </a>
                   </div>
                 </div>
 
-                <div class="custom-block-info">
-                  <a href="event-detail.html" class="events-title mb-2">
+                <div className="custom-block-info">
+                  <a href="event-detail.html" className="events-title mb-2">
                     The first space trip 🚀
                   </a>
 
-                  <p class="mb-0">
+                  <p className="mb-0">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                     Recusandae dignissimos modi corrupti, nostrum dolores aut
                     quasi placeat ullam cum ex iusto atque pariatur illum nam
                     necessitatibus expedita. Totam, architecto culpa.
                   </p>
 
-                  <div class="border-top mt-4 pt-3">
-                    <div class="d-flex flex-wrap align-items-center mb-1">
-                      <span class="custom-block-span">Location:</span>
+                  <div className="border-top mt-4 pt-3">
+                    <div className="d-flex flex-wrap align-items-center mb-1">
+                      <span className="custom-block-span">Location:</span>
 
-                      <p class="mb-0">National Center, NYC</p>
+                      <p className="mb-0">National Center, NYC</p>
                     </div>
 
-                    <div class="d-flex flex-wrap align-items-center">
-                      <span class="custom-block-span">Author:</span>
+                    <div className="d-flex flex-wrap align-items-center">
+                      <span className="custom-block-span">Author:</span>
 
-                      <p class="mb-0">Nikoll Culaj</p>
+                      <p className="mb-0">Nikoll Culaj</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-lg-6 col-12 mt-5">
-                <div class="custom-block-image-wrap">
+              <div className="col-lg-6 col-12 mt-5">
+                <div className="custom-block-image-wrap">
                   <a href="event-detail.html">
                     <img
                       src={require("../Assets/images/frederik-rosar-NDSZcCfnsbY-unsplash.jpg")}
-                      class="custom-block-image img-fluid"
+                      className="custom-block-image img-fluid"
                       alt=""
                     ></img>
 
-                    <i class="custom-block-icon bi-link"></i>
+                    <i className="custom-block-icon bi-link"></i>
                   </a>
 
-                  <div class="custom-block-date-wrap">
-                    <strong class="text-white">24 Feb 2023</strong>
+                  <div className="custom-block-date-wrap">
+                    <strong className="text-white">24 Feb 2023</strong>
                   </div>
 
-                  <div class="custom-btn-wrap">
-                    <a href="event-detail.html" class="btn custom-btn">
+                  <div className="custom-btn-wrap">
+                    <a href="event-detail.html" className="btn custom-btn">
                       View post
                     </a>
                   </div>
                 </div>
 
-                <div class="custom-block-info">
-                  <a href="event-detail.html" class="events-title mb-2">
+                <div className="custom-block-info">
+                  <a href="event-detail.html" className="events-title mb-2">
                     Brining the best 🏆
                   </a>
 
-                  <p class="mb-0">
+                  <p className="mb-0">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                     Recusandae dignissimos modi corrupti, nostrum dolores aut
                     quasi placeat ullam cum ex iusto atque pariatur illum nam
                     necessitatibus expedita. Totam, architecto culpa.
                   </p>
 
-                  <div class="border-top mt-4 pt-3">
-                    <div class="d-flex flex-wrap align-items-center mb-1">
-                      <span class="custom-block-span">Location:</span>
+                  <div className="border-top mt-4 pt-3">
+                    <div className="d-flex flex-wrap align-items-center mb-1">
+                      <span className="custom-block-span">Location:</span>
 
-                      <p class="mb-0">National Center, NYC</p>
+                      <p className="mb-0">National Center, NYC</p>
                     </div>
 
-                    <div class="d-flex flex-wrap align-items-center">
-                      <span class="custom-block-span">Author:</span>
+                    <div className="d-flex flex-wrap align-items-center">
+                      <span className="custom-block-span">Author:</span>
 
-                      <p class="mb-0">Erblin Krasniqi</p>
+                      <p className="mb-0">Erblin Krasniqi</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-lg-6 col-12 mt-5">
-                <div class="custom-block-image-wrap">
+              <div className="col-lg-6 col-12 mt-5">
+                <div className="custom-block-image-wrap">
                   <a href="event-detail.html">
                     <img
                       src={require("../Assets/images/frederik-rosar-NDSZcCfnsbY-unsplash.jpg")}
-                      class="custom-block-image img-fluid"
+                      className="custom-block-image img-fluid"
                       alt=""
                     ></img>
 
-                    <i class="custom-block-icon bi-link"></i>
+                    <i className="custom-block-icon bi-link"></i>
                   </a>
 
-                  <div class="custom-block-date-wrap">
-                    <strong class="text-white">24 Feb 2023</strong>
+                  <div className="custom-block-date-wrap">
+                    <strong className="text-white">24 Feb 2023</strong>
                   </div>
 
-                  <div class="custom-btn-wrap">
-                    <a href="event-detail.html" class="btn custom-btn">
+                  <div className="custom-btn-wrap">
+                    <a href="event-detail.html" className="btn custom-btn">
                       View post
                     </a>
                   </div>
                 </div>
 
-                <div class="custom-block-info">
-                  <a href="event-detail.html" class="events-title mb-2">
+                <div className="custom-block-info">
+                  <a href="event-detail.html" className="events-title mb-2">
                     Brining the best 🏆
                   </a>
 
-                  <p class="mb-0">
+                  <p className="mb-0">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                     Recusandae dignissimos modi corrupti, nostrum dolores aut
                     quasi placeat ullam cum ex iusto atque pariatur illum nam
                     necessitatibus expedita. Totam, architecto culpa.
                   </p>
 
-                  <div class="border-top mt-4 pt-3">
-                    <div class="d-flex flex-wrap align-items-center mb-1">
-                      <span class="custom-block-span">Location:</span>
+                  <div className="border-top mt-4 pt-3">
+                    <div className="d-flex flex-wrap align-items-center mb-1">
+                      <span className="custom-block-span">Location:</span>
 
-                      <p class="mb-0">National Center, NYC</p>
+                      <p className="mb-0">National Center, NYC</p>
                     </div>
 
-                    <div class="d-flex flex-wrap align-items-center">
-                      <span class="custom-block-span">Author:</span>
+                    <div className="d-flex flex-wrap align-items-center">
+                      <span className="custom-block-span">Author:</span>
 
-                      <p class="mb-0">Erblin Krasniqi</p>
+                      <p className="mb-0">Erblin Krasniqi</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-lg-6 col-12 mt-5">
-                <div class="custom-block-image-wrap">
+              <div className="col-lg-6 col-12 mt-5">
+                <div className="custom-block-image-wrap">
                   <a href="event-detail.html">
                     <img
                       src={require("../Assets/images/frederik-rosar-NDSZcCfnsbY-unsplash.jpg")}
-                      class="custom-block-image img-fluid"
+                      className="custom-block-image img-fluid"
                       alt=""
                     ></img>
 
-                    <i class="custom-block-icon bi-link"></i>
+                    <i className="custom-block-icon bi-link"></i>
                   </a>
 
-                  <div class="custom-block-date-wrap">
-                    <strong class="text-white">24 Feb 2023</strong>
+                  <div className="custom-block-date-wrap">
+                    <strong className="text-white">24 Feb 2023</strong>
                   </div>
 
-                  <div class="custom-btn-wrap">
-                    <a href="event-detail.html" class="btn custom-btn">
+                  <div className="custom-btn-wrap">
+                    <a href="event-detail.html" className="btn custom-btn">
                       View post
                     </a>
                   </div>
                 </div>
 
-                <div class="custom-block-info">
-                  <a href="event-detail.html" class="events-title mb-2">
+                <div className="custom-block-info">
+                  <a href="event-detail.html" className="events-title mb-2">
                     Brining the best 🏆
                   </a>
 
-                  <p class="mb-0">
+                  <p className="mb-0">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                     Recusandae dignissimos modi corrupti, nostrum dolores aut
                     quasi placeat ullam cum ex iusto atque pariatur illum nam
                     necessitatibus expedita. Totam, architecto culpa.
                   </p>
 
-                  <div class="border-top mt-4 pt-3">
-                    <div class="d-flex flex-wrap align-items-center mb-1">
-                      <span class="custom-block-span">Location:</span>
+                  <div className="border-top mt-4 pt-3">
+                    <div className="d-flex flex-wrap align-items-center mb-1">
+                      <span className="custom-block-span">Location:</span>
 
-                      <p class="mb-0">National Center, NYC</p>
+                      <p className="mb-0">National Center, NYC</p>
                     </div>
 
-                    <div class="d-flex flex-wrap align-items-center">
-                      <span class="custom-block-span">Author:</span>
+                    <div className="d-flex flex-wrap align-items-center">
+                      <span className="custom-block-span">Author:</span>
 
-                      <p class="mb-0">Erblin Krasniqi</p>
+                      <p className="mb-0">Erblin Krasniqi</p>
                     </div>
                   </div>
                 </div>
@@ -280,15 +283,15 @@ const Home = () => {
           </div>
         </section>
 
-        <section class="about-section section-padding" id="section_2">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-12 col-12 text-center">
-                <h2 class="mb-lg-5 mb-4">About Tiya</h2>
+        <section className="about-section section-padding" id="section_2">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12 col-12 text-center">
+                <h2 className="mb-lg-5 mb-4">About Tiya</h2>
               </div>
 
-              <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0">
-                <h3 class="mb-3">Tiya Club History</h3>
+              <div className="col-lg-5 col-12 me-auto mb-4 mb-lg-0">
+                <h3 className="mb-3">Tiya Club History</h3>
 
                 <p>
                   <strong>Since 1984</strong>, Tiya is ranked #8 in the top 10
@@ -304,73 +307,73 @@ const Home = () => {
                 </p>
               </div>
 
-              <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-0">
-                <div class="member-block">
-                  <div class="member-block-image-wrap">
+              <div className="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-0">
+                <div className="member-block">
+                  <div className="member-block-image-wrap">
                     <img
                       src={require("../Assets/images/members/portrait-young-handsome-businessman-wearing-suit-standing-with-crossed-arms-with-isolated-studio-white-background.jpg")}
-                      class="member-block-image img-fluid"
+                      className="member-block-image img-fluid"
                       alt=""
                     ></img>
 
-                    <ul class="social-icon">
-                      <li class="social-icon-item">
+                    <ul className="social-icon">
+                      <li className="social-icon-item">
                         <a
                           aria-label="Description of the link"
                           href="#trick"
-                          class="social-icon-link bi-twitter"
+                          className="social-icon-link bi-twitter"
                         ></a>
                       </li>
 
-                      <li class="social-icon-item">
+                      <li className="social-icon-item">
                         <a
                           aria-label="Description of the link"
                           href="#trick"
-                          class="social-icon-link bi-whatsapp"
+                          className="social-icon-link bi-whatsapp"
                         ></a>
                       </li>
                     </ul>
                   </div>
 
-                  <div class="member-block-info d-flex align-items-center">
+                  <div className="member-block-info d-flex align-items-center">
                     <h4>Michael</h4>
 
-                    <p class="ms-auto">Founder</p>
+                    <p className="ms-auto">Founder</p>
                   </div>
                 </div>
               </div>
 
-              <div class="col-lg-3 col-md-6 col-12">
-                <div class="member-block">
-                  <div class="member-block-image-wrap">
+              <div className="col-lg-3 col-md-6 col-12">
+                <div className="member-block">
+                  <div className="member-block-image-wrap">
                     <img
                       src={require("../Assets/images/members/successful-asian-lady-boss-red-blazer-holding-clipboard-with-documens-pen-working-looking-happy-white-background.jpg")}
-                      class="member-block-image img-fluid"
+                      className="member-block-image img-fluid"
                       alt=""
                     ></img>
 
-                    <ul class="social-icon">
-                      <li class="social-icon-item">
+                    <ul className="social-icon">
+                      <li className="social-icon-item">
                         <a
                           aria-label="Description of the link"
                           href="#trick"
-                          class="social-icon-link bi-linkedin"
+                          className="social-icon-link bi-linkedin"
                         ></a>
                       </li>
-                      <li class="social-icon-item">
+                      <li className="social-icon-item">
                         <a
                           aria-label="Description of the link"
                           href="#trick"
-                          class="social-icon-link bi-twitter"
+                          className="social-icon-link bi-twitter"
                         ></a>
                       </li>
                     </ul>
                   </div>
 
-                  <div class="member-block-info d-flex align-items-center">
+                  <div className="member-block-info d-flex align-items-center">
                     <h4>Sandy</h4>
 
-                    <p class="ms-auto">Co-Founder</p>
+                    <p className="ms-auto">Co-Founder</p>
                   </div>
                 </div>
               </div>
@@ -378,7 +381,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section class="section-bg-image">
+        <section className="section-bg-image">
           <svg viewBox="0 0 1265 144" xlinkHref="http://www.w3.org/1999/xlink">
             <path
               fill="rgba(255, 255, 255, 1)"
@@ -407,11 +410,11 @@ const Home = () => {
             ></path>
           </svg>
 
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6 col-12">
-                <div class="section-bg-image-block">
-                  <h2 class="mb-lg-3">Get our newsletter</h2>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6 col-12">
+                <div className="section-bg-image-block">
+                  <h2 className="mb-lg-3">Get our newsletter</h2>
 
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit,
@@ -421,11 +424,11 @@ const Home = () => {
                   <form
                     action="#"
                     method="get"
-                    class="custom-form mt-lg-4 mt-2"
+                    className="custom-form mt-lg-4 mt-2"
                   >
-                    <div class="input-group input-group-lg">
+                    <div className="input-group input-group-lg">
                       <span
-                        class="input-group-text bi-envelope"
+                        className="input-group-text bi-envelope"
                         id="basic-addon1"
                       ></span>
 
@@ -434,12 +437,12 @@ const Home = () => {
                         name="email"
                         id="email"
                         pattern="[^ @]*@[^ @]*"
-                        class="form-control"
+                        className="form-control"
                         placeholder="Email address"
                         required=""
                       ></input>
 
-                      <button type="submit" class="form-control">
+                      <button type="submit" className="form-control">
                         Subscribe
                       </button>
                     </div>
@@ -478,20 +481,20 @@ const Home = () => {
           </svg>
         </section>
 
-        <section class="membership-section section-padding" id="section_3">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-12 col-12 text-center mx-auto mb-lg-5 mb-4">
+        <section className="membership-section section-padding" id="section_3">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12 col-12 text-center mx-auto mb-lg-5 mb-4">
                 <h2>
                   <span>Membership</span> at Tiya
                 </h2>
               </div>
 
-              <div class="col-lg-6 col-12 mb-3 mb-lg-0">
-                <h4 class="mb-4 pb-lg-2">Membership Fees</h4>
+              <div className="col-lg-6 col-12 mb-3 mb-lg-0">
+                <h4 className="mb-4 pb-lg-2">Membership Fees</h4>
 
-                <div class="table-responsive">
-                  <table class="table text-center">
+                <div className="table-responsive">
+                  <table className="table text-center">
                     <thead>
                       <tr>
                         <th style={{ width: "34%" }}>Yearly Access</th>
@@ -506,110 +509,110 @@ const Home = () => {
 
                     <tbody>
                       <tr>
-                        <th scope="row" class="text-start">
+                        <th scope="row" className="text-start">
                           Golf Insurance
                         </th>
 
                         <td>
-                          <i class="bi-check-circle-fill"></i>
+                          <i className="bi-check-circle-fill"></i>
                         </td>
 
                         <td>
-                          <i class="bi-check-circle-fill"></i>
+                          <i className="bi-check-circle-fill"></i>
                         </td>
 
                         <td>
-                          <i class="bi-check-circle-fill"></i>
+                          <i className="bi-check-circle-fill"></i>
                         </td>
                       </tr>
 
                       <tr>
-                        <th scope="row" class="text-start">
+                        <th scope="row" className="text-start">
                           Club Facilities
                         </th>
 
                         <td>
-                          <i class="bi-check-circle-fill"></i>
+                          <i className="bi-check-circle-fill"></i>
                         </td>
 
                         <td>
-                          <i class="bi-check-circle-fill"></i>
+                          <i className="bi-check-circle-fill"></i>
                         </td>
 
                         <td>
-                          <i class="bi-check-circle-fill"></i>
+                          <i className="bi-check-circle-fill"></i>
                         </td>
                       </tr>
 
                       <tr>
-                        <th scope="row" class="text-start">
+                        <th scope="row" className="text-start">
                           Country Club
                         </th>
 
                         <td>
-                          <i class="bi-x-circle-fill"></i>
+                          <i className="bi-x-circle-fill"></i>
                         </td>
 
                         <td>
-                          <i class="bi-check-circle-fill"></i>
+                          <i className="bi-check-circle-fill"></i>
                         </td>
 
                         <td>
-                          <i class="bi-check-circle-fill"></i>
+                          <i className="bi-check-circle-fill"></i>
                         </td>
                       </tr>
 
                       <tr>
-                        <th scope="row" class="text-start">
+                        <th scope="row" className="text-start">
                           Weekend Seasonal
                         </th>
 
                         <td>
-                          <i class="bi-x-circle-fill"></i>
+                          <i className="bi-x-circle-fill"></i>
                         </td>
 
                         <td>
-                          <i class="bi-check-circle-fill"></i>
+                          <i className="bi-check-circle-fill"></i>
                         </td>
 
                         <td>
-                          <i class="bi-check-circle-fill"></i>
+                          <i className="bi-check-circle-fill"></i>
                         </td>
                       </tr>
 
                       <tr>
-                        <th scope="row" class="text-start">
+                        <th scope="row" className="text-start">
                           Premium Courses
                         </th>
 
                         <td>
-                          <i class="bi-x-circle-fill"></i>
+                          <i className="bi-x-circle-fill"></i>
                         </td>
 
                         <td>
-                          <i class="bi-x-circle-fill"></i>
+                          <i className="bi-x-circle-fill"></i>
                         </td>
 
                         <td>
-                          <i class="bi-check-circle-fill"></i>
+                          <i className="bi-check-circle-fill"></i>
                         </td>
                       </tr>
 
                       <tr>
-                        <th scope="row" class="text-start">
+                        <th scope="row" className="text-start">
                           Pro's Networking
                         </th>
 
                         <td>
-                          <i class="bi-x-circle-fill"></i>
+                          <i className="bi-x-circle-fill"></i>
                         </td>
 
                         <td>
-                          <i class="bi-x-circle-fill"></i>
+                          <i className="bi-x-circle-fill"></i>
                         </td>
 
                         <td>
-                          <i class="bi-check-circle-fill"></i>
+                          <i className="bi-check-circle-fill"></i>
                         </td>
                       </tr>
                     </tbody>
@@ -617,22 +620,22 @@ const Home = () => {
                 </div>
               </div>
 
-              <div class="col-lg-5 col-12 mx-auto">
-                <h4 class="mb-4 pb-lg-2">Please join us!</h4>
+              <div className="col-lg-5 col-12 mx-auto">
+                <h4 className="mb-4 pb-lg-2">Please join us!</h4>
                 <form
                   action="#"
                   method="post"
-                  class="custom-form membership-form shadow-lg"
+                  className="custom-form membership-form shadow-lg"
                 >
                   <div>
-                    <h4 class="text-white mb-4">Become a member</h4>
+                    <h4 className="text-white mb-4">Become a member</h4>
 
-                    <div class="form-floating">
+                    <div className="form-floating">
                       <input
                         type="text"
                         name="full-name"
                         id="full-name"
-                        class="form-control"
+                        className="form-control"
                         placeholder="Full Name"
                         required=""
                       />
@@ -640,13 +643,13 @@ const Home = () => {
                       <label for="floatingInput">Full Name</label>
                     </div>
 
-                    <div class="form-floating">
+                    <div className="form-floating">
                       <input
                         type="email"
                         name="email"
                         id="email"
                         pattern="[^ @]*@[^ @]*"
-                        class="form-control"
+                        className="form-control"
                         placeholder="Email address"
                         required=""
                       />
@@ -654,9 +657,9 @@ const Home = () => {
                       <label for="floatingInput">Email address</label>
                     </div>
 
-                    <div class="form-floating">
+                    <div className="form-floating">
                       <textarea
-                        class="form-control"
+                        className="form-control"
                         id="message"
                         name="message"
                         placeholder="Describe message here"
@@ -665,7 +668,7 @@ const Home = () => {
                       <label for="floatingTextarea"> Comments</label>
                     </div>
 
-                    <button type="submit" class="form-control">
+                    <button type="submit" className="form-control">
                       Submit
                     </button>
                   </div>
@@ -676,69 +679,69 @@ const Home = () => {
         </section>
 
         <section
-          class="events-section section-bg section-padding"
+          className="events-section section-bg section-padding"
           id="section_4"
         >
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-12 col-12">
-                <h2 class="mb-lg-3">Upcoming Events</h2>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12 col-12">
+                <h2 className="mb-lg-3">Upcoming Events</h2>
               </div>
 
-              <div class="row custom-block mb-3">
-                <div class="col-lg-2 col-md-4 col-12 order-2 order-md-0 order-lg-0">
-                  <div class="custom-block-date-wrap d-flex d-lg-block d-md-block align-items-center mt-3 mt-lg-0 mt-md-0">
-                    <h6 class="custom-block-date mb-lg-1 mb-0 me-3 me-lg-0 me-md-0">
+              <div className="row custom-block mb-3">
+                <div className="col-lg-2 col-md-4 col-12 order-2 order-md-0 order-lg-0">
+                  <div className="custom-block-date-wrap d-flex d-lg-block d-md-block align-items-center mt-3 mt-lg-0 mt-md-0">
+                    <h6 className="custom-block-date mb-lg-1 mb-0 me-3 me-lg-0 me-md-0">
                       24
                     </h6>
 
-                    <strong class="text-white">Feb 2048</strong>
+                    <strong className="text-white">Feb 2048</strong>
                   </div>
                 </div>
 
-                <div class="col-lg-4 col-md-8 col-12 order-1 order-lg-0">
-                  <div class="custom-block-image-wrap">
+                <div className="col-lg-4 col-md-8 col-12 order-1 order-lg-0">
+                  <div className="custom-block-image-wrap">
                     <a href="event-detail.html">
                       <img
                         src={require("../Assets/images/professional-golf-player.jpg")}
-                        class="custom-block-image img-fluid"
+                        className="custom-block-image img-fluid"
                         alt=""
                       />
 
-                      <i class="custom-block-icon bi-link"></i>
+                      <i className="custom-block-icon bi-link"></i>
                     </a>
                   </div>
                 </div>
 
-                <div class="col-lg-6 col-12 order-3 order-lg-0">
-                  <div class="custom-block-info mt-2 mt-lg-0">
-                    <a href="event-detail.html" class="events-title mb-3">
+                <div className="col-lg-6 col-12 order-3 order-lg-0">
+                  <div className="custom-block-info mt-2 mt-lg-0">
+                    <a href="event-detail.html" className="events-title mb-3">
                       Private activities
                     </a>
 
-                    <p class="mb-0">
+                    <p className="mb-0">
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                       sed do eiusmod tempor incididunt ut labore et dolore magna
                       aliqua.
                     </p>
 
-                    <div class="d-flex flex-wrap border-top mt-4 pt-3">
-                      <div class="mb-4 mb-lg-0">
-                        <div class="d-flex flex-wrap align-items-center mb-1">
-                          <span class="custom-block-span">Location:</span>
+                    <div className="d-flex flex-wrap border-top mt-4 pt-3">
+                      <div className="mb-4 mb-lg-0">
+                        <div className="d-flex flex-wrap align-items-center mb-1">
+                          <span className="custom-block-span">Location:</span>
 
-                          <p class="mb-0">National Center, NYC</p>
+                          <p className="mb-0">National Center, NYC</p>
                         </div>
 
-                        <div class="d-flex flex-wrap align-items-center">
-                          <span class="custom-block-span">Ticket:</span>
+                        <div className="d-flex flex-wrap align-items-center">
+                          <span className="custom-block-span">Ticket:</span>
 
-                          <p class="mb-0">$250</p>
+                          <p className="mb-0">$250</p>
                         </div>
                       </div>
 
-                      <div class="d-flex align-items-center ms-lg-auto">
-                        <a href="event-detail.html" class="btn custom-btn">
+                      <div className="d-flex align-items-center ms-lg-auto">
+                        <a href="event-detail.html" className="btn custom-btn">
                           View Post
                         </a>
                       </div>
@@ -747,60 +750,60 @@ const Home = () => {
                 </div>
               </div>
 
-              <div class="row custom-block custom-block-bg">
-                <div class="col-lg-2 col-md-4 col-12 order-2 order-md-0 order-lg-0">
-                  <div class="custom-block-date-wrap d-flex d-lg-block d-md-block align-items-center mt-3 mt-lg-0 mt-md-0">
-                    <h6 class="custom-block-date mb-lg-1 mb-0 me-3 me-lg-0 me-md-0">
+              <div className="row custom-block custom-block-bg">
+                <div className="col-lg-2 col-md-4 col-12 order-2 order-md-0 order-lg-0">
+                  <div className="custom-block-date-wrap d-flex d-lg-block d-md-block align-items-center mt-3 mt-lg-0 mt-md-0">
+                    <h6 className="custom-block-date mb-lg-1 mb-0 me-3 me-lg-0 me-md-0">
                       28
                     </h6>
 
-                    <strong class="text-white">Feb 2048</strong>
+                    <strong className="text-white">Feb 2048</strong>
                   </div>
                 </div>
 
-                <div class="col-lg-4 col-md-8 col-12 order-1 order-lg-0">
-                  <div class="custom-block-image-wrap">
+                <div className="col-lg-4 col-md-8 col-12 order-1 order-lg-0">
+                  <div className="custom-block-image-wrap">
                     <a href="event-detail.html">
                       <img
                         src={require("../Assets/images/girl-taking-selfie-with-friends-golf-field.jpg")}
-                        class="custom-block-image img-fluid"
+                        className="custom-block-image img-fluid"
                         alt=""
                       />
 
-                      <i class="custom-block-icon bi-link"></i>
+                      <i className="custom-block-icon bi-link"></i>
                     </a>
                   </div>
                 </div>
 
-                <div class="col-lg-6 col-12 order-3 order-lg-0">
-                  <div class="custom-block-info mt-2 mt-lg-0">
-                    <a href="event-detail.html" class="events-title mb-3">
+                <div className="col-lg-6 col-12 order-3 order-lg-0">
+                  <div className="custom-block-info mt-2 mt-lg-0">
+                    <a href="event-detail.html" className="events-title mb-3">
                       Group tournament activities
                     </a>
 
-                    <p class="mb-0">
+                    <p className="mb-0">
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                       sed do eiusmod tempor incididunt ut labore et dolore magna
                       aliqua.
                     </p>
 
-                    <div class="d-flex flex-wrap border-top mt-4 pt-3">
-                      <div class="mb-4 mb-lg-0">
-                        <div class="d-flex flex-wrap align-items-center mb-1">
-                          <span class="custom-block-span">Location:</span>
+                    <div className="d-flex flex-wrap border-top mt-4 pt-3">
+                      <div className="mb-4 mb-lg-0">
+                        <div className="d-flex flex-wrap align-items-center mb-1">
+                          <span className="custom-block-span">Location:</span>
 
-                          <p class="mb-0">National Center, NYC</p>
+                          <p className="mb-0">National Center, NYC</p>
                         </div>
 
-                        <div class="d-flex flex-wrap align-items-center">
-                          <span class="custom-block-span">Ticket:</span>
+                        <div className="d-flex flex-wrap align-items-center">
+                          <span className="custom-block-span">Ticket:</span>
 
-                          <p class="mb-0">$350</p>
+                          <p className="mb-0">$350</p>
                         </div>
                       </div>
 
-                      <div class="d-flex align-items-center ms-lg-auto">
-                        <a href="event-detail.html" class="btn custom-btn">
+                      <div className="d-flex align-items-center ms-lg-auto">
+                        <a href="event-detail.html" className="btn custom-btn">
                           Buy Ticket
                         </a>
                       </div>
@@ -812,21 +815,25 @@ const Home = () => {
           </div>
         </section>
 
-        <section class="contact-section section-padding" id="section_5">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-5 col-12">
-                <form action="#" method="post" class="custom-form contact-form">
-                  <h2 class="mb-4 pb-2">Contact Tiya</h2>
+        <section className="contact-section section-padding" id="section_5">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-5 col-12">
+                <form
+                  action="#"
+                  method="post"
+                  className="custom-form contact-form"
+                >
+                  <h2 className="mb-4 pb-2">Contact Tiya</h2>
 
-                  <div class="row">
-                    <div class="col-lg-6 col-md-6 col-12">
-                      <div class="form-floating">
+                  <div className="row">
+                    <div className="col-lg-6 col-md-6 col-12">
+                      <div className="form-floating">
                         <input
                           type="text"
                           name="full-name"
                           id="full-name"
-                          class="form-control"
+                          className="form-control"
                           placeholder="Full Name"
                           required=""
                         />
@@ -835,14 +842,14 @@ const Home = () => {
                       </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-12">
-                      <div class="form-floating">
+                    <div className="col-lg-6 col-md-6 col-12">
+                      <div className="form-floating">
                         <input
                           type="email"
                           name="email"
                           id="email"
                           pattern="[^ @]*@[^ @]*"
-                          class="form-control"
+                          className="form-control"
                           placeholder="Email address"
                           required=""
                         />
@@ -851,10 +858,10 @@ const Home = () => {
                       </div>
                     </div>
 
-                    <div class="col-lg-12 col-12">
-                      <div class="form-floating">
+                    <div className="col-lg-12 col-12">
+                      <div className="form-floating">
                         <textarea
-                          class="form-control"
+                          className="form-control"
                           id="message"
                           name="message"
                           placeholder="Describe message here"
@@ -863,7 +870,7 @@ const Home = () => {
                         <label for="floatingTextarea">Message</label>
                       </div>
 
-                      <button type="submit" class="form-control">
+                      <button type="submit" className="form-control">
                         Submit Form
                       </button>
                     </div>
@@ -871,33 +878,33 @@ const Home = () => {
                 </form>
               </div>
 
-              <div class="col-lg-6 col-12">
-                <div class="contact-info mt-5">
-                  <div class="contact-info-item">
-                    <div class="contact-info-body">
+              <div className="col-lg-6 col-12">
+                <div className="contact-info mt-5">
+                  <div className="contact-info-item">
+                    <div className="contact-info-body">
                       <strong>London, United Kingdom</strong>
 
-                      <p class="mt-2 mb-1">
-                        <a href="#trick" class="contact-link">
+                      <p className="mt-2 mb-1">
+                        <a href="#trick" className="contact-link">
                           (020) 010-020-0340
                         </a>
                       </p>
 
-                      <p class="mb-0">
-                        <a href="#trick" class="contact-link">
+                      <p className="mb-0">
+                        <a href="#trick" className="contact-link">
                           info@company.com
                         </a>
                       </p>
                     </div>
 
-                    <div class="contact-info-footer">
+                    <div className="contact-info-footer">
                       <a href="#trick">Directions</a>
                     </div>
                   </div>
 
                   {/* <img
                     src={require("../Assets/images/WorldMap.svg")}
-                    class="img-fluid"
+                    className="img-fluid"
                     alt=""
                   ></img> */}
                 </div>

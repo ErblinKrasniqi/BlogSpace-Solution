@@ -2,109 +2,6 @@ const Home = () => {
   return (
     <>
       <main>
-        <div
-          class="offcanvas offcanvas-end"
-          data-bs-scroll="true"
-          tabindex="-1"
-          id="offcanvasExample"
-          aria-labelledby="offcanvasExampleLabel"
-        >
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-              Member Login
-            </h5>
-
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-
-          <div class="offcanvas-body d-flex flex-column">
-            <form
-              class="custom-form member-login-form"
-              action="#"
-              method="post"
-            >
-              <div class="member-login-form-body">
-                <div class="mb-4">
-                  <label class="form-label mb-2" for="member-login-number">
-                    Membership No.
-                  </label>
-
-                  <input
-                    type="text"
-                    name="member-login-number"
-                    id="member-login-number"
-                    class="form-control"
-                    placeholder="11002560"
-                    required
-                  ></input>
-                </div>
-
-                <div class="mb-4">
-                  <label class="form-label mb-2" for="member-login-password">
-                    Password
-                  </label>
-
-                  <input
-                    type="password"
-                    name="member-login-password"
-                    id="member-login-password"
-                    pattern="[0-9a-zA-Z]{4,10}"
-                    class="form-control"
-                    placeholder="Password"
-                    required=""
-                  ></input>
-                </div>
-
-                <div class="form-check mb-4">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
-                  ></input>
-
-                  <label class="form-check-label" for="flexCheckDefault">
-                    Remember me
-                  </label>
-                </div>
-
-                <div class="col-lg-5 col-md-7 col-8 mx-auto">
-                  <button type="submit" class="form-control">
-                    Login
-                  </button>
-                </div>
-
-                <div class="text-center my-4">
-                  <a href="#trick">Forgotten password?</a>
-                </div>
-              </div>
-            </form>
-
-            <div class="mt-auto mb-5">
-              <p>
-                <strong class="text-white me-3">Any Questions?</strong>
-
-                <a href="tel: 010-020-0340" class="contact-link">
-                  010-020-0340
-                </a>
-              </p>
-            </div>
-          </div>
-
-          <svg xlinkHref="http://www.w3.org/1999/xlink" viewBox="0 0 1440 320">
-            <path
-              fill="#3D405B"
-              fill-opacity="1"
-              d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"
-            ></path>
-          </svg>
-        </div>
-
         <section
           class="hero-section d-flex justify-content-center align-items-center"
           id="section_1"
@@ -122,12 +19,12 @@ const Home = () => {
           <div class="container">
             <div class="row">
               <div class="col-lg-6 col-12 mb-5 mb-lg-0">
-                <h2 class="text-white">Welcome to the club</h2>
+                <h2 class="text-white">Keep up with</h2>
 
                 <h1 class="cd-headline rotate-1 text-white mb-4 pb-2">
-                  <span>Tiya is</span>
+                  <span>the best</span>
                   <span class="cd-words-wrapper">
-                    <b class="is-visible">Modern</b>
+                    <b class="is-visible">News</b>
                     <b>Creative</b>
                     <b>Lifestyle</b>
                   </span>
@@ -135,7 +32,7 @@ const Home = () => {
 
                 <div class="custom-btn-group">
                   <a href="#section_2" class="btn custom-btn smoothscroll me-3">
-                    Our Story
+                    Read
                   </a>
 
                   <a href="#section_3" class="link smoothscroll">
@@ -167,6 +64,220 @@ const Home = () => {
               d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"
             ></path>
           </svg>
+        </section>
+
+        <section class="events-section section-padding" id="section_2">
+          <div class="container">
+            <div class="row ">
+              <div class="col-lg-12 col-12 mt-5">
+                <h2 class="mb-lg-5 mb-4">Latest Posts</h2>
+              </div>
+
+              <div class="col-lg-6 col-12 mb-5 mb-lg-0 mt-5">
+                <div class="custom-block-image-wrap">
+                  <a href="event-detail.html">
+                    <img
+                      src={require("../Assets/images/anna-rosar-ZxFyVBHMK-c-unsplash.jpg")}
+                      class="custom-block-image img-fluid"
+                      alt=""
+                    ></img>
+
+                    <i class="custom-block-icon bi-link"></i>
+                  </a>
+
+                  <div class="custom-block-date-wrap">
+                    <strong class="text-white">18 Feb 2023</strong>
+                  </div>
+
+                  <div class="custom-btn-wrap">
+                    <a href="event-detail.html" class="btn custom-btn">
+                      Vew Post
+                    </a>
+                  </div>
+                </div>
+
+                <div class="custom-block-info">
+                  <a href="event-detail.html" class="events-title mb-2">
+                    The first space trip 🚀
+                  </a>
+
+                  <p class="mb-0">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Recusandae dignissimos modi corrupti, nostrum dolores aut
+                    quasi placeat ullam cum ex iusto atque pariatur illum nam
+                    necessitatibus expedita. Totam, architecto culpa.
+                  </p>
+
+                  <div class="border-top mt-4 pt-3">
+                    <div class="d-flex flex-wrap align-items-center mb-1">
+                      <span class="custom-block-span">Location:</span>
+
+                      <p class="mb-0">National Center, NYC</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap align-items-center">
+                      <span class="custom-block-span">Author:</span>
+
+                      <p class="mb-0">Nikoll Culaj</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-12 mt-5">
+                <div class="custom-block-image-wrap">
+                  <a href="event-detail.html">
+                    <img
+                      src={require("../Assets/images/frederik-rosar-NDSZcCfnsbY-unsplash.jpg")}
+                      class="custom-block-image img-fluid"
+                      alt=""
+                    ></img>
+
+                    <i class="custom-block-icon bi-link"></i>
+                  </a>
+
+                  <div class="custom-block-date-wrap">
+                    <strong class="text-white">24 Feb 2023</strong>
+                  </div>
+
+                  <div class="custom-btn-wrap">
+                    <a href="event-detail.html" class="btn custom-btn">
+                      View post
+                    </a>
+                  </div>
+                </div>
+
+                <div class="custom-block-info">
+                  <a href="event-detail.html" class="events-title mb-2">
+                    Brining the best 🏆
+                  </a>
+
+                  <p class="mb-0">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Recusandae dignissimos modi corrupti, nostrum dolores aut
+                    quasi placeat ullam cum ex iusto atque pariatur illum nam
+                    necessitatibus expedita. Totam, architecto culpa.
+                  </p>
+
+                  <div class="border-top mt-4 pt-3">
+                    <div class="d-flex flex-wrap align-items-center mb-1">
+                      <span class="custom-block-span">Location:</span>
+
+                      <p class="mb-0">National Center, NYC</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap align-items-center">
+                      <span class="custom-block-span">Author:</span>
+
+                      <p class="mb-0">Erblin Krasniqi</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-12 mt-5">
+                <div class="custom-block-image-wrap">
+                  <a href="event-detail.html">
+                    <img
+                      src={require("../Assets/images/frederik-rosar-NDSZcCfnsbY-unsplash.jpg")}
+                      class="custom-block-image img-fluid"
+                      alt=""
+                    ></img>
+
+                    <i class="custom-block-icon bi-link"></i>
+                  </a>
+
+                  <div class="custom-block-date-wrap">
+                    <strong class="text-white">24 Feb 2023</strong>
+                  </div>
+
+                  <div class="custom-btn-wrap">
+                    <a href="event-detail.html" class="btn custom-btn">
+                      View post
+                    </a>
+                  </div>
+                </div>
+
+                <div class="custom-block-info">
+                  <a href="event-detail.html" class="events-title mb-2">
+                    Brining the best 🏆
+                  </a>
+
+                  <p class="mb-0">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Recusandae dignissimos modi corrupti, nostrum dolores aut
+                    quasi placeat ullam cum ex iusto atque pariatur illum nam
+                    necessitatibus expedita. Totam, architecto culpa.
+                  </p>
+
+                  <div class="border-top mt-4 pt-3">
+                    <div class="d-flex flex-wrap align-items-center mb-1">
+                      <span class="custom-block-span">Location:</span>
+
+                      <p class="mb-0">National Center, NYC</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap align-items-center">
+                      <span class="custom-block-span">Author:</span>
+
+                      <p class="mb-0">Erblin Krasniqi</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-12 mt-5">
+                <div class="custom-block-image-wrap">
+                  <a href="event-detail.html">
+                    <img
+                      src={require("../Assets/images/frederik-rosar-NDSZcCfnsbY-unsplash.jpg")}
+                      class="custom-block-image img-fluid"
+                      alt=""
+                    ></img>
+
+                    <i class="custom-block-icon bi-link"></i>
+                  </a>
+
+                  <div class="custom-block-date-wrap">
+                    <strong class="text-white">24 Feb 2023</strong>
+                  </div>
+
+                  <div class="custom-btn-wrap">
+                    <a href="event-detail.html" class="btn custom-btn">
+                      View post
+                    </a>
+                  </div>
+                </div>
+
+                <div class="custom-block-info">
+                  <a href="event-detail.html" class="events-title mb-2">
+                    Brining the best 🏆
+                  </a>
+
+                  <p class="mb-0">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Recusandae dignissimos modi corrupti, nostrum dolores aut
+                    quasi placeat ullam cum ex iusto atque pariatur illum nam
+                    necessitatibus expedita. Totam, architecto culpa.
+                  </p>
+
+                  <div class="border-top mt-4 pt-3">
+                    <div class="d-flex flex-wrap align-items-center mb-1">
+                      <span class="custom-block-span">Location:</span>
+
+                      <p class="mb-0">National Center, NYC</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap align-items-center">
+                      <span class="custom-block-span">Author:</span>
+
+                      <p class="mb-0">Erblin Krasniqi</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section class="about-section section-padding" id="section_2">
@@ -628,7 +739,7 @@ const Home = () => {
 
                       <div class="d-flex align-items-center ms-lg-auto">
                         <a href="event-detail.html" class="btn custom-btn">
-                          Buy Ticket
+                          View Post
                         </a>
                       </div>
                     </div>

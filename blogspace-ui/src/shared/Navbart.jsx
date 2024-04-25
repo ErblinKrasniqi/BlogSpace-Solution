@@ -1,19 +1,26 @@
+import { useNavigate } from "react-router-dom";
+
 const Navbart = () => {
+  const navigate = useNavigate();
   return (
     <nav
-      class="navbar navbar-expand-lg fixed-top"
+      class="navbar navbar-expand-lg sticky-top"
       style={{ backgroundColor: "#3D405B" }}
     >
       <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <a
+          class="navbar-brand d-flex align-items-center"
+          onClick={() => navigate("/")}
+          href="#index.html"
+        >
           <img
             src="images/logo.png"
             class="navbar-brand-image img-fluid"
-            alt="Tiya Golf Club"
+            alt="Blog Space"
           ></img>
           <span class="navbar-brand-text">
-            Tiya
-            <small>Golf Club</small>
+            Blog Space
+            <small className="mt-1">Posting blogs</small>
           </span>
         </a>
 
@@ -25,7 +32,7 @@ const Navbart = () => {
             role="button"
             aria-controls="offcanvasExample"
           >
-            Member Login
+            Login
           </a>
         </div>
 
@@ -108,11 +115,12 @@ const Navbart = () => {
             <a
               class="btn custom-btn custom-border-btn"
               data-bs-toggle="offcanvas"
-              href="#offcanvasExample"
+              href="#trick"
               role="button"
               aria-controls="offcanvasExample"
+              onClick={() => navigate("/login")}
             >
-              Member Login
+              Login
             </a>
           </div>
         </div>

@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Wrapper from "./shared/Wrapper";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Detials from "./pages/Details";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Wrapper>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/details/:id" element={<Detials />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>

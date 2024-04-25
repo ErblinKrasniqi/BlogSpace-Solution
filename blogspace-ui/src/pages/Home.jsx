@@ -2,122 +2,6 @@ const Home = () => {
   return (
     <>
       <main>
-        <nav class="navbar navbar-expand-lg">
-          <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
-              <img
-                src="images/logo.png"
-                class="navbar-brand-image img-fluid"
-                alt="Tiya Golf Club"
-              ></img>
-              <span class="navbar-brand-text">
-                Tiya
-                <small>Golf Club</small>
-              </span>
-            </a>
-
-            <div class="d-lg-none ms-auto me-3">
-              <a
-                class="btn custom-btn custom-border-btn"
-                data-bs-toggle="offcanvas"
-                href="#offcanvasExample"
-                role="button"
-                aria-controls="offcanvasExample"
-              >
-                Member Login
-              </a>
-            </div>
-
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-lg-auto">
-                <li class="nav-item">
-                  <a class="nav-link click-scroll" href="#section_1">
-                    Home
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link click-scroll" href="#section_2">
-                    About
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link click-scroll" href="#section_3">
-                    Membership
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link click-scroll" href="#section_4">
-                    Events
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link click-scroll" href="#section_5">
-                    Contact Us
-                  </a>
-                </li>
-
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#trick"
-                    id="navbarLightDropdownMenuLink"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Pages
-                  </a>
-
-                  <ul
-                    class="dropdown-menu dropdown-menu-light"
-                    aria-labelledby="navbarLightDropdownMenuLink"
-                  >
-                    <li>
-                      <a class="dropdown-item" href="event-listing.html">
-                        Event Listing
-                      </a>
-                    </li>
-
-                    <li>
-                      <a class="dropdown-item" href="event-detail.html">
-                        Event Detail
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-
-              <div class="d-none d-lg-block ms-lg-3">
-                <a
-                  class="btn custom-btn custom-border-btn"
-                  data-bs-toggle="offcanvas"
-                  href="#offcanvasExample"
-                  role="button"
-                  aria-controls="offcanvasExample"
-                >
-                  Member Login
-                </a>
-              </div>
-            </div>
-          </div>
-        </nav>
-
         <div
           class="offcanvas offcanvas-end"
           data-bs-scroll="true"
@@ -313,7 +197,7 @@ const Home = () => {
                 <div class="member-block">
                   <div class="member-block-image-wrap">
                     <img
-                      src="images/members/portrait-young-handsome-businessman-wearing-suit-standing-with-crossed-arms-with-isolated-studio-white-background.jpg"
+                      src={require("../Assets/images/members/portrait-young-handsome-businessman-wearing-suit-standing-with-crossed-arms-with-isolated-studio-white-background.jpg")}
                       class="member-block-image img-fluid"
                       alt=""
                     ></img>
@@ -349,7 +233,7 @@ const Home = () => {
                 <div class="member-block">
                   <div class="member-block-image-wrap">
                     <img
-                      src="images/members/successful-asian-lady-boss-red-blazer-holding-clipboard-with-documens-pen-working-looking-happy-white-background.jpg"
+                      src={require("../Assets/images/members/successful-asian-lady-boss-red-blazer-holding-clipboard-with-documens-pen-working-looking-happy-white-background.jpg")}
                       class="member-block-image img-fluid"
                       alt=""
                     ></img>
@@ -705,7 +589,7 @@ const Home = () => {
                   <div class="custom-block-image-wrap">
                     <a href="event-detail.html">
                       <img
-                        src="images/professional-golf-player.jpg"
+                        src={require("../Assets/images/professional-golf-player.jpg")}
                         class="custom-block-image img-fluid"
                         alt=""
                       />
@@ -767,7 +651,7 @@ const Home = () => {
                   <div class="custom-block-image-wrap">
                     <a href="event-detail.html">
                       <img
-                        src="images/girl-taking-selfie-with-friends-golf-field.jpg"
+                        src={require("../Assets/images/girl-taking-selfie-with-friends-golf-field.jpg")}
                         class="custom-block-image img-fluid"
                         alt=""
                       />
@@ -900,7 +784,11 @@ const Home = () => {
                     </div>
                   </div>
 
-                  <img src="images/WorldMap.svg" class="img-fluid" alt=""></img>
+                  {/* <img
+                    src={require("../Assets/images/WorldMap.svg")}
+                    class="img-fluid"
+                    alt=""
+                  ></img> */}
                 </div>
               </div>
             </div>

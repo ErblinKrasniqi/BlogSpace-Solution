@@ -4,6 +4,7 @@ import Wrapper from "./shared/Wrapper";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Detials from "./pages/Details";
+import CreatePost from "./pages/admin/CreatePost";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/details/:id" element={<Detials />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/create" element={<CreatePost />} />
         </Routes>
       </Wrapper>
     </BrowserRouter>

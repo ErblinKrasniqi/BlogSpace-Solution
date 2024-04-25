@@ -1,7 +1,7 @@
 import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../Assets/scss/login.module.scss";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -9,6 +9,10 @@ const Register = () => {
   const [comfirmPassword, setComfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const [passwordMatch, setPasswordMatch] = useState("");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

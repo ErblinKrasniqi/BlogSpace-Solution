@@ -1,4 +1,9 @@
+import { useEffect } from "react";
+
 const Detials = () => {
+  useEffect(() => {
+    window.scrollTo(0, 500);
+  }, []);
   return (
     <main>
       <section

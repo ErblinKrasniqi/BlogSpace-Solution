@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Home = () => {
   return (
     <>
@@ -78,7 +80,7 @@ const Home = () => {
 
               <div className="col-lg-6 col-12 mb-5 mb-lg-0 mt-5">
                 <div className="custom-block-image-wrap">
-                  <a href="event-detail.html">
+                  <Link to="/details/1">
                     <img
                       src={require("../Assets/images/anna-rosar-ZxFyVBHMK-c-unsplash.jpg")}
                       className="custom-block-image img-fluid"
@@ -86,7 +88,7 @@ const Home = () => {
                     ></img>
 
                     <i className="custom-block-icon bi-link"></i>
-                  </a>
+                  </Link>
 
                   <div className="custom-block-date-wrap">
                     <strong className="text-white">18 Feb 2023</strong>
@@ -129,7 +131,7 @@ const Home = () => {
 
               <div className="col-lg-6 col-12 mt-5">
                 <div className="custom-block-image-wrap">
-                  <a href="event-detail.html">
+                  <Link to="/details/2">
                     <img
                       src={require("../Assets/images/frederik-rosar-NDSZcCfnsbY-unsplash.jpg")}
                       className="custom-block-image img-fluid"
@@ -137,7 +139,7 @@ const Home = () => {
                     ></img>
 
                     <i className="custom-block-icon bi-link"></i>
-                  </a>
+                  </Link>
 
                   <div className="custom-block-date-wrap">
                     <strong className="text-white">24 Feb 2023</strong>

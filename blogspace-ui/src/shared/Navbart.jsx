@@ -84,7 +84,7 @@ const Navbart = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Pages
+                Admin
               </a>
 
               <ul
@@ -92,14 +92,20 @@ const Navbart = () => {
                 aria-labelledby="navbarLightDropdownMenuLink"
               >
                 <li>
+                  <Link to="/create" className="dropdown-item">
+                    Create post
+                  </Link>
+                </li>
+
+                <li>
                   <a className="dropdown-item" href="event-listing.html">
-                    Event Listing
+                    Edit post
                   </a>
                 </li>
 
                 <li>
                   <a className="dropdown-item" href="event-detail.html">
-                    Event Detail
+                    Dashboard
                   </a>
                 </li>
               </ul>

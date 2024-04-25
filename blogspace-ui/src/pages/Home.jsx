@@ -427,7 +427,6 @@ const Home = () => {
                     action="#"
                     method="get"
                     class="custom-form mt-lg-4 mt-2"
-                    role="form"
                   >
                     <div class="input-group input-group-lg">
                       <span
@@ -482,6 +481,430 @@ const Home = () => {
               stroke-width="0"
             ></path>
           </svg>
+        </section>
+
+        <section class="membership-section section-padding" id="section_3">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 col-12 text-center mx-auto mb-lg-5 mb-4">
+                <h2>
+                  <span>Membership</span> at Tiya
+                </h2>
+              </div>
+
+              <div class="col-lg-6 col-12 mb-3 mb-lg-0">
+                <h4 class="mb-4 pb-lg-2">Membership Fees</h4>
+
+                <div class="table-responsive">
+                  <table class="table text-center">
+                    <thead>
+                      <tr>
+                        <th style={{ width: "34%" }}>Yearly Access</th>
+
+                        <th style={{ width: "22%" }}>T1 $420</th>
+
+                        <th style={{ width: "22%" }}>T2 $640</th>
+
+                        <th style={{ width: "22%" }}>T3 $860</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <th scope="row" class="text-start">
+                          Golf Insurance
+                        </th>
+
+                        <td>
+                          <i class="bi-check-circle-fill"></i>
+                        </td>
+
+                        <td>
+                          <i class="bi-check-circle-fill"></i>
+                        </td>
+
+                        <td>
+                          <i class="bi-check-circle-fill"></i>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row" class="text-start">
+                          Club Facilities
+                        </th>
+
+                        <td>
+                          <i class="bi-check-circle-fill"></i>
+                        </td>
+
+                        <td>
+                          <i class="bi-check-circle-fill"></i>
+                        </td>
+
+                        <td>
+                          <i class="bi-check-circle-fill"></i>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row" class="text-start">
+                          Country Club
+                        </th>
+
+                        <td>
+                          <i class="bi-x-circle-fill"></i>
+                        </td>
+
+                        <td>
+                          <i class="bi-check-circle-fill"></i>
+                        </td>
+
+                        <td>
+                          <i class="bi-check-circle-fill"></i>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row" class="text-start">
+                          Weekend Seasonal
+                        </th>
+
+                        <td>
+                          <i class="bi-x-circle-fill"></i>
+                        </td>
+
+                        <td>
+                          <i class="bi-check-circle-fill"></i>
+                        </td>
+
+                        <td>
+                          <i class="bi-check-circle-fill"></i>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row" class="text-start">
+                          Premium Courses
+                        </th>
+
+                        <td>
+                          <i class="bi-x-circle-fill"></i>
+                        </td>
+
+                        <td>
+                          <i class="bi-x-circle-fill"></i>
+                        </td>
+
+                        <td>
+                          <i class="bi-check-circle-fill"></i>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row" class="text-start">
+                          Pro's Networking
+                        </th>
+
+                        <td>
+                          <i class="bi-x-circle-fill"></i>
+                        </td>
+
+                        <td>
+                          <i class="bi-x-circle-fill"></i>
+                        </td>
+
+                        <td>
+                          <i class="bi-check-circle-fill"></i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="col-lg-5 col-12 mx-auto">
+                <h4 class="mb-4 pb-lg-2">Please join us!</h4>
+                <form
+                  action="#"
+                  method="post"
+                  class="custom-form membership-form shadow-lg"
+                >
+                  <div>
+                    <h4 class="text-white mb-4">Become a member</h4>
+
+                    <div class="form-floating">
+                      <input
+                        type="text"
+                        name="full-name"
+                        id="full-name"
+                        class="form-control"
+                        placeholder="Full Name"
+                        required=""
+                      />
+
+                      <label for="floatingInput">Full Name</label>
+                    </div>
+
+                    <div class="form-floating">
+                      <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        pattern="[^ @]*@[^ @]*"
+                        class="form-control"
+                        placeholder="Email address"
+                        required=""
+                      />
+
+                      <label for="floatingInput">Email address</label>
+                    </div>
+
+                    <div class="form-floating">
+                      <textarea
+                        class="form-control"
+                        id="message"
+                        name="message"
+                        placeholder="Describe message here"
+                      ></textarea>
+
+                      <label for="floatingTextarea"> Comments</label>
+                    </div>
+
+                    <button type="submit" class="form-control">
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="events-section section-bg section-padding"
+          id="section_4"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 col-12">
+                <h2 class="mb-lg-3">Upcoming Events</h2>
+              </div>
+
+              <div class="row custom-block mb-3">
+                <div class="col-lg-2 col-md-4 col-12 order-2 order-md-0 order-lg-0">
+                  <div class="custom-block-date-wrap d-flex d-lg-block d-md-block align-items-center mt-3 mt-lg-0 mt-md-0">
+                    <h6 class="custom-block-date mb-lg-1 mb-0 me-3 me-lg-0 me-md-0">
+                      24
+                    </h6>
+
+                    <strong class="text-white">Feb 2048</strong>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-8 col-12 order-1 order-lg-0">
+                  <div class="custom-block-image-wrap">
+                    <a href="event-detail.html">
+                      <img
+                        src="images/professional-golf-player.jpg"
+                        class="custom-block-image img-fluid"
+                        alt=""
+                      />
+
+                      <i class="custom-block-icon bi-link"></i>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-12 order-3 order-lg-0">
+                  <div class="custom-block-info mt-2 mt-lg-0">
+                    <a href="event-detail.html" class="events-title mb-3">
+                      Private activities
+                    </a>
+
+                    <p class="mb-0">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </p>
+
+                    <div class="d-flex flex-wrap border-top mt-4 pt-3">
+                      <div class="mb-4 mb-lg-0">
+                        <div class="d-flex flex-wrap align-items-center mb-1">
+                          <span class="custom-block-span">Location:</span>
+
+                          <p class="mb-0">National Center, NYC</p>
+                        </div>
+
+                        <div class="d-flex flex-wrap align-items-center">
+                          <span class="custom-block-span">Ticket:</span>
+
+                          <p class="mb-0">$250</p>
+                        </div>
+                      </div>
+
+                      <div class="d-flex align-items-center ms-lg-auto">
+                        <a href="event-detail.html" class="btn custom-btn">
+                          Buy Ticket
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row custom-block custom-block-bg">
+                <div class="col-lg-2 col-md-4 col-12 order-2 order-md-0 order-lg-0">
+                  <div class="custom-block-date-wrap d-flex d-lg-block d-md-block align-items-center mt-3 mt-lg-0 mt-md-0">
+                    <h6 class="custom-block-date mb-lg-1 mb-0 me-3 me-lg-0 me-md-0">
+                      28
+                    </h6>
+
+                    <strong class="text-white">Feb 2048</strong>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-8 col-12 order-1 order-lg-0">
+                  <div class="custom-block-image-wrap">
+                    <a href="event-detail.html">
+                      <img
+                        src="images/girl-taking-selfie-with-friends-golf-field.jpg"
+                        class="custom-block-image img-fluid"
+                        alt=""
+                      />
+
+                      <i class="custom-block-icon bi-link"></i>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-12 order-3 order-lg-0">
+                  <div class="custom-block-info mt-2 mt-lg-0">
+                    <a href="event-detail.html" class="events-title mb-3">
+                      Group tournament activities
+                    </a>
+
+                    <p class="mb-0">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </p>
+
+                    <div class="d-flex flex-wrap border-top mt-4 pt-3">
+                      <div class="mb-4 mb-lg-0">
+                        <div class="d-flex flex-wrap align-items-center mb-1">
+                          <span class="custom-block-span">Location:</span>
+
+                          <p class="mb-0">National Center, NYC</p>
+                        </div>
+
+                        <div class="d-flex flex-wrap align-items-center">
+                          <span class="custom-block-span">Ticket:</span>
+
+                          <p class="mb-0">$350</p>
+                        </div>
+                      </div>
+
+                      <div class="d-flex align-items-center ms-lg-auto">
+                        <a href="event-detail.html" class="btn custom-btn">
+                          Buy Ticket
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="contact-section section-padding" id="section_5">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-5 col-12">
+                <form action="#" method="post" class="custom-form contact-form">
+                  <h2 class="mb-4 pb-2">Contact Tiya</h2>
+
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          name="full-name"
+                          id="full-name"
+                          class="form-control"
+                          placeholder="Full Name"
+                          required=""
+                        />
+
+                        <label for="floatingInput">Full Name</label>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-floating">
+                        <input
+                          type="email"
+                          name="email"
+                          id="email"
+                          pattern="[^ @]*@[^ @]*"
+                          class="form-control"
+                          placeholder="Email address"
+                          required=""
+                        />
+
+                        <label for="floatingInput">Email address</label>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 col-12">
+                      <div class="form-floating">
+                        <textarea
+                          class="form-control"
+                          id="message"
+                          name="message"
+                          placeholder="Describe message here"
+                        ></textarea>
+
+                        <label for="floatingTextarea">Message</label>
+                      </div>
+
+                      <button type="submit" class="form-control">
+                        Submit Form
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <div class="contact-info mt-5">
+                  <div class="contact-info-item">
+                    <div class="contact-info-body">
+                      <strong>London, United Kingdom</strong>
+
+                      <p class="mt-2 mb-1">
+                        <a href="#trick" class="contact-link">
+                          (020) 010-020-0340
+                        </a>
+                      </p>
+
+                      <p class="mb-0">
+                        <a href="#trick" class="contact-link">
+                          info@company.com
+                        </a>
+                      </p>
+                    </div>
+
+                    <div class="contact-info-footer">
+                      <a href="#trick">Directions</a>
+                    </div>
+                  </div>
+
+                  <img src="images/WorldMap.svg" class="img-fluid" alt=""></img>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
     </>

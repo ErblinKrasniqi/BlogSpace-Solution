@@ -1,14 +1,42 @@
 import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../../Assets/scss/login.module.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const CreatePost = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [apiError, setApiError] = useState("");
+  const [apiSuccess, setApiSuccess] = useState("");
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(localStorage.getItem("token"));
+    try {
+      const results = await axios.post(
+        "http://localhost:8080/api/post",
+        {
+          title,
+          description,
+        },
+        {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setApiSuccess(results.data.message);
+      setApiError("");
+      console.log(results);
+    } catch (error) {
+      setApiSuccess("");
+      setApiError(error.response.data.message);
+      console.log(error);
+    }
   };
 
   return (
@@ -19,11 +47,20 @@ const CreatePost = () => {
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Title</Form.Label>
-            <Form.Control type="text" placeholder="Enter title" />
+            <Form.Control
+              onChange={(e) => setTitle(e.target.value)}
+              type="text"
+              placeholder="Enter title"
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Description</Form.Label>
-            <Form.Control as="textarea" rows={4} placeholder="Description" />
+            <Form.Control
+              onChange={(e) => setDescription(e.target.value)}
+              as="textarea"
+              rows={4}
+              placeholder="Description"
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicImage">
             <Form.Label>Image</Form.Label>
@@ -34,6 +71,10 @@ const CreatePost = () => {
           <Button variant="primary" type="submit" className="py-2 px-4 mt-2">
             Submit
           </Button>
+          <div className="d-flex justify-content-center">
+            <p className="text-danger">{apiError}</p>
+            <p className="text-success">{apiSuccess}</p>
+          </div>
         </Form>
       </Col>
     </Container>

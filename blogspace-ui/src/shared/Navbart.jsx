@@ -1,6 +1,15 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../Auth/is-auth";
 
 const Navbart = () => {
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+    setIsLoggedIn(false);
+  };
+
   return (
     <nav
       className="navbar navbar-expand-lg sticky-top"
@@ -20,15 +29,23 @@ const Navbart = () => {
         </Link>
 
         <div className="d-lg-none ms-auto me-3">
-          <a
-            className="btn custom-btn custom-border-btn"
-            data-bs-toggle="offcanvas"
-            href="#offcanvasExample"
-            role="button"
-            aria-controls="offcanvasExample"
-          >
-            Login
-          </a>
+          {isLoggedIn ? (
+            <div
+              data-bs-toggle="offcanvas"
+              className="btn custom-btn custom-border-btn"
+              onClick={handleLogOut}
+            >
+              Logout
+            </div>
+          ) : (
+            <Link
+              className="btn custom-btn custom-border-btn"
+              data-bs-toggle="offcanvas"
+              to="/login"
+            >
+              Login
+            </Link>
+          )}
         </div>
 
         <button
@@ -74,46 +91,57 @@ const Navbart = () => {
                 Contact Us
               </a>
             </li>
+            {isLoggedIn && (
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#trick"
+                  id="navbarLightDropdownMenuLink"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Admin
+                </a>
 
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#trick"
-                id="navbarLightDropdownMenuLink"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Admin
-              </a>
+                <ul
+                  className="dropdown-menu dropdown-menu-light"
+                  aria-labelledby="navbarLightDropdownMenuLink"
+                >
+                  <li>
+                    <Link to="/create" className="dropdown-item">
+                      Create post
+                    </Link>
+                  </li>
 
-              <ul
-                className="dropdown-menu dropdown-menu-light"
-                aria-labelledby="navbarLightDropdownMenuLink"
-              >
-                <li>
-                  <Link to="/create" className="dropdown-item">
-                    Create post
-                  </Link>
-                </li>
-
-                <li>
-                  <Link to="/dashboard" className="dropdown-item">
-                    Dashboard
-                  </Link>
-                </li>
-              </ul>
-            </li>
+                  <li>
+                    <Link to="/dashboard" className="dropdown-item">
+                      Dashboard
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            )}
           </ul>
 
           <div className="d-none d-lg-block ms-lg-3">
-            <Link
-              className="btn custom-btn custom-border-btn"
-              data-bs-toggle="offcanvas"
-              to="/login"
-            >
-              Login
-            </Link>
+            {isLoggedIn ? (
+              <div
+                data-bs-toggle="offcanvas"
+                className="btn custom-btn custom-border-btn"
+                onClick={handleLogOut}
+              >
+                Logout
+              </div>
+            ) : (
+              <Link
+                className="btn custom-btn custom-border-btn"
+                data-bs-toggle="offcanvas"
+                to="/login"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>

@@ -23,6 +23,7 @@ exports.create = async (req, res, next) => {
   const description = req.body.description;
   let loadedPost;
   let creator;
+
   try {
     const errors = validationResult(req);
 
@@ -57,7 +58,7 @@ exports.create = async (req, res, next) => {
 
     res.status(201).json({
       message: "Post created 😁",
-      post: results,
+      post: loadedPost,
       creator: { creator: creator.name, creatorId: creator._id },
     });
   } catch (err) {

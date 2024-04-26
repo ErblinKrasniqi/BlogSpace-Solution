@@ -18,7 +18,7 @@ exports.user = [
 exports.post = [
   body("title")
     .trim()
-    .isLength({ min: 3, max: 20 })
+    .isLength({ min: 3, max: 40 })
     .withMessage("Title is to short or long 📏"),
   body("description")
     .trim()

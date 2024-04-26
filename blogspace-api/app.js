@@ -1,6 +1,7 @@
 //Express
 const express = require("express");
 const app = express();
+
 //Middleware
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -48,6 +49,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api", userRoute);
+
 app.use("/api", postRoute);
 
 app.use((error, req, res, next) => {

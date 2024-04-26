@@ -71,7 +71,7 @@ exports.login = async (req, res, next) => {
       "superdupersecret"
     );
 
-    res.status(200).json({ token: token, userId: loadedUser._id.toString() });
+    res.status(200).json({ token: token, userName: loadedUser.name });
   } catch (err) {
     next(err);
   }

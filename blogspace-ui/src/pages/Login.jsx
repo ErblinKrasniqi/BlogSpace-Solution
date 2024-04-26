@@ -2,6 +2,7 @@ import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../Assets/scss/login.module.scss";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ const Login = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let tempErrors = [];
     if (!email) {
@@ -21,6 +22,16 @@ const Login = () => {
     if (!password) {
       tempErrors.push("Please fill all the password field ⛔");
     }
+    try {
+      const results = await axios.post("http://localhost:8080/api/login", {
+        email,
+        password,
+      });
+      console.log(results);
+    } catch (err) {
+      console.log(err);
+    }
+
     setErrors(tempErrors);
   };
 
@@ -41,7 +52,7 @@ const Login = () => {
               <Form.Text className="text-danger">{errors[0]}</Form.Text>
             )}
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
               onChange={(e) => {

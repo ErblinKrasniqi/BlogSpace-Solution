@@ -3,7 +3,7 @@ const { body } = require("express-validator");
 exports.user = [
   body("email")
     .trim()
-    .isLength({ min: 3, max: 15 })
+    .isLength({ min: 3, max: 25 })
     .withMessage("Email is to short or long 📏"),
   body("name")
     .trim()

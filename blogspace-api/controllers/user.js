@@ -4,6 +4,10 @@ const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
 
 exports.register = async (req, res, next) => {
+  const email = req.body.email;
+  const name = req.body.name;
+  const password = req.body.password;
+
   try {
     const errors = validationResult(req);
 
@@ -12,10 +16,6 @@ exports.register = async (req, res, next) => {
       error.statusCode = 400;
       throw error;
     }
-
-    const email = req.body.email;
-    const name = req.body.name;
-    const password = req.body.password;
 
     const isSame = await User.findOne({ email: email });
     if (isSame) {

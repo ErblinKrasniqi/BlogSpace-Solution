@@ -1,30 +1,58 @@
 import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../Assets/scss/login.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Register = () => {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+
   const [comfirmPassword, setComfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const [apiError, setApiError] = useState("");
   const [passwordMatch, setPasswordMatch] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let tempErrors = [];
     if (!email) {
       tempErrors.push("Please fill all the email address field ⛔");
+      setErrors(tempErrors);
+      return;
+    }
+    if (!name) {
+      tempErrors.push("Please fill all the name  field ⛔");
+      setErrors(tempErrors);
+      return;
     }
     if (!password) {
       tempErrors.push("Please fill all the password field ⛔");
+      setErrors(tempErrors);
+      return;
     }
     if (password !== comfirmPassword) {
       setPasswordMatch("Password does not match 🤔");
+      setErrors(tempErrors);
+      return;
+    }
+    try {
+      const data = await axios.post("http://localhost:8080/api/register", {
+        email,
+        name,
+        password,
+      });
+      console.log(data);
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+      setApiError(error.response.data);
     }
     setErrors(tempErrors);
   };
@@ -35,7 +63,7 @@ const Register = () => {
     >
       <Col md={5} className={` rounded-4 ${styles.column}`}>
         <Form onSubmit={(e) => handleSubmit(e)}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               onChange={(e) => setEmail(e.target.value)}
@@ -46,7 +74,20 @@ const Register = () => {
               <Form.Text className="text-danger">{errors[0]}</Form.Text>
             )}
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+              type="string"
+              placeholder="Enter name"
+            />
+            {errors && (
+              <Form.Text className="text-danger">{errors[1]}</Form.Text>
+            )}
+          </Form.Group>
+          <Form.Group className="mb-3">
             <Form.Label>Password</Form.Label>
             <Form.Control
               onChange={(e) => {
@@ -59,7 +100,8 @@ const Register = () => {
               <Form.Text className="text-danger">{errors[1]}</Form.Text>
             )}
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+
+          <Form.Group className="mb-3">
             <Form.Label>Comfirm password</Form.Label>
             <Form.Control
               onChange={(e) => {
@@ -84,6 +126,11 @@ const Register = () => {
           <Button variant="primary" type="submit" className="py-2 px-4 mt-2">
             Register
           </Button>
+          <div className="d-flex justify-content-center">
+            {apiError && (
+              <Form.Text className="text-danger">{apiError.message}</Form.Text>
+            )}
+          </div>
         </Form>
       </Col>
     </Container>

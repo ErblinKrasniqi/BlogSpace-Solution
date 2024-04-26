@@ -1,13 +1,18 @@
 import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../Assets/scss/login.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useAuth } from "../Auth/is-auth";
 import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const [apiError, setApiError] = useState("");
+  const navigate = useNavigate();
+
+  const { setIsLoggedIn } = useAuth();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -18,18 +23,23 @@ const Login = () => {
     let tempErrors = [];
     if (!email) {
       tempErrors.push("Please fill all the email address field ⛔");
+      return;
     }
     if (!password) {
       tempErrors.push("Please fill all the password field ⛔");
+      return;
     }
     try {
       const results = await axios.post("http://localhost:8080/api/login", {
         email,
         password,
       });
-      console.log(results);
+      localStorage.setItem("token", results.data.token);
+      localStorage.setItem("userName", results.data.userName);
+      setIsLoggedIn(true);
+      navigate("/");
     } catch (err) {
-      console.log(err);
+      setApiError(err.response.data);
     }
 
     setErrors(tempErrors);
@@ -77,6 +87,11 @@ const Login = () => {
           <Button variant="primary" type="submit" className="py-2 px-4 mt-2">
             Login
           </Button>
+          <div className="d-flex justify-content-center">
+            {apiError && (
+              <Form.Text className="text-danger">{apiError.message}</Form.Text>
+            )}
+          </div>
         </Form>
       </Col>
     </Container>

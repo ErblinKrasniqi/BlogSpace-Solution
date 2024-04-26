@@ -1,13 +1,22 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { validationResult } = require("express-validator");
 
 exports.register = async (req, res, next) => {
-  const email = req.body.email;
-  const name = req.body.name;
-  const password = req.body.password;
-
   try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const error = new Error(errors.erros);
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const email = req.body.email;
+    const name = req.body.name;
+    const password = req.body.password;
+
     const isSame = await User.findOne({ email: email });
     if (isSame) {
       const error = new Error("User already exists 🤔");

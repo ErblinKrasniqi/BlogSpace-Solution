@@ -2,9 +2,10 @@ const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
   const authHeader = req.get("Authorization");
+
   if (!authHeader) {
-    const error = new Error("You are to authorized ⛔");
-    error.statusCode = 400;
+    const error = new Error("You are not authoricated 🚫");
+    error.statusCode = 403;
     throw error;
   }
   let decodedToken;
@@ -16,10 +17,10 @@ module.exports = (req, res, next) => {
   }
   if (!decodedToken) {
     const error = new Error("Token did not decode 🧑‍💻");
-    error.statusCode = 400;
+    error.statusCode = 401;
     throw error;
   }
-  req.userid = decodedToken.userId;
+  req.userId = decodedToken.userId;
   req.userName = decodedToken.userName;
   next();
 };

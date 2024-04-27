@@ -10,7 +10,6 @@ exports.register = async (req, res, next) => {
 
   try {
     const errors = validationResult(req);
-    console.log(errors.errors.map((err) => err));
 
     if (!errors.isEmpty()) {
       const error = new Error(JSON.stringify(errors.errors));

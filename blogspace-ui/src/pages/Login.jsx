@@ -3,7 +3,7 @@ import styles from "../Assets/scss/login.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "../Auth/is-auth";
-import axios from "axios";
+import { loginUser } from "../Api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -20,6 +20,10 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+
     let tempErrors = [];
     if (!email) {
       tempErrors.push("Please fill all the email address field ⛔");
@@ -30,10 +34,7 @@ const Login = () => {
       return;
     }
     try {
-      const results = await axios.post("http://localhost:8080/api/login", {
-        email,
-        password,
-      });
+      const results = await loginUser(formData);
       localStorage.setItem("token", results.data.token);
       localStorage.setItem("userName", results.data.userName);
       setIsLoggedIn(true);

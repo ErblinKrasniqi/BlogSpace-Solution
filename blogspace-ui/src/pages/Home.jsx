@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getPosts } from "../Api";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -9,8 +9,8 @@ const Home = () => {
 
   const gettingPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/post");
-      setPosts(response.data.posts);
+      const posts = await getPosts();
+      setPosts(posts.data.posts);
       setLoaded(true);
     } catch (error) {
       setError(error.response.data.message);
@@ -74,7 +74,6 @@ const Home = () => {
                     height="315"
                     src="https://www.youtube.com/embed/MGNgbNGOzh8"
                     title="YouTube video player"
-                    frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                   ></iframe>
@@ -155,7 +154,9 @@ const Home = () => {
                   </div>
                 ))
               ) : (
-                <p>{error}</p>
+                <div className="d-flex justify-content-center">
+                  <h3>{error}</h3>
+                </div>
               )}
             </div>
           </div>
@@ -165,11 +166,11 @@ const Home = () => {
           <div className="container">
             <div className="row">
               <div className="col-lg-12 col-12 text-center">
-                <h2 className="mb-lg-5 mb-4">About Tiya</h2>
+                <h2 className="mb-lg-5 mb-4">About Us</h2>
               </div>
 
               <div className="col-lg-5 col-12 me-auto mb-4 mb-lg-0">
-                <h3 className="mb-3">Tiya Club History</h3>
+                <h3 className="mb-3">Web Developers</h3>
 
                 <p>
                   <strong>Since 1984</strong>, Tiya is ranked #8 in the top 10

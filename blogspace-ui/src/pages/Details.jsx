@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import { getPost } from "../Api";
 
 const Detials = () => {
   const [post, setpost] = useState("");
   let { id } = useParams();
 
-  const getPost = async () => {
+  const gettingPosts = async () => {
     try {
-      const results = await axios.get(`http://localhost:8080/api/post/${id}`);
+      const results = await getPost(id);
+      console.log(results);
       setpost(results.data.post);
     } catch (error) {
       console.log(error);
@@ -16,7 +17,7 @@ const Detials = () => {
   };
 
   useEffect(() => {
-    getPost();
+    gettingPosts();
     window.scrollTo(0, 500);
     // eslint-disable-next-line
   }, []);

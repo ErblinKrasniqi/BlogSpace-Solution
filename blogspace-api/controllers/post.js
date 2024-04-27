@@ -35,7 +35,6 @@ exports.getOne = async (req, res, next) => {
 };
 
 exports.getMyPosts = async (req, res, next) => {
-  console.log(req.userId);
   try {
     const user = await User.findById(req.userId);
 
@@ -60,7 +59,6 @@ exports.getMyPosts = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-  console.log(req.file);
   const title = req.body.title;
   const description = req.body.description;
   const imageUrl = req.file.filename;
@@ -115,6 +113,7 @@ exports.create = async (req, res, next) => {
 exports.edit = async (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
+  const imageUrl = req.file?.filename;
   const id = req.params.id;
   try {
     const errors = validationResult(req);
@@ -137,6 +136,10 @@ exports.edit = async (req, res, next) => {
       const error = new Error("You cant edit this post 😯");
       error.statusCode = 400;
       throw error;
+    }
+    if (imageUrl) {
+      clearImage(post.imageUrl);
+      post.imageUrl = imageUrl;
     }
 
     post.title = title;

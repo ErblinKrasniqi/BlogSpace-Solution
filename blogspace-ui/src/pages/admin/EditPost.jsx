@@ -1,18 +1,30 @@
 import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../../Assets/scss/login.module.scss";
 import { useEffect, useState } from "react";
-import { createPost } from "../../Api";
+import { editPost, getPost } from "../../Api";
+import { useParams } from "react-router-dom";
 
-const CreatePost = () => {
+const EditPost = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [apiError, setApiError] = useState("");
   const [apiSuccess, setApiSuccess] = useState("");
+  const [post, setpost] = useState("");
+  const [loaded, setLoaded] = useState(false);
+  let { id } = useParams();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const gettingPost = async () => {
+    try {
+      const results = await getPost(id);
+      setpost(results.data.post);
+      setLoaded(true);
+      setDescription(post.description);
+      setTitle(post.title);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,8 +33,7 @@ const CreatePost = () => {
     formData.append("description", description);
     formData.append("image", image);
     try {
-      const results = await createPost(formData);
-
+      const results = await editPost(id, formData);
       setApiSuccess(results.data.message);
       setApiError("");
     } catch (error) {
@@ -31,6 +42,12 @@ const CreatePost = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    gettingPost();
+    window.scrollTo(0, 0);
+    // eslint-disable-next-line
+  }, [loaded]);
 
   return (
     <Container
@@ -44,6 +61,7 @@ const CreatePost = () => {
               onChange={(e) => setTitle(e.target.value)}
               type="text"
               placeholder="Enter title"
+              value={title}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -53,6 +71,7 @@ const CreatePost = () => {
               as="textarea"
               rows={4}
               placeholder="Description"
+              value={description}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicImage">
@@ -76,4 +95,4 @@ const CreatePost = () => {
     </Container>
   );
 };
-export default CreatePost;
+export default EditPost;

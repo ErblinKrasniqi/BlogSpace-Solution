@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getMyPosts, deletePost } from "../../Api";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
@@ -9,11 +9,7 @@ const Dashboard = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios("http://localhost:8080/api/posts", {
-        headers: {
-          Authorization: `${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await getMyPosts();
 
       setPosts(response.data.posts);
       setLoaded(true);
@@ -25,14 +21,7 @@ const Dashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:8080/api/post/${id}`,
-        {
-          headers: {
-            Authorization: `${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await deletePost(id);
       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
       console.log(response);
       setLoaded(false);
@@ -42,6 +31,7 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchPosts();
   }, [loaded]);
   return (
@@ -66,7 +56,10 @@ const Dashboard = () => {
                     <i className="custom-block-icon bi-link"></i>
                   </Link>
 
-                  <Link to="/edit" className="custom-block-date-wrap">
+                  <Link
+                    to={`/edit/${post._id}`}
+                    className="custom-block-date-wrap"
+                  >
                     <strong className="text-white">Edit</strong>
                   </Link>
 

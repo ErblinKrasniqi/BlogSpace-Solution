@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Detials from "./pages/Details";
 import CreatePost from "./pages/admin/CreatePost";
 import Dashboard from "./pages/admin/Dashboard";
+import EditPost from "./pages/admin/EditPost";
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -22,6 +23,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route element={<PrivateRoute isAuthenticated={isLoggedIn} />}>
             <Route path="/create" element={<CreatePost />} />
+            <Route path="/edit/:id" element={<EditPost />} />
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>
         </Routes>

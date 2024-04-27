@@ -2,17 +2,18 @@ import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../Assets/scss/login.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { registerUser } from "../Api";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-
   const [comfirmPassword, setComfirmPassword] = useState("");
+
   const [errors, setErrors] = useState([]);
   const [apiError, setApiError] = useState("");
   const [passwordMatch, setPasswordMatch] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +22,11 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("name", name);
+    formData.append("password", password);
+
     let tempErrors = [];
     if (!email) {
       tempErrors.push("Please fill all the email address field ⛔");
@@ -43,11 +49,7 @@ const Register = () => {
       return;
     }
     try {
-      const data = await axios.post("http://localhost:8080/api/register", {
-        email,
-        name,
-        password,
-      });
+      const data = await registerUser(formData);
       console.log(data);
       navigate("/login");
     } catch (error) {

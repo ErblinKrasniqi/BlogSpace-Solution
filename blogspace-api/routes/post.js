@@ -6,6 +6,10 @@ const validator = require("../middleware/validators");
 
 router.get("/post", postController.get);
 
+router.get("/post/:id", postController.getOne);
+
+router.get("/posts", isAuth, postController.getMyPosts);
+
 router.post("/post", isAuth, validator.post, postController.create);
 
 router.put("/post/:id", isAuth, validator.post, postController.edit);

@@ -834,6 +834,8 @@ strong {
 }
 
 .custom-block-image {
+  aspect-ratio: 3/2;
+  object-fit: cover;
   transition: all 0.3s;
 }
 

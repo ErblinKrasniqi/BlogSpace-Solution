@@ -1,8 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const Detials = () => {
+  const [post, setpost] = useState("");
+  let { id } = useParams();
+
+  const getPost = async () => {
+    try {
+      const results = await axios.get(`http://localhost:8080/api/post/${id}`);
+      setpost(results.data.post);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
+    getPost();
     window.scrollTo(0, 500);
+    // eslint-disable-next-line
   }, []);
   return (
     <main>
@@ -108,24 +124,20 @@ const Detials = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-6 col-md-8 col-12 mx-auto">
-              <h2 className="mb-lg-5 mb-4">Tiya Club's Group Tournaments</h2>
+              <h2 className="mb-lg-5 mb-4">{post.title}</h2>
 
               <div className="custom-block-image-wrap">
                 <img
-                  src={require("../Assets/images/professional-golf-player.jpg")}
+                  src={`http://localhost:8080/images/${post.imageUrl}`}
                   className="custom-block-image img-fluid"
                   alt=""
                 />
               </div>
 
               <div className="custom-block-info">
-                <h3 className="mb-3">Golf Club based in Orlando</h3>
+                <h3 className="mb-3">{post.title}</h3>
 
-                <p>
-                  Tiya Golf Club is Bootstrap v5.3.0 HTML CSS template for your
-                  golf related websites. Anyone can download, edit and use this
-                  layout for commercial purposes.
-                </p>
+                <p>{post.description}</p>
 
                 <p>
                   Tiya is 100% free CSS template provided by TemplateMo website.

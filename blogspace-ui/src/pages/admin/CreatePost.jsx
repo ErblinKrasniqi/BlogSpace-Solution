@@ -6,6 +6,7 @@ import axios from "axios";
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
   const [apiError, setApiError] = useState("");
   const [apiSuccess, setApiSuccess] = useState("");
 
@@ -15,17 +16,20 @@ const CreatePost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(localStorage.getItem("token"));
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("image", image);
     try {
       const results = await axios.post(
         "http://localhost:8080/api/post",
-        {
-          title,
-          description,
-        },
+
+        formData,
+
         {
           headers: {
             Authorization: `${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -64,7 +68,10 @@ const CreatePost = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicImage">
             <Form.Label>Image</Form.Label>
-            <Form.Control type="file" />
+            <Form.Control
+              type="file"
+              onChange={(e) => setImage(e.target.files[0])}
+            />
           </Form.Group>
           <Form.Text className="text-muted"></Form.Text>
 

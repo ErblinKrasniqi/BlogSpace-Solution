@@ -1,6 +1,25 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+  const [posts, setPosts] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
+  const gettingPosts = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/post");
+      setPosts(response.data.posts);
+      setLoaded(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    gettingPosts();
+  }, [loaded]);
+
   return (
     <>
       <main>
@@ -75,212 +94,63 @@ const Home = () => {
           <div className="container">
             <div className="row ">
               <div className="col-lg-12 col-12 mt-5">
-                <h2 className="mb-lg-5 mb-4">Latest Posts</h2>
+                <h2 onClick={gettingPosts} className="mb-lg-5 mb-4">
+                  Latest Posts
+                </h2>
               </div>
+              {posts.map((post) => (
+                <div
+                  key={post._id}
+                  className="col-lg-6 col-12 mb-5 mb-lg-0 mt-5"
+                >
+                  <div className="custom-block-image-wrap">
+                    <Link to={`/details/${post._id}`}>
+                      <img
+                        src={`http://localhost:8080/images/${post.imageUrl}`}
+                        className="custom-block-image img-fluid"
+                        alt=""
+                      ></img>
 
-              <div className="col-lg-6 col-12 mb-5 mb-lg-0 mt-5">
-                <div className="custom-block-image-wrap">
-                  <Link to="/details/1">
-                    <img
-                      src={require("../Assets/images/anna-rosar-ZxFyVBHMK-c-unsplash.jpg")}
-                      className="custom-block-image img-fluid"
-                      alt=""
-                    ></img>
+                      <i className="custom-block-icon bi-link"></i>
+                    </Link>
 
-                    <i className="custom-block-icon bi-link"></i>
-                  </Link>
+                    <div className="custom-block-date-wrap">
+                      <strong className="text-white">{post.createdAt}</strong>
+                    </div>
 
-                  <div className="custom-block-date-wrap">
-                    <strong className="text-white">18 Feb 2023</strong>
+                    <div className="custom-btn-wrap">
+                      <Link
+                        to={`/details/${post._id}`}
+                        className="btn custom-btn"
+                      >
+                        View Post
+                      </Link>
+                    </div>
                   </div>
 
-                  <div className="custom-btn-wrap">
-                    <a href="event-detail.html" className="btn custom-btn">
-                      Vew Post
+                  <div className="custom-block-info">
+                    <a href="event-detail.html" className="events-title mb-2">
+                      {post.title}
                     </a>
-                  </div>
-                </div>
 
-                <div className="custom-block-info">
-                  <a href="event-detail.html" className="events-title mb-2">
-                    The first space trip 🚀
-                  </a>
+                    <p className="mb-0">{post.description}</p>
 
-                  <p className="mb-0">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Recusandae dignissimos modi corrupti, nostrum dolores aut
-                    quasi placeat ullam cum ex iusto atque pariatur illum nam
-                    necessitatibus expedita. Totam, architecto culpa.
-                  </p>
+                    <div className="border-top mt-4 pt-3">
+                      <div className="d-flex flex-wrap align-items-center mb-1">
+                        <span className="custom-block-span">Location:</span>
 
-                  <div className="border-top mt-4 pt-3">
-                    <div className="d-flex flex-wrap align-items-center mb-1">
-                      <span className="custom-block-span">Location:</span>
+                        <p className="mb-0">National Center, NYC</p>
+                      </div>
 
-                      <p className="mb-0">National Center, NYC</p>
-                    </div>
+                      <div className="d-flex flex-wrap align-items-center">
+                        <span className="custom-block-span">Author:</span>
 
-                    <div className="d-flex flex-wrap align-items-center">
-                      <span className="custom-block-span">Author:</span>
-
-                      <p className="mb-0">Nikoll Culaj</p>
+                        <p className="mb-0">{post.creatorName}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="col-lg-6 col-12 mt-5">
-                <div className="custom-block-image-wrap">
-                  <Link to="/details/2">
-                    <img
-                      src={require("../Assets/images/frederik-rosar-NDSZcCfnsbY-unsplash.jpg")}
-                      className="custom-block-image img-fluid"
-                      alt=""
-                    ></img>
-
-                    <i className="custom-block-icon bi-link"></i>
-                  </Link>
-
-                  <div className="custom-block-date-wrap">
-                    <strong className="text-white">24 Feb 2023</strong>
-                  </div>
-
-                  <div className="custom-btn-wrap">
-                    <a href="event-detail.html" className="btn custom-btn">
-                      View post
-                    </a>
-                  </div>
-                </div>
-
-                <div className="custom-block-info">
-                  <a href="event-detail.html" className="events-title mb-2">
-                    Brining the best 🏆
-                  </a>
-
-                  <p className="mb-0">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Recusandae dignissimos modi corrupti, nostrum dolores aut
-                    quasi placeat ullam cum ex iusto atque pariatur illum nam
-                    necessitatibus expedita. Totam, architecto culpa.
-                  </p>
-
-                  <div className="border-top mt-4 pt-3">
-                    <div className="d-flex flex-wrap align-items-center mb-1">
-                      <span className="custom-block-span">Location:</span>
-
-                      <p className="mb-0">National Center, NYC</p>
-                    </div>
-
-                    <div className="d-flex flex-wrap align-items-center">
-                      <span className="custom-block-span">Author:</span>
-
-                      <p className="mb-0">Erblin Krasniqi</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-6 col-12 mt-5">
-                <div className="custom-block-image-wrap">
-                  <a href="event-detail.html">
-                    <img
-                      src={require("../Assets/images/frederik-rosar-NDSZcCfnsbY-unsplash.jpg")}
-                      className="custom-block-image img-fluid"
-                      alt=""
-                    ></img>
-
-                    <i className="custom-block-icon bi-link"></i>
-                  </a>
-
-                  <div className="custom-block-date-wrap">
-                    <strong className="text-white">24 Feb 2023</strong>
-                  </div>
-
-                  <div className="custom-btn-wrap">
-                    <a href="event-detail.html" className="btn custom-btn">
-                      View post
-                    </a>
-                  </div>
-                </div>
-
-                <div className="custom-block-info">
-                  <a href="event-detail.html" className="events-title mb-2">
-                    Brining the best 🏆
-                  </a>
-
-                  <p className="mb-0">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Recusandae dignissimos modi corrupti, nostrum dolores aut
-                    quasi placeat ullam cum ex iusto atque pariatur illum nam
-                    necessitatibus expedita. Totam, architecto culpa.
-                  </p>
-
-                  <div className="border-top mt-4 pt-3">
-                    <div className="d-flex flex-wrap align-items-center mb-1">
-                      <span className="custom-block-span">Location:</span>
-
-                      <p className="mb-0">National Center, NYC</p>
-                    </div>
-
-                    <div className="d-flex flex-wrap align-items-center">
-                      <span className="custom-block-span">Author:</span>
-
-                      <p className="mb-0">Erblin Krasniqi</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-6 col-12 mt-5">
-                <div className="custom-block-image-wrap">
-                  <a href="event-detail.html">
-                    <img
-                      src={require("../Assets/images/frederik-rosar-NDSZcCfnsbY-unsplash.jpg")}
-                      className="custom-block-image img-fluid"
-                      alt=""
-                    ></img>
-
-                    <i className="custom-block-icon bi-link"></i>
-                  </a>
-
-                  <div className="custom-block-date-wrap">
-                    <strong className="text-white">24 Feb 2023</strong>
-                  </div>
-
-                  <div className="custom-btn-wrap">
-                    <a href="event-detail.html" className="btn custom-btn">
-                      View post
-                    </a>
-                  </div>
-                </div>
-
-                <div className="custom-block-info">
-                  <a href="event-detail.html" className="events-title mb-2">
-                    Brining the best 🏆
-                  </a>
-
-                  <p className="mb-0">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Recusandae dignissimos modi corrupti, nostrum dolores aut
-                    quasi placeat ullam cum ex iusto atque pariatur illum nam
-                    necessitatibus expedita. Totam, architecto culpa.
-                  </p>
-
-                  <div className="border-top mt-4 pt-3">
-                    <div className="d-flex flex-wrap align-items-center mb-1">
-                      <span className="custom-block-span">Location:</span>
-
-                      <p className="mb-0">National Center, NYC</p>
-                    </div>
-
-                    <div className="d-flex flex-wrap align-items-center">
-                      <span className="custom-block-span">Author:</span>
-
-                      <p className="mb-0">Erblin Krasniqi</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>

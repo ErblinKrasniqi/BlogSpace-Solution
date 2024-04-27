@@ -1,6 +1,7 @@
 const Post = require("../models/post");
 const User = require("../models/user");
 const path = require("path");
+const fs = require("fs");
 const { validationResult } = require("express-validator");
 
 exports.get = async (req, res, next) => {
@@ -18,9 +19,52 @@ exports.get = async (req, res, next) => {
   }
 };
 
+exports.getOne = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const post = await Post.findById(id);
+    if (!post) {
+      const error = new Error("No post found 🤔");
+      error.statusCode = 400;
+      throw error;
+    }
+    res.status(200).json({ message: "Found Post 😁", post: post });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getMyPosts = async (req, res, next) => {
+  console.log(req.userId);
+  try {
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      const error = new Error("No user found 🤔");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    if (user.posts.length === 0) {
+      const error = new Error("No posts found 🌵");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const posts = await Post.find({ _id: { $in: user.posts } });
+
+    res.status(200).json({ posts: posts });
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.create = async (req, res, next) => {
+  console.log(req.file);
   const title = req.body.title;
   const description = req.body.description;
+  const imageUrl = req.file.filename;
+
   let loadedPost;
   let creator;
 
@@ -28,7 +72,7 @@ exports.create = async (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      const error = new Error(errors);
+      const error = new Error({ errors: errors.array() });
       error.statusCode = 400;
       throw error;
     }
@@ -36,6 +80,8 @@ exports.create = async (req, res, next) => {
     const post = new Post({
       title: title,
       description: description,
+      imageUrl: imageUrl,
+      creatorName: req.userName,
       creator: req.userId,
     });
 
@@ -118,7 +164,7 @@ exports.delete = async (req, res, next) => {
       error.statusCode = 400;
       throw error;
     }
-
+    clearImage(post.imageUrl);
     const user = await User.findById(req.userId);
 
     user.posts.pull(id);

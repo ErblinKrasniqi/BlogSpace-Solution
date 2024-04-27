@@ -11,7 +11,7 @@ const CreatePost = () => {
   const [apiSuccess, setApiSuccess] = useState("");
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 200);
   }, []);
 
   const handleSubmit = async (e) => {
@@ -35,7 +35,6 @@ const CreatePost = () => {
       );
       setApiSuccess(results.data.message);
       setApiError("");
-      console.log(results);
     } catch (error) {
       setApiSuccess("");
       setApiError(error.response.data.message);

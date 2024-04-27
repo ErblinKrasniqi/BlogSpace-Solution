@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState("");
 
   const gettingPosts = async () => {
     try {
@@ -12,7 +13,8 @@ const Home = () => {
       setPosts(response.data.posts);
       setLoaded(true);
     } catch (error) {
-      console.log(error);
+      setError(error.response.data.message);
+      setLoaded(false);
     }
   };
 
@@ -98,59 +100,63 @@ const Home = () => {
                   Latest Posts
                 </h2>
               </div>
-              {posts.map((post) => (
-                <div
-                  key={post._id}
-                  className="col-lg-6 col-12 mb-5 mb-lg-0 mt-5"
-                >
-                  <div className="custom-block-image-wrap">
-                    <Link to={`/details/${post._id}`}>
-                      <img
-                        src={`http://localhost:8080/images/${post.imageUrl}`}
-                        className="custom-block-image img-fluid"
-                        alt=""
-                      ></img>
+              {loaded ? (
+                posts.map((post) => (
+                  <div
+                    key={post._id}
+                    className="col-lg-6 col-12 mb-5 mb-lg-0 mt-5"
+                  >
+                    <div className="custom-block-image-wrap">
+                      <Link to={`/details/${post._id}`}>
+                        <img
+                          src={`http://localhost:8080/images/${post.imageUrl}`}
+                          className="custom-block-image img-fluid"
+                          alt=""
+                        ></img>
 
-                      <i className="custom-block-icon bi-link"></i>
-                    </Link>
-
-                    <div className="custom-block-date-wrap">
-                      <strong className="text-white">{post.createdAt}</strong>
-                    </div>
-
-                    <div className="custom-btn-wrap">
-                      <Link
-                        to={`/details/${post._id}`}
-                        className="btn custom-btn"
-                      >
-                        View Post
+                        <i className="custom-block-icon bi-link"></i>
                       </Link>
-                    </div>
-                  </div>
 
-                  <div className="custom-block-info">
-                    <a href="event-detail.html" className="events-title mb-2">
-                      {post.title}
-                    </a>
-
-                    <p className="mb-0">{post.description}</p>
-
-                    <div className="border-top mt-4 pt-3">
-                      <div className="d-flex flex-wrap align-items-center mb-1">
-                        <span className="custom-block-span">Location:</span>
-
-                        <p className="mb-0">National Center, NYC</p>
+                      <div className="custom-block-date-wrap">
+                        <strong className="text-white">{post.createdAt}</strong>
                       </div>
 
-                      <div className="d-flex flex-wrap align-items-center">
-                        <span className="custom-block-span">Author:</span>
+                      <div className="custom-btn-wrap">
+                        <Link
+                          to={`/details/${post._id}`}
+                          className="btn custom-btn"
+                        >
+                          View Post
+                        </Link>
+                      </div>
+                    </div>
 
-                        <p className="mb-0">{post.creatorName}</p>
+                    <div className="custom-block-info">
+                      <a href="event-detail.html" className="events-title mb-2">
+                        {post.title}
+                      </a>
+
+                      <p className="mb-0">{post.description}</p>
+
+                      <div className="border-top mt-4 pt-3">
+                        <div className="d-flex flex-wrap align-items-center mb-1">
+                          <span className="custom-block-span">Location:</span>
+
+                          <p className="mb-0">National Center, NYC</p>
+                        </div>
+
+                        <div className="d-flex flex-wrap align-items-center">
+                          <span className="custom-block-span">Author:</span>
+
+                          <p className="mb-0">{post.creatorName}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <p>{error}</p>
+              )}
             </div>
           </div>
         </section>

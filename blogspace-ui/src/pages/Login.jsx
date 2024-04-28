@@ -1,9 +1,10 @@
 import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../Assets/scss/login.module.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { useAuth } from "../Auth/is-auth";
 import { loginUser } from "../Api";
+import anime from "animejs";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,10 @@ const Login = () => {
   const [errors, setErrors] = useState([]);
   const [apiError, setApiError] = useState("");
   const navigate = useNavigate();
+
+  //Animation references
+  const formPopUp = useRef(null);
+  const textAppear = useRef([]);
 
   const { setIsLoggedIn } = useAuth();
 
@@ -46,11 +51,32 @@ const Login = () => {
     setErrors(tempErrors);
   };
 
+  //Animations
+
+  useLayoutEffect(() => {
+    anime({
+      targets: formPopUp.current,
+      scale: [0, 1],
+      opacity: [0, 1],
+      easing: "easeOutExpo",
+      duration: 2000,
+    });
+
+    anime({
+      targets: textAppear.current,
+      translateX: [-200, 0],
+      opacity: [0, 1],
+      easing: "linear",
+      duration: 500,
+      delay: anime.stagger(50, { start: 1000 }),
+    });
+  }, []);
+
   return (
     <Container
       className={`d-flex justify-content-center  mt-5 ${styles.container}`}
     >
-      <Col md={5} className={` rounded-4 ${styles.column}`}>
+      <Col ref={formPopUp} md={5} className={` rounded-4 ${styles.column}`}>
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -81,7 +107,16 @@ const Login = () => {
           <div>
             {" "}
             <Form.Text className="text-white">
-              Don't have an account? <br /> <Link to="/register"> Sign up</Link>
+              <p
+                ref={(el) => (textAppear.current[0] = el)}
+                className="text-white m-0 p-0"
+              >
+                Don't have an account?
+              </p>{" "}
+              <Link ref={(el) => (textAppear.current[1] = el)} to="/register">
+                {" "}
+                Sign up
+              </Link>
             </Form.Text>
           </div>
 

@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { getPosts } from "../Api";
+import anime from "animejs";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState("");
+  const myElement = useRef([]);
+  const videoSpin = useRef(null);
 
   const gettingPosts = async () => {
     try {
@@ -21,6 +24,26 @@ const Home = () => {
   useEffect(() => {
     gettingPosts();
   }, [loaded]);
+
+  //animations
+
+  useLayoutEffect(() => {
+    anime({
+      targets: myElement.current,
+      opacity: [0, 1],
+      translateY: [-250, 0],
+      duration: 2000,
+      delay: anime.stagger(100, { start: 300 }),
+    });
+
+    anime({
+      targets: videoSpin.current,
+      opacity: [0, 1],
+      translateY: [-250, 0],
+      easing: "easeOutBounce",
+      duration: 2000,
+    });
+  }, []);
 
   return (
     <>
@@ -42,9 +65,17 @@ const Home = () => {
           <div className="container">
             <div className="row">
               <div className="col-lg-6 col-12 mb-5 mb-lg-0">
-                <h2 className="text-white">Keep up with</h2>
+                <h1
+                  ref={(el) => (myElement.current[0] = el)}
+                  className="text-white"
+                >
+                  Keep up with
+                </h1>
 
-                <h1 className="cd-headline rotate-1 text-white mb-4 pb-2">
+                <h1
+                  ref={(el) => (myElement.current[1] = el)}
+                  className="cd-headline rotate-1 text-white mb-4 pb-2"
+                >
                   <span>the best</span>
                   <span className="cd-words-wrapper">
                     <b className="is-visible">News</b>
@@ -68,7 +99,7 @@ const Home = () => {
               </div>
 
               <div className="col-lg-6 col-12">
-                <div className="ratio ratio-16x9">
+                <div ref={videoSpin} className="ratio ratio-16x9">
                   <iframe
                     width="560"
                     height="315"

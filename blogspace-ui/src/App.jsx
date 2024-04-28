@@ -1,14 +1,16 @@
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./Auth/private-route";
 import { useAuth } from "./Auth/is-auth";
-import Home from "./pages/Home";
 import Wrapper from "./shared/Wrapper";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Detials from "./pages/Details";
-import CreatePost from "./pages/admin/CreatePost";
-import Dashboard from "./pages/admin/Dashboard";
-import EditPost from "./pages/admin/EditPost";
+
+const Home = lazy(() => import("./pages/Home"));
+const Login = lazy(() => import("./pages/Login"));
+const Register = lazy(() => import("./pages/Register"));
+const Details = lazy(() => import("./pages/Details"));
+const CreatePost = lazy(() => import("./pages/admin/CreatePost"));
+const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
+const EditPost = lazy(() => import("./pages/admin/EditPost"));
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -16,17 +18,19 @@ function App() {
   return (
     <BrowserRouter>
       <Wrapper>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/details/:id" element={<Detials />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route element={<PrivateRoute isAuthenticated={isLoggedIn} />}>
-            <Route path="/create" element={<CreatePost />} />
-            <Route path="/edit/:id" element={<EditPost />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Route>
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/details/:id" element={<Details />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route element={<PrivateRoute isAuthenticated={isLoggedIn} />}>
+              <Route path="/create" element={<CreatePost />} />
+              <Route path="/edit/:id" element={<EditPost />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+            </Route>
+          </Routes>
+        </Suspense>
       </Wrapper>
     </BrowserRouter>
   );

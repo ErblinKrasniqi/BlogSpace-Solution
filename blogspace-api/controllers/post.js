@@ -61,6 +61,11 @@ exports.getMyPosts = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
+  if (!req.file) {
+    const error = new Error("No file provided 🥲");
+    error.statusCode = 422;
+    throw error;
+  }
   const imageUrl = req.file.filename;
 
   let loadedPost;

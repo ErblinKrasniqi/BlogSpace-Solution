@@ -24,9 +24,12 @@ const Dashboard = () => {
   const handleDelete = async (id) => {
     try {
       const response = await deletePost(id);
-      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
-      console.log(response);
-      setLoaded(false);
+      console.log("deletePost response:", response);
+
+      setPosts((prevPosts) => {
+        const updatedPosts = prevPosts.filter((post) => post._id !== id);
+        return updatedPosts;
+      });
     } catch (error) {
       console.log(error);
     }
@@ -40,13 +43,15 @@ const Dashboard = () => {
   //Animations
 
   useLayoutEffect(() => {
-    anime({
-      targets: postAnimation.current,
-      opacity: [0, 1],
-      translateY: [-250, 0],
-      duration: 2000,
-      delay: anime.stagger(100, { start: 300 }),
-    });
+    if (postAnimation.current) {
+      anime({
+        targets: postAnimation.current,
+        opacity: [0, 1],
+        translateY: [-250, 0],
+        duration: 2000,
+        delay: anime.stagger(100, { start: 300 }),
+      });
+    }
   }, [loaded]);
 
   return (

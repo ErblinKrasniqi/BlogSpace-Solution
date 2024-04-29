@@ -20,6 +20,10 @@ const CreatePost = () => {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("image", image);
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
     try {
       const results = await createPost(formData);
 

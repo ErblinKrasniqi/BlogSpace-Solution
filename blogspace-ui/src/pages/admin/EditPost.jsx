@@ -2,6 +2,7 @@ import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../../Assets/scss/login.module.scss";
 import { useApiEditPost } from "../../Hooks/userHooks";
 import { useParams } from "react-router-dom";
+import Message from "../../components/Message";
 
 const EditPost = () => {
   let { id } = useParams();
@@ -20,6 +21,12 @@ const EditPost = () => {
     <Container
       className={`d-flex justify-content-center  mt-5 ${styles.container}`}
     >
+      {apiSuccess || apiError ? (
+        <Message
+          message={apiSuccess ? apiSuccess : apiError}
+          type={apiSuccess ? "success" : "danger"}
+        />
+      ) : null}
       <Col md={5} className={` rounded-4 ${styles.column}`}>
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -53,10 +60,6 @@ const EditPost = () => {
           <Button variant="primary" type="submit" className="py-2 px-4 mt-2">
             Submit
           </Button>
-          <div className="d-flex justify-content-center">
-            <p className="text-danger">{apiError}</p>
-            <p className="text-success">{apiSuccess}</p>
-          </div>
         </Form>
       </Col>
     </Container>

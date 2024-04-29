@@ -61,17 +61,17 @@ exports.getMyPosts = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
-  if (!req.file) {
-    const error = new Error("No file provided 🥲");
-    error.statusCode = 422;
-    throw error;
-  }
-  const imageUrl = req.file.filename;
 
   let loadedPost;
   let creator;
 
   try {
+    if (!req.file) {
+      const error = new Error("No file provided 🥲");
+      error.statusCode = 422;
+      throw error;
+    }
+    const imageUrl = req.file.filename;
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -120,11 +120,13 @@ exports.edit = async (req, res, next) => {
   const description = req.body.description;
   const imageUrl = req.file?.filename;
   const id = req.params.id;
+  console.log(title);
   try {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       const error = new Error(errors);
+      console.log(errors);
       error.statusCode = 400;
       throw error;
     }

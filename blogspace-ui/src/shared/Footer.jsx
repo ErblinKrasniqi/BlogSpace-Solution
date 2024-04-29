@@ -15,8 +15,8 @@ const Footer = () => {
                 alt=""
               />
               <span className="navbar-brand-text">
-                Tiya
-                <small>Golf Club</small>
+                Blog Space
+                <small>Blogs</small>
               </span>
             </a>
           </div>
@@ -34,7 +34,7 @@ const Footer = () => {
               6:30 AM - 8:30 PM
             </p>
             <br />
-            <p className="copyright-text">Copyright © 2048 Tiya Golf Club</p>
+            <p className="copyright-text">Copyright © 2048 Erblin krasniqi</p>
           </div>
 
           <div className="col-lg-2 col-12 ms-auto">
@@ -71,7 +71,8 @@ const Footer = () => {
                 href="#trick"
                 target="_blank"
               >
-                TemplateMo
+                Erblin Krasniqi,
+                <br /> Nikoll Culaj
               </a>
             </p>
           </div>

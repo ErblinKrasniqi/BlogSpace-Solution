@@ -7,6 +7,7 @@ import {
   getPost,
   createPost,
   loginUser,
+  editPost,
   registerUser,
   delteUser,
   getUsers,
@@ -66,7 +67,8 @@ export const useApiGetPost = (id) => {
 export const useApiFetchUserPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState("");
+  const [apiError, setApiError] = useState("");
+  const [apiSuccess, setApiSuccess] = useState("");
 
   const fetchPosts = async () => {
     try {
@@ -74,7 +76,7 @@ export const useApiFetchUserPosts = () => {
       setPosts(data.data.posts);
     } catch (error) {
       setPosts([]);
-      setError(error);
+      setApiError(error.response.data.message);
     } finally {
       setLoaded(true);
     }
@@ -88,8 +90,9 @@ export const useApiFetchUserPosts = () => {
         const updatedPosts = prevPosts.filter((post) => post._id !== id);
         return updatedPosts;
       });
+      setApiSuccess(response.data.message);
     } catch (error) {
-      console.log(error);
+      setApiError(error);
     }
   };
 
@@ -98,7 +101,7 @@ export const useApiFetchUserPosts = () => {
     fetchPosts();
   }, [loaded]);
 
-  return { posts, loaded, error, handleDelete };
+  return { posts, loaded, apiError, apiSuccess, handleDelete };
 };
 
 export const useApiCreatePost = () => {
@@ -114,6 +117,15 @@ export const useApiCreatePost = () => {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("image", image);
+
+    if (!title) {
+      setApiError("Please fill all the title field ⛔");
+      return;
+    }
+    if (!description) {
+      setApiError("Please fill all the description field ⛔");
+      return;
+    }
 
     try {
       const results = await createPost(formData);
@@ -147,8 +159,8 @@ export const useApiCreatePost = () => {
 export const useApiLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
   const [apiError, setApiError] = useState("");
+  const [apiSuccess, setApiSuccess] = useState("");
   const navigate = useNavigate();
 
   const { setIsLoggedIn, setRole } = useAuth();
@@ -159,13 +171,12 @@ export const useApiLogin = () => {
     formData.append("email", email);
     formData.append("password", password);
 
-    let tempErrors = [];
     if (!email) {
-      tempErrors.push("Please fill all the email address field ⛔");
+      setApiError("Please fill all the email address field ⛔");
       return;
     }
     if (!password) {
-      tempErrors.push("Please fill all the password field ⛔");
+      setApiError("Please fill all the password field ⛔");
       return;
     }
     try {
@@ -175,12 +186,11 @@ export const useApiLogin = () => {
       localStorage.setItem("role", results.data.role);
       setRole(results.data.role);
       setIsLoggedIn(true);
+      setApiSuccess(results.data.message);
       navigate("/");
     } catch (err) {
-      setApiError(err.response.data);
+      setApiError(err.response.data.message);
     }
-
-    setErrors(tempErrors);
   };
 
   useEffect(() => {
@@ -192,8 +202,9 @@ export const useApiLogin = () => {
     setEmail,
     password,
     setPassword,
-    errors,
+
     apiError,
+    apiSuccess,
     handleSubmit,
   };
 };
@@ -218,6 +229,7 @@ export const useApiEditPost = (id) => {
   }, [id, post.description, post.title]);
 
   const handleSubmit = async (e) => {
+    console.log("Title:", title, "Description:", description, "Image:", image);
     e.preventDefault();
     const formData = new FormData();
     formData.append("title", title);
@@ -225,7 +237,7 @@ export const useApiEditPost = (id) => {
     formData.append("image", image);
 
     try {
-      const results = await createPost(formData);
+      const results = await editPost(id, formData);
 
       setApiSuccess(results.data.message);
       setApiError("");
@@ -259,32 +271,31 @@ export const useApiRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [comfirmPassword, setComfirmPassword] = useState("");
-  const [errors, setErrors] = useState([]);
   const [apiError, setApiError] = useState("");
+  const [apiSuccess, setApiSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", name);
     formData.append("email", email);
+    formData.append("name", name);
     formData.append("password", password);
 
-    let tempErrors = [];
     if (!name) {
-      tempErrors.push("Please fill all the name field ⛔");
-      return;
-    }
-    if (!email) {
-      tempErrors.push("Please fill all the email address field ⛔");
+      if (!email) {
+        setApiError("Please fill all the email address field ⛔");
+        return;
+      }
+      setApiError("Please fill all the name field ⛔");
       return;
     }
     if (!password) {
-      tempErrors.push("Please fill all the password field ⛔");
+      setApiError("Please fill all the password field ⛔");
       return;
     }
     if (password !== comfirmPassword) {
-      tempErrors.push("Passwords do not match ⛔");
+      setApiError("Passwords do not match ⛔");
       return;
     }
     try {
@@ -292,12 +303,12 @@ export const useApiRegister = () => {
       localStorage.setItem("token", results.data.token);
       localStorage.setItem("userName", results.data.userName);
       localStorage.setItem("role", results.data.role);
+      setApiSuccess(results.data.message);
+
       navigate("/login");
     } catch (err) {
-      setApiError(err.response.data);
+      setApiError(err.response.data.message);
     }
-
-    setErrors(tempErrors);
   };
 
   useEffect(() => {
@@ -312,13 +323,13 @@ export const useApiRegister = () => {
     password,
     setPassword,
     setComfirmPassword,
-    errors,
     apiError,
+    apiSuccess,
     handleSubmit,
   };
 };
 
-export const useApiGetUsers = (id) => {
+export const useApiGetUsers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

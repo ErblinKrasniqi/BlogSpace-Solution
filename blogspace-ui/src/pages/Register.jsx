@@ -2,6 +2,7 @@ import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../Assets/scss/login.module.scss";
 import { Link } from "react-router-dom";
 import { useApiRegister } from "../Hooks/userHooks";
+import Message from "../components/Message";
 
 const Register = () => {
   const {
@@ -10,15 +11,20 @@ const Register = () => {
     setComfirmPassword,
     setName,
     handleSubmit,
-    errors,
+    apiSuccess,
     apiError,
-    passwordMatch,
   } = useApiRegister();
 
   return (
     <Container
       className={`d-flex justify-content-center  mt-5 ${styles.container}`}
     >
+      {apiSuccess || apiError ? (
+        <Message
+          message={apiSuccess ? apiError : apiError}
+          type={apiError ? "danger" : "success"}
+        />
+      ) : null}
       <Col md={5} className={` rounded-4 ${styles.column}`}>
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Form.Group className="mb-3">
@@ -28,9 +34,6 @@ const Register = () => {
               type="email"
               placeholder="Enter email"
             />
-            {errors && (
-              <Form.Text className="text-danger">{errors[0]}</Form.Text>
-            )}
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Name</Form.Label>
@@ -41,9 +44,6 @@ const Register = () => {
               type="string"
               placeholder="Enter name"
             />
-            {errors && (
-              <Form.Text className="text-danger">{errors[1]}</Form.Text>
-            )}
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Password</Form.Label>
@@ -54,9 +54,6 @@ const Register = () => {
               type="password"
               placeholder="Enter Password"
             />
-            {errors && (
-              <Form.Text className="text-danger">{errors[1]}</Form.Text>
-            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -68,9 +65,6 @@ const Register = () => {
               type="password"
               placeholder="Enter Password"
             />
-            {passwordMatch && (
-              <Form.Text className="text-danger">{passwordMatch}</Form.Text>
-            )}
           </Form.Group>
 
           <Form.Text className="text-muted"></Form.Text>

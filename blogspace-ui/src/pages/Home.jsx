@@ -11,6 +11,7 @@ const Home = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
   });
+  const [ref2, inView2] = useInView({ triggerOnce: true });
 
   const myElement = useRef([]);
   const iconsAnimation = useRef([]);
@@ -33,16 +34,7 @@ const Home = () => {
       translateY: [-250, 0],
       easing: "easeOutBounce",
       duration: 2000,
-      delay: 2000,
-    });
-
-    anime({
-      targets: iconsAnimation.current,
-      opacity: [0, 1],
-      translateY: [-200, 0],
-      duration: 4000,
-      delay: anime.stagger(300, { direction: "alternate" }),
-      loop: true,
+      delay: 1000,
     });
   }, []);
 
@@ -56,7 +48,7 @@ const Home = () => {
       direction: "reverse",
     });
 
-    return () => animation.pause(); // Clean up the animation on unmount
+    return () => animation.pause();
   }, []);
 
   useLayoutEffect(() => {
@@ -65,11 +57,22 @@ const Home = () => {
         targets: postsLoad.current,
         scale: [0, 1],
         opacity: [1],
-        easing: "spring",
-        delay: anime.stagger(600, { start: 100 }),
+        easing: "easeInOutSine",
+        duration: 1000,
+        delay: anime.stagger(900, { start: 300 }),
       });
     }
   }, [inView]);
+
+  useLayoutEffect(() => {
+    anime({
+      targets: iconsAnimation.current,
+      opacity: [0, 1],
+      translateY: [-200, 0],
+      duration: 4000,
+      delay: anime.stagger(300, { direction: "alternate" }),
+    });
+  }, [inView2]);
 
   return (
     <>
@@ -212,7 +215,7 @@ const Home = () => {
           <div className="container">
             <div className="row  d-flex gap-4 justify-content-center">
               <div className="d-flex justify-content-center mb-5">
-                <h1>Technologies used</h1>
+                <h1 ref={ref2}>Technologies used</h1>
               </div>
               <img
                 style={{ width: "300px" }}

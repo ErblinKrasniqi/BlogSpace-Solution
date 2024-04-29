@@ -13,6 +13,7 @@ const Home = () => {
     triggerOnce: true,
   });
   const myElement = useRef([]);
+  const iconsAnimation = useRef([]);
   const videoSpin = useRef(null);
   const textEffect = useRef(null);
 
@@ -51,6 +52,15 @@ const Home = () => {
       easing: "easeOutBounce",
       duration: 2000,
       delay: 2000,
+    });
+
+    anime({
+      targets: iconsAnimation.current,
+      opacity: [0, 1],
+      translateY: [-200, 0],
+      duration: 4000,
+      delay: anime.stagger(300, { direction: "alternate" }),
+      loop: true,
     });
   }, []);
 
@@ -218,8 +228,36 @@ const Home = () => {
 
         <section className="about-section section-padding" id="section_2">
           <div className="container">
-            <div className="row overflow-hidden fluid">
-              <h1 ref={textEffect}>Profja greta o ma e mira qitna ka ni 10</h1>
+            <div className="row  d-flex gap-4 justify-content-center">
+              <div className="d-flex justify-content-center mb-5">
+                <h1>Technologies used</h1>
+              </div>
+              <img
+                style={{ width: "300px" }}
+                ref={(el) => (iconsAnimation.current[0] = el)}
+                src={require("../Assets/images/Icons/nodejs-ar21.svg").default}
+                alt="Node.js Icon"
+              />
+              <img
+                style={{ width: "300px" }}
+                ref={(el) => (iconsAnimation.current[1] = el)}
+                src={require("../Assets/images/Icons/mongodb-ar21.svg").default}
+                alt="Node.js Icon"
+              />
+              <img
+                style={{ width: "300px" }}
+                ref={(el) => (iconsAnimation.current[2] = el)}
+                src={require("../Assets/images/Icons/reactjs-ar21.svg").default}
+                alt="Node.js Icon"
+              />
+              <img
+                style={{ width: "300px" }}
+                ref={(el) => (iconsAnimation.current[3] = el)}
+                src={
+                  require("../Assets/images/Icons/expressjs-ar21.svg").default
+                }
+                alt="Node.js Icon"
+              />
             </div>
           </div>
         </section>
@@ -322,340 +360,6 @@ const Home = () => {
               strokeWidth="0"
             ></path>
           </svg>
-        </section>
-
-        <section className="membership-section section-padding" id="section_3">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12 col-12 text-center mx-auto mb-lg-5 mb-4">
-                <h2>
-                  <span>Membership</span> at Tiya
-                </h2>
-              </div>
-
-              <div className="col-lg-6 col-12 mb-3 mb-lg-0">
-                <h4 className="mb-4 pb-lg-2">Membership Fees</h4>
-
-                <div className="table-responsive">
-                  <table className="table text-center">
-                    <thead>
-                      <tr>
-                        <th style={{ width: "34%" }}>Yearly Access</th>
-
-                        <th style={{ width: "22%" }}>T1 $420</th>
-
-                        <th style={{ width: "22%" }}>T2 $640</th>
-
-                        <th style={{ width: "22%" }}>T3 $860</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      <tr>
-                        <th scope="row" className="text-start">
-                          Golf Insurance
-                        </th>
-
-                        <td>
-                          <i className="bi-check-circle-fill"></i>
-                        </td>
-
-                        <td>
-                          <i className="bi-check-circle-fill"></i>
-                        </td>
-
-                        <td>
-                          <i className="bi-check-circle-fill"></i>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <th scope="row" className="text-start">
-                          Club Facilities
-                        </th>
-
-                        <td>
-                          <i className="bi-check-circle-fill"></i>
-                        </td>
-
-                        <td>
-                          <i className="bi-check-circle-fill"></i>
-                        </td>
-
-                        <td>
-                          <i className="bi-check-circle-fill"></i>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <th scope="row" className="text-start">
-                          Country Club
-                        </th>
-
-                        <td>
-                          <i className="bi-x-circle-fill"></i>
-                        </td>
-
-                        <td>
-                          <i className="bi-check-circle-fill"></i>
-                        </td>
-
-                        <td>
-                          <i className="bi-check-circle-fill"></i>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <th scope="row" className="text-start">
-                          Weekend Seasonal
-                        </th>
-
-                        <td>
-                          <i className="bi-x-circle-fill"></i>
-                        </td>
-
-                        <td>
-                          <i className="bi-check-circle-fill"></i>
-                        </td>
-
-                        <td>
-                          <i className="bi-check-circle-fill"></i>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <th scope="row" className="text-start">
-                          Premium Courses
-                        </th>
-
-                        <td>
-                          <i className="bi-x-circle-fill"></i>
-                        </td>
-
-                        <td>
-                          <i className="bi-x-circle-fill"></i>
-                        </td>
-
-                        <td>
-                          <i className="bi-check-circle-fill"></i>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <th scope="row" className="text-start">
-                          Pro's Networking
-                        </th>
-
-                        <td>
-                          <i className="bi-x-circle-fill"></i>
-                        </td>
-
-                        <td>
-                          <i className="bi-x-circle-fill"></i>
-                        </td>
-
-                        <td>
-                          <i className="bi-check-circle-fill"></i>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div className="col-lg-5 col-12 mx-auto">
-                <h4 className="mb-4 pb-lg-2">Please join us!</h4>
-                <form
-                  action="#"
-                  method="post"
-                  className="custom-form membership-form shadow-lg"
-                >
-                  <div>
-                    <h4 className="text-white mb-4">Become a member</h4>
-
-                    <div className="form-floating">
-                      <input
-                        type="text"
-                        name="full-name"
-                        id="full-name"
-                        className="form-control"
-                        placeholder="Full Name"
-                        required=""
-                      />
-
-                      <label htmlFor="floatingInput">Full Name</label>
-                    </div>
-
-                    <div className="form-floating">
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        pattern="[^ @]*@[^ @]*"
-                        className="form-control"
-                        placeholder="Email address"
-                        required=""
-                      />
-
-                      <label htmlFor="floatingInput">Email address</label>
-                    </div>
-
-                    <div className="form-floating">
-                      <textarea
-                        className="form-control"
-                        id="message"
-                        name="message"
-                        placeholder="Describe message here"
-                      ></textarea>
-
-                      <label htmlFor="floatingTextarea"> Comments</label>
-                    </div>
-
-                    <button type="submit" className="form-control">
-                      Submit
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section
-          className="events-section section-bg section-padding"
-          id="section_4"
-        >
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12 col-12">
-                <h2 className="mb-lg-3">Upcoming Events</h2>
-              </div>
-
-              <div className="row custom-block mb-3">
-                <div className="col-lg-2 col-md-4 col-12 order-2 order-md-0 order-lg-0">
-                  <div className="custom-block-date-wrap d-flex d-lg-block d-md-block align-items-center mt-3 mt-lg-0 mt-md-0">
-                    <h6 className="custom-block-date mb-lg-1 mb-0 me-3 me-lg-0 me-md-0">
-                      24
-                    </h6>
-
-                    <strong className="text-white">Feb 2048</strong>
-                  </div>
-                </div>
-
-                <div className="col-lg-4 col-md-8 col-12 order-1 order-lg-0">
-                  <div className="custom-block-image-wrap">
-                    <a href="event-detail.html">
-                      <img
-                        src={require("../Assets/images/professional-golf-player.jpg")}
-                        className="custom-block-image img-fluid"
-                        alt=""
-                      />
-
-                      <i className="custom-block-icon bi-link"></i>
-                    </a>
-                  </div>
-                </div>
-
-                <div className="col-lg-6 col-12 order-3 order-lg-0">
-                  <div className="custom-block-info mt-2 mt-lg-0">
-                    <a href="event-detail.html" className="events-title mb-3">
-                      Private activities
-                    </a>
-
-                    <p className="mb-0">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-
-                    <div className="d-flex flex-wrap border-top mt-4 pt-3">
-                      <div className="mb-4 mb-lg-0">
-                        <div className="d-flex flex-wrap align-items-center mb-1">
-                          <span className="custom-block-span">Location:</span>
-
-                          <p className="mb-0">National Center, NYC</p>
-                        </div>
-
-                        <div className="d-flex flex-wrap align-items-center">
-                          <span className="custom-block-span">Ticket:</span>
-
-                          <p className="mb-0">$250</p>
-                        </div>
-                      </div>
-
-                      <div className="d-flex align-items-center ms-lg-auto">
-                        <a href="event-detail.html" className="btn custom-btn">
-                          View Post
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="row custom-block custom-block-bg">
-                <div className="col-lg-2 col-md-4 col-12 order-2 order-md-0 order-lg-0">
-                  <div className="custom-block-date-wrap d-flex d-lg-block d-md-block align-items-center mt-3 mt-lg-0 mt-md-0">
-                    <h6 className="custom-block-date mb-lg-1 mb-0 me-3 me-lg-0 me-md-0">
-                      28
-                    </h6>
-
-                    <strong className="text-white">Feb 2048</strong>
-                  </div>
-                </div>
-
-                <div className="col-lg-4 col-md-8 col-12 order-1 order-lg-0">
-                  <div className="custom-block-image-wrap">
-                    <a href="event-detail.html">
-                      <img
-                        src={require("../Assets/images/girl-taking-selfie-with-friends-golf-field.jpg")}
-                        className="custom-block-image img-fluid"
-                        alt=""
-                      />
-
-                      <i className="custom-block-icon bi-link"></i>
-                    </a>
-                  </div>
-                </div>
-
-                <div className="col-lg-6 col-12 order-3 order-lg-0">
-                  <div className="custom-block-info mt-2 mt-lg-0">
-                    <a href="event-detail.html" className="events-title mb-3">
-                      Group tournament activities
-                    </a>
-
-                    <p className="mb-0">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-
-                    <div className="d-flex flex-wrap border-top mt-4 pt-3">
-                      <div className="mb-4 mb-lg-0">
-                        <div className="d-flex flex-wrap align-items-center mb-1">
-                          <span className="custom-block-span">Location:</span>
-
-                          <p className="mb-0">National Center, NYC</p>
-                        </div>
-
-                        <div className="d-flex flex-wrap align-items-center">
-                          <span className="custom-block-span">Ticket:</span>
-
-                          <p className="mb-0">$350</p>
-                        </div>
-                      </div>
-
-                      <div className="d-flex align-items-center ms-lg-auto">
-                        <a href="event-detail.html" className="btn custom-btn">
-                          Buy Ticket
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </section>
 
         <section className="contact-section section-padding" id="section_5">

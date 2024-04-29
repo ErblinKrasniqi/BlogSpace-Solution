@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import { getPosts } from "../Api";
 import anime from "animejs";
@@ -7,8 +8,15 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState("");
+
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+  });
   const myElement = useRef([]);
   const videoSpin = useRef(null);
+  const textEffect = useRef(null);
+
+  const postsLoad = useRef([]);
 
   const gettingPosts = async () => {
     try {
@@ -42,8 +50,34 @@ const Home = () => {
       translateY: [-250, 0],
       easing: "easeOutBounce",
       duration: 2000,
+      delay: 2000,
     });
   }, []);
+
+  useLayoutEffect(() => {
+    const animation = anime({
+      targets: textEffect.current,
+      translateX: ["-100%", "100%"],
+      duration: 20000,
+      loop: true,
+      easing: "linear",
+      direction: "reverse",
+    });
+
+    return () => animation.pause(); // Clean up the animation on unmount
+  }, []);
+
+  useLayoutEffect(() => {
+    if (inView) {
+      anime({
+        targets: postsLoad.current,
+        scale: [0, 1],
+        opacity: [1],
+        easing: "spring",
+        delay: anime.stagger(600, { start: 100 }),
+      });
+    }
+  }, [inView]);
 
   return (
     <>
@@ -126,13 +160,15 @@ const Home = () => {
           <div className="container">
             <div className="row ">
               <div className="col-lg-12 col-12 mt-5">
-                <h2 onClick={gettingPosts} className="mb-lg-5 mb-4">
+                <h2 ref={ref} onClick={gettingPosts} className="mb-lg-5 mb-4">
                   Latest Posts
                 </h2>
               </div>
               {loaded ? (
-                posts.map((post) => (
+                posts.map((post, index) => (
                   <div
+                    style={{ opacity: "0" }}
+                    ref={(el) => (postsLoad.current[index] = el)}
                     key={post._id}
                     className="col-lg-6 col-12 mb-5 mb-lg-0 mt-5"
                   >
@@ -146,19 +182,6 @@ const Home = () => {
 
                         <i className="custom-block-icon bi-link"></i>
                       </Link>
-
-                      <div className="custom-block-date-wrap">
-                        <strong className="text-white">{post.createdAt}</strong>
-                      </div>
-
-                      <div className="custom-btn-wrap">
-                        <Link
-                          to={`/details/${post._id}`}
-                          className="btn custom-btn"
-                        >
-                          View Post
-                        </Link>
-                      </div>
                     </div>
 
                     <div className="custom-block-info">
@@ -195,98 +218,8 @@ const Home = () => {
 
         <section className="about-section section-padding" id="section_2">
           <div className="container">
-            <div className="row">
-              <div className="col-lg-12 col-12 text-center">
-                <h2 className="mb-lg-5 mb-4">About Us</h2>
-              </div>
-
-              <div className="col-lg-5 col-12 me-auto mb-4 mb-lg-0">
-                <h3 className="mb-3">Web Developers</h3>
-
-                <p>
-                  <strong>Since 1984</strong>, Tiya is ranked #8 in the top 10
-                  golf courses in the world. Tiya is Bootstrap 5 HTML CSS
-                  template for golf clubs. Anyone can modify and use this layout
-                  for commercial purposes.
-                </p>
-
-                <p>
-                  Tiya Golf Club is 100% free CSS template provided by
-                  TemplateMo website. Please tell your friends about our
-                  website. Thank you for visiting.
-                </p>
-              </div>
-
-              <div className="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-0">
-                <div className="member-block">
-                  <div className="member-block-image-wrap">
-                    <img
-                      src={require("../Assets/images/members/portrait-young-handsome-businessman-wearing-suit-standing-with-crossed-arms-with-isolated-studio-white-background.jpg")}
-                      className="member-block-image img-fluid"
-                      alt=""
-                    ></img>
-
-                    <ul className="social-icon">
-                      <li className="social-icon-item">
-                        <a
-                          aria-label="Description of the link"
-                          href="#trick"
-                          className="social-icon-link bi-twitter"
-                        ></a>
-                      </li>
-
-                      <li className="social-icon-item">
-                        <a
-                          aria-label="Description of the link"
-                          href="#trick"
-                          className="social-icon-link bi-whatsapp"
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="member-block-info d-flex align-items-center">
-                    <h4>Michael</h4>
-
-                    <p className="ms-auto">Founder</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-md-6 col-12">
-                <div className="member-block">
-                  <div className="member-block-image-wrap">
-                    <img
-                      src={require("../Assets/images/members/successful-asian-lady-boss-red-blazer-holding-clipboard-with-documens-pen-working-looking-happy-white-background.jpg")}
-                      className="member-block-image img-fluid"
-                      alt=""
-                    ></img>
-
-                    <ul className="social-icon">
-                      <li className="social-icon-item">
-                        <a
-                          aria-label="Description of the link"
-                          href="#trick"
-                          className="social-icon-link bi-linkedin"
-                        ></a>
-                      </li>
-                      <li className="social-icon-item">
-                        <a
-                          aria-label="Description of the link"
-                          href="#trick"
-                          className="social-icon-link bi-twitter"
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="member-block-info d-flex align-items-center">
-                    <h4>Sandy</h4>
-
-                    <p className="ms-auto">Co-Founder</p>
-                  </div>
-                </div>
-              </div>
+            <div className="row overflow-hidden fluid">
+              <h1 ref={textEffect}>Profja greta o ma e mira qitna ka ni 10</h1>
             </div>
           </div>
         </section>

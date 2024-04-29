@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./Auth/private-route";
 import { useAuth } from "./Auth/is-auth";
 import Wrapper from "./shared/Wrapper";
+import Loading from "./components/Loading";
 
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
@@ -18,7 +19,7 @@ function App() {
   return (
     <BrowserRouter>
       <Wrapper>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/details/:id" element={<Details />} />

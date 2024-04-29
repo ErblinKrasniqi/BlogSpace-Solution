@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect, useRef } from "react";
 import { getMyPosts, deletePost } from "../../Api";
+import anime from "animejs";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState("");
+  const postAnimation = useRef([]);
 
   const fetchPosts = async () => {
     try {
@@ -34,6 +36,19 @@ const Dashboard = () => {
     window.scrollTo(0, 0);
     fetchPosts();
   }, [loaded]);
+
+  //Animations
+
+  useLayoutEffect(() => {
+    anime({
+      targets: postAnimation.current,
+      opacity: [0, 1],
+      translateY: [-250, 0],
+      duration: 2000,
+      delay: anime.stagger(100, { start: 300 }),
+    });
+  }, [loaded]);
+
   return (
     <section className="events-section section-padding" id="section_2">
       <div className="container">
@@ -43,10 +58,14 @@ const Dashboard = () => {
           </div>
           {error && <p>{error}</p>}
           {posts &&
-            posts.map((post) => (
-              <div key={post._id} className="col-lg-6 col-12 mb-5 mb-lg-0 mt-5">
+            posts.map((post, index) => (
+              <div
+                ref={(el) => (postAnimation.current[index] = el)}
+                key={post._id}
+                className="col-lg-6 col-12 mb-5 mb-lg-0 mt-5"
+              >
                 <div className="custom-block-image-wrap">
-                  <Link to="/details/1">
+                  <Link to={`/details/${post._id}`}>
                     <img
                       src={`http://localhost:8080/images/${post.imageUrl}`}
                       className="custom-block-image img-fluid"

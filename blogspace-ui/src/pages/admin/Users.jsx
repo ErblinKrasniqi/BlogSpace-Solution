@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
 
-import { getUsers } from "../../Api";
+import { getUsers, delteUser } from "../../Api";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const handleDelete = async (id) => {
+    try {
+      const results = await delteUser(id);
+      setUsers((prevUsers) => {
+        const updatedUsers = prevUsers.filter((user) => user._id !== id);
+        return updatedUsers;
+      });
+      console.log(results);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     const getUsersHandler = async () => {
@@ -24,7 +37,7 @@ const Users = () => {
   }, [loading]);
 
   return (
-    <div className="container">
+    <div className="container mb-5">
       <h1>Users</h1>
       <table className="table">
         <thead>
@@ -43,7 +56,12 @@ const Users = () => {
                 <td>{user.email}</td>
                 <td>{user.role}</td>
                 <td className="d-flex gap-3">
-                  <button className="btn btn-danger">Delete</button>
+                  <button
+                    onClick={() => handleDelete(user._id)}
+                    className="btn btn-danger"
+                  >
+                    Delete
+                  </button>
                   <button className="btn btn-warning">Edit</button>
                 </td>
               </tr>

@@ -227,7 +227,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="about-section section-padding" id="section_2">
+        <section className="about-section section-padding" id="section_3">
           <div className="container">
             <div className="row  d-flex gap-4 justify-content-center">
               <div className="d-flex justify-content-center mb-5">

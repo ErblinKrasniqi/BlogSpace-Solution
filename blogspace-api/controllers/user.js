@@ -2,6 +2,7 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
+const post = require("../models/post");
 
 exports.register = async (req, res, next) => {
   const email = req.body.email;
@@ -94,6 +95,29 @@ exports.getUsers = async (req, res, next) => {
     const users = await User.find();
 
     res.status(200).json({ users: users });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.deleteUser = async (req, res, next) => {
+  const id = req.params.id;
+  const userId = req.userId;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (user.role !== "Admin") {
+      const error = new Error("You are not admin ⛔");
+      error.statusCode(400);
+      throw error;
+    }
+
+    await post.deleteMany({ creator: id });
+
+    await User.findByIdAndDelete(id);
+
+    res.status(200).json({ message: "User has been delted 😁" });
   } catch (err) {
     next(err);
   }

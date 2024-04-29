@@ -72,25 +72,13 @@ const Navbart = () => {
 
             <li className="nav-item">
               <a className="nav-link click-scroll" href="#section_2">
-                About
+                Posts
               </a>
             </li>
 
             <li className="nav-item">
               <a className="nav-link click-scroll" href="#section_3">
-                Membership
-              </a>
-            </li>
-
-            <li className="nav-item">
-              <a className="nav-link click-scroll" href="#section_4">
-                Events
-              </a>
-            </li>
-
-            <li className="nav-item">
-              <a className="nav-link click-scroll" href="#section_5">
-                Contact Us
+                Tech
               </a>
             </li>
             {isLoggedIn && (

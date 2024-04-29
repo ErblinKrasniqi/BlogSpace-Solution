@@ -68,3 +68,13 @@ export const getUsers = async () => {
   });
   return response;
 };
+
+export const delteUser = async (id) => {
+  const response = axios.delete(`http://localhost:8080/api/user/${id}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+
+  return response;
+};

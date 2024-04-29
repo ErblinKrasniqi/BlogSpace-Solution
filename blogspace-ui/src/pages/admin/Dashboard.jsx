@@ -15,10 +15,11 @@ const Dashboard = () => {
     if (postAnimation.current) {
       anime({
         targets: postAnimation.current,
-        opacity: [0, 1],
-        translateY: [-250, 0],
-        duration: 2000,
-        delay: anime.stagger(100, { start: 300 }),
+        scale: [0, 1],
+        opacity: [1],
+        easing: "easeInOutSine",
+        duration: 1000,
+        delay: anime.stagger(900, { start: 300 }),
       });
     }
   }, [loaded]);

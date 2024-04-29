@@ -5,13 +5,15 @@ import { useApiGetPosts } from "../Hooks/userHooks";
 import anime from "animejs";
 
 const Home = () => {
-  const { posts, loaded, error } = useApiGetPosts();
+  const { posts, loaded, error, setPage, totalPosts, page } = useApiGetPosts();
 
   //animations
   const [ref, inView] = useInView({
     triggerOnce: true,
   });
   const [ref2, inView2] = useInView({ triggerOnce: true });
+
+  const totalPages = Math.ceil(totalPosts / 2);
 
   const myElement = useRef([]);
   const iconsAnimation = useRef([]);
@@ -69,10 +71,10 @@ const Home = () => {
       targets: iconsAnimation.current,
       opacity: [0, 1],
       translateY: [-200, 0],
-      duration: 4000,
-      delay: anime.stagger(300, { direction: "alternate" }),
+      duration: 5000,
+      delay: anime.stagger(300, { direction: "alternate", start: 300 }),
     });
-  }, [inView2]);
+  }, [inView2, page]);
 
   return (
     <>
@@ -83,13 +85,10 @@ const Home = () => {
         >
           <div className="section-overlay"></div>
 
-          <svg xlinkHref="http://www.w3.org/1999/xlink" viewBox="0 0 1440 320">
-            <path
-              fill="#3D405B"
-              fillOpacity="1"
-              d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"
-            ></path>
-          </svg>
+          <svg
+            xlinkHref="http://www.w3.org/1999/xlink"
+            viewBox="0 0 1440 320"
+          ></svg>
 
           <div className="container">
             <div className="row">
@@ -162,7 +161,6 @@ const Home = () => {
               {loaded ? (
                 posts.map((post, index) => (
                   <div
-                    style={{ opacity: "0" }}
                     ref={(el) => (postsLoad.current[index] = el)}
                     key={post._id}
                     className="col-lg-6 col-12 mb-5 mb-lg-0 mt-5"
@@ -207,6 +205,32 @@ const Home = () => {
                   <h3>{error}</h3>
                 </div>
               )}
+              {/*Pegination */}
+              <div className="d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                  <ul className="pagination">
+                    {[...Array(totalPages)].map((_, i) => {
+                      const pageNumber = i + 1;
+                      return (
+                        <li
+                          className={`page-item ${
+                            page === pageNumber ? "active" : ""
+                          }`}
+                          key={pageNumber}
+                        >
+                          <Link
+                            className="page-link"
+                            to="#"
+                            onClick={() => setPage(pageNumber)}
+                          >
+                            {pageNumber}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </nav>
+              </div>
             </div>
           </div>
         </section>

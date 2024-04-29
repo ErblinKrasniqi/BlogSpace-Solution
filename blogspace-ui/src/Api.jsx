@@ -2,8 +2,8 @@ import axios from "axios";
 
 //Post apis
 
-export const getPosts = async () => {
-  const response = axios.get("http://localhost:8080/api/post");
+export const getPosts = async (page) => {
+  const response = axios.get(`http://localhost:8080/api/post?page=${page}`);
   return response;
 };
 

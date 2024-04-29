@@ -5,15 +5,22 @@ const fs = require("fs");
 const { validationResult } = require("express-validator");
 
 exports.get = async (req, res, next) => {
+  const page = req.query.page || 1;
+  const perPage = 2;
+
   try {
-    const posts = await Post.find();
+    const totalItems = await Post.find().countDocuments();
+
+    const posts = await Post.find()
+      .skip((page - 1) * perPage)
+      .limit(perPage);
 
     if (posts.length === 0) {
       const error = new Error("There are currenlty no posts 🌵");
       error.statusCode = 400;
       throw error;
     }
-    res.status(200).json({ posts });
+    res.status(200).json({ posts, totalItems });
   } catch (error) {
     next(error);
   }

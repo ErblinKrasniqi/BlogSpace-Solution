@@ -18,25 +18,33 @@ export const useApiGetPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState("");
+  const [totalPosts, setTotalPosts] = useState(0);
+  const [page, setPage] = useState(1);
 
   const fetchPosts = useCallback(async () => {
     try {
-      const data = await getPosts();
+      const data = await getPosts(page);
       setPosts(data.data.posts);
+      setTotalPosts(data.data.totalItems);
+
+      console.log(totalPosts);
     } catch (error) {
       setPosts([]);
       setError(error);
     } finally {
       setLoaded(true);
     }
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     fetchPosts();
   }, [fetchPosts]);
 
-  return { posts, loaded, error };
+  return { posts, loaded, error, setPage, totalPosts, page };
 };
 
 export const useApiGetPost = (id) => {

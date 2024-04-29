@@ -1,41 +1,22 @@
-import { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
-import { getPosts } from "../Api";
+import { useApiGetPosts } from "../Hooks/userHooks";
 import anime from "animejs";
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState("");
+  const { posts, loaded, error } = useApiGetPosts();
 
+  //animations
   const [ref, inView] = useInView({
     triggerOnce: true,
   });
+
   const myElement = useRef([]);
   const iconsAnimation = useRef([]);
   const videoSpin = useRef(null);
   const textEffect = useRef(null);
-
   const postsLoad = useRef([]);
-
-  const gettingPosts = async () => {
-    try {
-      const posts = await getPosts();
-      setPosts(posts.data.posts);
-      setLoaded(true);
-    } catch (error) {
-      setError(error.response.data.message);
-      setLoaded(false);
-    }
-  };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    gettingPosts();
-  }, [loaded]);
-
-  //animations
 
   useLayoutEffect(() => {
     anime({
@@ -171,7 +152,7 @@ const Home = () => {
           <div className="container">
             <div className="row ">
               <div className="col-lg-12 col-12 mt-5">
-                <h2 ref={ref} onClick={gettingPosts} className="mb-lg-5 mb-4">
+                <h2 ref={ref} className="mb-lg-5 mb-4">
                   Latest Posts
                 </h2>
               </div>

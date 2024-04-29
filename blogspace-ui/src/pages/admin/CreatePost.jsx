@@ -1,40 +1,16 @@
 import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../../Assets/scss/login.module.scss";
-import { useEffect, useState } from "react";
-import { createPost } from "../../Api";
+import { useApiCreatePost } from "../../Hooks/userHooks";
 
 const CreatePost = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
-  const [apiError, setApiError] = useState("");
-  const [apiSuccess, setApiSuccess] = useState("");
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("image", image);
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-
-    try {
-      const results = await createPost(formData);
-
-      setApiSuccess(results.data.message);
-      setApiError("");
-    } catch (error) {
-      setApiSuccess("");
-      setApiError(error.response.data.message);
-      console.log(error);
-    }
-  };
+  const {
+    setTitle,
+    setDescription,
+    setImage,
+    apiError,
+    apiSuccess,
+    handleSubmit,
+  } = useApiCreatePost();
 
   return (
     <Container

@@ -1,40 +1,7 @@
-import React, { useState, useEffect } from "react";
-
-import { getUsers, delteUser } from "../../Api";
+import { useApiGetUsers } from "../../Hooks/userHooks";
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const handleDelete = async (id) => {
-    try {
-      const results = await delteUser(id);
-      setUsers((prevUsers) => {
-        const updatedUsers = prevUsers.filter((user) => user._id !== id);
-        return updatedUsers;
-      });
-      console.log(results);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    const getUsersHandler = async () => {
-      try {
-        const response = await getUsers();
-        setUsers(response.data.users);
-        console.log(users);
-
-        setLoading(true);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getUsersHandler();
-    // eslint-disable-next-line
-  }, [loading]);
+  const { users, loading, handleDelete } = useApiGetUsers();
 
   return (
     <div className="container mb-5">

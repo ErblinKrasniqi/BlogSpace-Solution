@@ -1,63 +1,19 @@
 import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../Assets/scss/login.module.scss";
-import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { registerUser } from "../Api";
+import { Link } from "react-router-dom";
+import { useApiRegister } from "../Hooks/userHooks";
 
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [comfirmPassword, setComfirmPassword] = useState("");
-
-  const [errors, setErrors] = useState([]);
-  const [apiError, setApiError] = useState("");
-  const [passwordMatch, setPasswordMatch] = useState("");
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("name", name);
-    formData.append("password", password);
-
-    let tempErrors = [];
-    if (!email) {
-      tempErrors.push("Please fill all the email address field ⛔");
-      setErrors(tempErrors);
-      return;
-    }
-    if (!name) {
-      tempErrors.push("Please fill all the name  field ⛔");
-      setErrors(tempErrors);
-      return;
-    }
-    if (!password) {
-      tempErrors.push("Please fill all the password field ⛔");
-      setErrors(tempErrors);
-      return;
-    }
-    if (password !== comfirmPassword) {
-      setPasswordMatch("Password does not match 🤔");
-      setErrors(tempErrors);
-      return;
-    }
-    try {
-      const data = await registerUser(formData);
-      console.log(data);
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
-      setApiError(error.response.data);
-    }
-    setErrors(tempErrors);
-  };
+  const {
+    setEmail,
+    setPassword,
+    setComfirmPassword,
+    setName,
+    handleSubmit,
+    errors,
+    apiError,
+    passwordMatch,
+  } = useApiRegister();
 
   return (
     <Container
@@ -138,4 +94,5 @@ const Register = () => {
     </Container>
   );
 };
+
 export default Register;

@@ -1,47 +1,14 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState, useLayoutEffect, useRef } from "react";
-import { getMyPosts, deletePost } from "../../Api";
+import { useLayoutEffect, useRef } from "react";
+
+import { useApiFetchUserPosts } from "../../Hooks/userHooks";
 import anime from "animejs";
 
 const Dashboard = () => {
-  const [posts, setPosts] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState("");
-  const postAnimation = useRef([]);
-
-  const fetchPosts = async () => {
-    try {
-      const response = await getMyPosts();
-
-      setPosts(response.data.posts);
-    } catch (error) {
-      setPosts([]);
-      setError(error.response.data.message);
-    } finally {
-      setLoaded(true);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      const response = await deletePost(id);
-      console.log("deletePost response:", response);
-
-      setPosts((prevPosts) => {
-        const updatedPosts = prevPosts.filter((post) => post._id !== id);
-        return updatedPosts;
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    fetchPosts();
-  }, [loaded]);
+  const { posts, loaded, error, handleDelete } = useApiFetchUserPosts();
 
   //Animations
+  const postAnimation = useRef([]);
 
   useLayoutEffect(() => {
     if (postAnimation.current) {

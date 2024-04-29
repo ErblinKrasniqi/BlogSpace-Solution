@@ -1,26 +1,10 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPost } from "../Api";
+import { useApiGetPost } from "../Hooks/userHooks";
 
 const Detials = () => {
-  const [post, setpost] = useState("");
   let { id } = useParams();
+  const { post, loaded, error } = useApiGetPost(id);
 
-  const gettingPosts = async () => {
-    try {
-      const results = await getPost(id);
-      console.log(results);
-      setpost(results.data.post);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    gettingPosts();
-    window.scrollTo(0, 500);
-    // eslint-disable-next-line
-  }, []);
   return (
     <main>
       <section

@@ -1,53 +1,20 @@
 import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../../Assets/scss/login.module.scss";
-import { useEffect, useState } from "react";
-import { editPost, getPost } from "../../Api";
+import { useApiEditPost } from "../../Hooks/userHooks";
 import { useParams } from "react-router-dom";
 
 const EditPost = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
-  const [apiError, setApiError] = useState("");
-  const [apiSuccess, setApiSuccess] = useState("");
-  const [post, setpost] = useState("");
-  const [loaded, setLoaded] = useState(false);
   let { id } = useParams();
-
-  const gettingPost = async () => {
-    try {
-      const results = await getPost(id);
-      setpost(results.data.post);
-      setLoaded(true);
-      setDescription(post.description);
-      setTitle(post.title);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("image", image);
-    try {
-      const results = await editPost(id, formData);
-      setApiSuccess(results.data.message);
-      setApiError("");
-    } catch (error) {
-      setApiSuccess("");
-      setApiError(error.response.data.message);
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    gettingPost();
-    window.scrollTo(0, 0);
-    // eslint-disable-next-line
-  }, [loaded]);
+  const {
+    title,
+    setTitle,
+    description,
+    setDescription,
+    setImage,
+    apiError,
+    apiSuccess,
+    handleSubmit,
+  } = useApiEditPost(id);
 
   return (
     <Container

@@ -1,57 +1,17 @@
 import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../Assets/scss/login.module.scss";
-import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect, useRef, useLayoutEffect } from "react";
-import { useAuth } from "../Auth/is-auth";
-import { loginUser } from "../Api";
+import { Link } from "react-router-dom";
+import { useRef, useLayoutEffect } from "react";
+import { useApiLogin } from "../Hooks/userHooks";
+
 import anime from "animejs";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
-  const [apiError, setApiError] = useState("");
-  const navigate = useNavigate();
+  const { setEmail, setPassword, handleSubmit, errors, apiError } =
+    useApiLogin();
 
-  //Animation references
   const formPopUp = useRef(null);
   const textAppear = useRef([]);
-
-  const { setIsLoggedIn, setRole } = useAuth();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
-
-    let tempErrors = [];
-    if (!email) {
-      tempErrors.push("Please fill all the email address field ⛔");
-      return;
-    }
-    if (!password) {
-      tempErrors.push("Please fill all the password field ⛔");
-      return;
-    }
-    try {
-      const results = await loginUser(formData);
-      localStorage.setItem("token", results.data.token);
-      localStorage.setItem("userName", results.data.userName);
-      localStorage.setItem("role", results.data.role);
-      setRole(results.data.role);
-      setIsLoggedIn(true);
-      navigate("/");
-    } catch (err) {
-      setApiError(err.response.data);
-    }
-
-    setErrors(tempErrors);
-  };
 
   //Animations
 

@@ -4,6 +4,7 @@ import PrivateRoute from "./Auth/private-route";
 import { useAuth } from "./Auth/is-auth";
 import Wrapper from "./shared/Wrapper";
 import Loading from "./components/Loading";
+import Users from "./pages/admin/Users";
 
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
@@ -29,6 +30,7 @@ function App() {
               <Route path="/create" element={<CreatePost />} />
               <Route path="/edit/:id" element={<EditPost />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/users" element={<Users />} />
             </Route>
           </Routes>
         </Suspense>

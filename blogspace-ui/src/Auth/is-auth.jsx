@@ -6,10 +6,14 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [role, setRole] = useState(localStorage.getItem("role"));
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setIsLoggedIn(true);
+    }
+    if (localStorage.getItem("role")) {
+      setRole(localStorage.getItem("role"));
     }
   }, []);
 
@@ -18,6 +22,8 @@ export const AuthProvider = ({ children }) => {
       value={{
         isLoggedIn,
         setIsLoggedIn,
+        role,
+        setRole,
       }}
     >
       {children}

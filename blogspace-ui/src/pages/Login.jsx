@@ -17,7 +17,7 @@ const Login = () => {
   const formPopUp = useRef(null);
   const textAppear = useRef([]);
 
-  const { setIsLoggedIn } = useAuth();
+  const { setIsLoggedIn, setRole } = useAuth();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -42,6 +42,8 @@ const Login = () => {
       const results = await loginUser(formData);
       localStorage.setItem("token", results.data.token);
       localStorage.setItem("userName", results.data.userName);
+      localStorage.setItem("role", results.data.role);
+      setRole(results.data.role);
       setIsLoggedIn(true);
       navigate("/");
     } catch (err) {

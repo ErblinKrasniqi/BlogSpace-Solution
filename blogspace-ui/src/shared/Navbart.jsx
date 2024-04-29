@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../Auth/is-auth";
 
 const Navbart = () => {
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn, role } = useAuth();
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userName");
+    localStorage.removeItem("role");
+
     setIsLoggedIn(false);
   };
 
@@ -118,6 +120,13 @@ const Navbart = () => {
                     <Link to="/dashboard" className="dropdown-item">
                       Dashboard
                     </Link>
+                  </li>
+                  <li>
+                    {role === "Admin" && (
+                      <Link to="/users" className="dropdown-item">
+                        Users
+                      </Link>
+                    )}
                   </li>
                 </ul>
               </li>

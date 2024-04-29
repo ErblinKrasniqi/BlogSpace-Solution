@@ -59,3 +59,12 @@ export const loginUser = async (data) => {
   const response = axios.post("http://localhost:8080/api/login", data);
   return response;
 };
+
+export const getUsers = async () => {
+  const response = axios.get("http://localhost:8080/api/users", {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+  return response;
+};

@@ -67,11 +67,33 @@ exports.login = async (req, res, next) => {
         email: loadedUser.email,
         userId: loadedUser._id,
         userName: loadedUser.name,
+        role: loadedUser.role,
       },
       "superdupersecret"
     );
 
-    res.status(200).json({ token: token, userName: loadedUser.name });
+    res
+      .status(200)
+      .json({ token: token, userName: loadedUser.name, role: loadedUser.role });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getUsers = async (req, res, next) => {
+  const userId = req.userId;
+  try {
+    const user = await User.findById(userId);
+
+    if (user.role !== "Admin") {
+      const error = new Error("You are not authorized 🚫");
+      error.statusCode = 403;
+      throw error;
+    }
+
+    const users = await User.find();
+
+    res.status(200).json({ users: users });
   } catch (err) {
     next(err);
   }

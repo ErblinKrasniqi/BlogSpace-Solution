@@ -14,10 +14,11 @@ const Dashboard = () => {
       const response = await getMyPosts();
 
       setPosts(response.data.posts);
-      setLoaded(true);
     } catch (error) {
       setPosts([]);
       setError(error.response.data.message);
+    } finally {
+      setLoaded(true);
     }
   };
 

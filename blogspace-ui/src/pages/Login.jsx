@@ -37,7 +37,8 @@ const Login = () => {
 
   return (
     <Container
-      className={`d-flex justify-content-center  mt-5 ${styles.container}`}
+      fluid
+      className={`d-flex justify-content-center align-items-center    ${styles.container}`}
     >
       {apiSuccess || apiError ? (
         <Message

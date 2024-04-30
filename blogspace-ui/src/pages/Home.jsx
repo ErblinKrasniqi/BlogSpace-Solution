@@ -3,6 +3,7 @@ import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import { useApiGetPosts } from "../Hooks/userHooks";
 import anime from "animejs";
+import WaterDropGrid from "../components/WaterDropGrid";
 
 const Home = () => {
   const { posts, loaded, error, setPage, totalPosts, page } = useApiGetPosts();
@@ -380,7 +381,7 @@ const Home = () => {
                   method="post"
                   className="custom-form contact-form"
                 >
-                  <h2 className="mb-4 pb-2">Contact Tiya</h2>
+                  <h2 className="mb-4 pb-2">Contact Us</h2>
 
                   <div className="row">
                     <div className="col-lg-6 col-md-6 col-12">
@@ -436,33 +437,7 @@ const Home = () => {
 
               <div className="col-lg-6 col-12">
                 <div className="contact-info mt-5">
-                  <div className="contact-info-item">
-                    <div className="contact-info-body">
-                      <strong>London, United Kingdom</strong>
-
-                      <p className="mt-2 mb-1">
-                        <a href="#trick" className="contact-link">
-                          (020) 010-020-0340
-                        </a>
-                      </p>
-
-                      <p className="mb-0">
-                        <a href="#trick" className="contact-link">
-                          info@company.com
-                        </a>
-                      </p>
-                    </div>
-
-                    <div className="contact-info-footer">
-                      <a href="#trick">Directions</a>
-                    </div>
-                  </div>
-
-                  {/* <img
-                    src={require("../Assets/images/WorldMap.svg")}
-                    className="img-fluid"
-                    alt=""
-                  ></img> */}
+                  <WaterDropGrid />
                 </div>
               </div>
             </div>

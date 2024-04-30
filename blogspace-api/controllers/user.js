@@ -2,7 +2,8 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
-const post = require("../models/post");
+const Post = require("../models/post");
+const Comment = require("../models/comment");
 
 exports.register = async (req, res, next) => {
   const email = req.body.email;
@@ -75,7 +76,12 @@ exports.login = async (req, res, next) => {
 
     res
       .status(200)
-      .json({ token: token, userName: loadedUser.name, role: loadedUser.role });
+      .json({
+        token: token,
+        userName: loadedUser.name,
+        role: loadedUser.role,
+        userId: loadedUser._id,
+      });
   } catch (err) {
     next(err);
   }
@@ -113,7 +119,9 @@ exports.deleteUser = async (req, res, next) => {
       throw error;
     }
 
-    await post.deleteMany({ creator: id });
+    await Post.deleteMany({ creator: id });
+
+    await Comment.deleteMany({ user: id });
 
     await User.findByIdAndDelete(id);
 

@@ -78,3 +78,23 @@ export const delteUser = async (id) => {
 
   return response;
 };
+
+//comment apis
+
+export const createComment = async (data) => {
+  const response = axios.post("http://localhost:8080/api/comment", data, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+  return response;
+};
+
+export const deleteComment = async (id) => {
+  const response = axios.delete(`http://localhost:8080/api/comment/${id}`, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+  return response;
+};

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { useApiFetchUserPosts } from "../../Hooks/userHooks";
 import anime from "animejs";
 import Message from "../../components/Message";
@@ -23,10 +23,6 @@ const Dashboard = () => {
       });
     }
   }, [loaded]);
-
-  useEffect(() => {
-    console.log("apiSuccess", apiSuccess);
-  }, [apiSuccess]);
 
   return (
     <section className="events-section section-padding" id="section_2">

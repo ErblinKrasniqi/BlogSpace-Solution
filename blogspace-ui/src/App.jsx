@@ -26,6 +26,7 @@ function App() {
             <Route path="/details/:id" element={<Details />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+
             <Route element={<PrivateRoute isAuthenticated={isLoggedIn} />}>
               <Route path="/create" element={<CreatePost />} />
               <Route path="/edit/:id" element={<EditPost />} />

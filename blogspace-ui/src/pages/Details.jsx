@@ -1,12 +1,28 @@
 import { useParams } from "react-router-dom";
 import { useApiGetPost } from "../Hooks/userHooks";
+import Message from "../components/Message";
+import { Button, Form } from "react-bootstrap";
 
 const Detials = () => {
   let { id } = useParams();
-  const { post, loaded, error } = useApiGetPost(id);
+  const {
+    post,
+    apiError,
+    apiSuccess,
+    comments,
+    createCommeta,
+    setContent,
+    delteComment,
+  } = useApiGetPost(id);
 
   return (
     <main>
+      {apiSuccess || apiError ? (
+        <Message
+          message={apiSuccess ? apiSuccess : apiError}
+          type={apiError ? "danger" : "success"}
+        />
+      ) : null}
       <section
         className="hero-section hero-50 d-flex justify-content-center align-items-center"
         id="section_1"
@@ -54,7 +70,7 @@ const Detials = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-6 col-12">
-              <h1 className="text-white mb-4 pb-2">Event Detail.</h1>
+              <h1 className="text-white mb-4 pb-2">Event Detail</h1>
 
               <a href="#section_2" className="btn custom-btn smoothscroll me-3">
                 Learn more
@@ -124,64 +140,50 @@ const Detials = () => {
 
                 <p>{post.description}</p>
 
-                <p>
-                  Tiya is 100% free CSS template provided by TemplateMo website.
-                  Please tell your friends about our website. Thank you for
-                  visiting.
-                </p>
-
                 <div className="events-detail-info row my-5">
                   <div className="col-lg-12 col-12">
-                    <h4 className="mb-3">Event Detail</h4>
+                    <h3 className="mb-3">Comments</h3>
                   </div>
+                  {comments.length === 0 && <p>No comments yet</p>}
+                  {comments.map((comment) => (
+                    <div key={comment._id} className="col-lg-12 col-12 my-3">
+                      <span className="custom-block-span fs-5 ">
+                        {comment.userName}
+                      </span>
 
-                  <div className="col-lg-4 col-12">
-                    <span className="custom-block-span">Date:</span>
+                      <p className="mb-0 mt-2">{comment.content}</p>
 
-                    <p className="mb-0">18 Mar 2048</p>
-                  </div>
-
-                  <div className="col-lg-4 col-12 my-3 my-lg-0">
-                    <span className="custom-block-span">Location:</span>
-
-                    <p className="mb-0">Tiya Golf Club</p>
-                  </div>
-
-                  <div className="col-lg-4 col-12">
-                    <span className="custom-block-span">Ticket:</span>
-
-                    <p className="mb-0">$150</p>
-                  </div>
-                </div>
-
-                <div className="contact-info">
-                  <div className="contact-info-item">
-                    <div className="contact-info-body">
-                      <strong>London, United Kingdom</strong>
-
-                      <p className="mt-2 mb-1">
-                        <a href="tel: 010-020-0340" className="contact-link">
-                          (020) 010-020-0340
-                        </a>
-                      </p>
-
-                      <p className="mb-0">
-                        <a
-                          href="mailto:info@company.com"
-                          className="contact-link"
+                      {comment.user === localStorage.getItem("userId") && (
+                        <Button
+                          variant="danger"
+                          onClick={() => delteComment(comment._id)}
                         >
-                          info@company.com
-                        </a>
-                      </p>
+                          Delete
+                        </Button>
+                      )}
                     </div>
-
-                    <div className="contact-info-footer">
-                      <a href="#trick">Directions</a>
-                    </div>
-                  </div>
-
-                  <img src="images/WorldMap.svg" className="img-fluid" alt="" />
+                  ))}
                 </div>
+                <Form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    createCommeta(e);
+                  }}
+                  className="mt-4  p-5 rounded-4"
+                >
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label className="fs-4">Comment</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter your comment"
+                      onChange={(e) => setContent(e.target.value)}
+                    />
+                  </Form.Group>
+
+                  <Button variant="primary" type="submit">
+                    Create
+                  </Button>
+                </Form>
               </div>
             </div>
           </div>

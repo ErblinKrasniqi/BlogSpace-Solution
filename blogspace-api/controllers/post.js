@@ -1,5 +1,6 @@
 const Post = require("../models/post");
 const User = require("../models/user");
+const Comment = require("../models/comment");
 const path = require("path");
 const fs = require("fs");
 const { validationResult } = require("express-validator");
@@ -28,14 +29,20 @@ exports.get = async (req, res, next) => {
 
 exports.getOne = async (req, res, next) => {
   const id = req.params.id;
+
   try {
     const post = await Post.findById(id);
+    const comments = await Comment.find({ post: id });
+
     if (!post) {
       const error = new Error("No post found 🤔");
       error.statusCode = 400;
       throw error;
     }
-    res.status(200).json({ message: "Found Post 😁", post: post });
+
+    res
+      .status(200)
+      .json({ message: "Found Post 😁", post: post, comments: comments });
   } catch (err) {
     next(err);
   }
@@ -127,13 +134,13 @@ exports.edit = async (req, res, next) => {
   const description = req.body.description;
   const imageUrl = req.file?.filename;
   const id = req.params.id;
-  console.log(title);
+
   try {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       const error = new Error(errors);
-      console.log(errors);
+
       error.statusCode = 400;
       throw error;
     }

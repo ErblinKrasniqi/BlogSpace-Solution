@@ -15,6 +15,7 @@ const EditPost = () => {
     apiError,
     apiSuccess,
     handleSubmit,
+    counter,
   } = useApiEditPost(id);
 
   return (
@@ -25,6 +26,7 @@ const EditPost = () => {
         <Message
           message={apiSuccess ? apiSuccess : apiError}
           type={apiSuccess ? "success" : "danger"}
+          trigger={counter}
         />
       ) : null}
       <Col md={5} className={` rounded-4 ${styles.column}`}>

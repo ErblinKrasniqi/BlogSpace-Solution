@@ -24,6 +24,7 @@ export const useApiRegister = () => {
   const [comfirmPassword, setComfirmPassword] = useState("");
   const [apiError, setApiError] = useState("");
   const [apiSuccess, setApiSuccess] = useState("");
+  const [counter, setCounter] = useState(true);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -32,20 +33,23 @@ export const useApiRegister = () => {
     formData.append("email", email);
     formData.append("name", name);
     formData.append("password", password);
-
+    if (!email) {
+      setCounter((counter) => !counter);
+      setApiError("Please fill all the email address field ⛔");
+      return;
+    }
     if (!name) {
-      if (!email) {
-        setApiError("Please fill all the email address field ⛔");
-        return;
-      }
+      setCounter((counter) => !counter);
       setApiError("Please fill all the name field ⛔");
       return;
     }
     if (!password) {
+      setCounter((counter) => !counter);
       setApiError("Please fill all the password field ⛔");
       return;
     }
     if (password !== comfirmPassword) {
+      setCounter((counter) => !counter);
       setApiError("Passwords do not match ⛔");
       return;
     }
@@ -54,10 +58,12 @@ export const useApiRegister = () => {
       localStorage.setItem("token", results.data.token);
       localStorage.setItem("userName", results.data.userName);
       localStorage.setItem("role", results.data.role);
+
       setApiSuccess(results.data.message);
 
       navigate("/login");
     } catch (err) {
+      setCounter((counter) => !counter);
       setApiError(err.response.data.message);
     }
   };
@@ -77,6 +83,7 @@ export const useApiRegister = () => {
     apiError,
     apiSuccess,
     handleSubmit,
+    counter,
   };
 };
 
@@ -140,6 +147,7 @@ export const useApiFetchUserPosts = () => {
   const [loaded, setLoaded] = useState(false);
   const [apiError, setApiError] = useState("");
   const [apiSuccess, setApiSuccess] = useState("");
+  const [counter, setCounter] = useState(true);
 
   const fetchPosts = async () => {
     try {
@@ -161,6 +169,7 @@ export const useApiFetchUserPosts = () => {
         const updatedPosts = prevPosts.filter((post) => post._id !== id);
         return updatedPosts;
       });
+      setCounter((counter) => !counter);
       setApiSuccess(response.data.message);
     } catch (error) {
       setApiError(error);
@@ -172,8 +181,9 @@ export const useApiFetchUserPosts = () => {
     fetchPosts();
   }, [loaded]);
 
-  return { posts, loaded, apiError, apiSuccess, handleDelete };
+  return { posts, loaded, apiError, apiSuccess, handleDelete, counter };
 };
+
 //Post hooks
 
 export const useApiGetPosts = () => {
@@ -277,6 +287,7 @@ export const useApiCreatePost = () => {
   const [image, setImage] = useState("");
   const [apiError, setApiError] = useState("");
   const [apiSuccess, setApiSuccess] = useState("");
+  const [counter, setCounter] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -286,21 +297,24 @@ export const useApiCreatePost = () => {
     formData.append("image", image);
 
     if (!title) {
-      setApiError("Please fill all the title field ⛔");
+      setCounter((counter) => !counter);
+      setApiError("Please fill the title field ⛔");
       return;
     }
     if (!description) {
+      setCounter((counter) => !counter);
       setApiError("Please fill all the description field ⛔");
       return;
     }
 
     try {
       const results = await createPost(formData);
-
+      setCounter((counter) => !counter);
       setApiSuccess(results.data.message);
       setApiError("");
     } catch (error) {
       setApiSuccess("");
+      setCounter((counter) => !counter);
       setApiError(error.response.data.message);
     }
   };
@@ -319,6 +333,7 @@ export const useApiCreatePost = () => {
     apiError,
     apiSuccess,
     handleSubmit,
+    counter,
   };
 };
 
@@ -329,6 +344,7 @@ export const useApiEditPost = (id) => {
   const [apiError, setApiError] = useState("");
   const [apiSuccess, setApiSuccess] = useState("");
   const [post, setpost] = useState("");
+  const [counter, setCounter] = useState(true);
 
   const gettingPost = useCallback(async () => {
     try {
@@ -351,10 +367,12 @@ export const useApiEditPost = (id) => {
     try {
       const results = await editPost(id, formData);
 
+      setCounter((counter) => !counter);
       setApiSuccess(results.data.message);
       setApiError("");
     } catch (error) {
       setApiSuccess("");
+      setCounter((counter) => !counter);
       setApiError(error.response.data.message);
       console.log(error);
     }
@@ -370,7 +388,7 @@ export const useApiEditPost = (id) => {
     setTitle,
     description,
     setDescription,
-
+    counter,
     setImage,
     apiError,
     apiSuccess,

@@ -1,9 +1,8 @@
-// Message.jsx
 import React, { useEffect, useRef } from "react";
 import { Alert } from "react-bootstrap";
 import anime from "animejs";
 
-const Message = ({ message, type }) => {
+const Message = ({ message, type, trigger }) => {
   const alertVariant = type === "success" ? "success" : "danger";
   const messageRef = useRef(null);
 
@@ -25,7 +24,7 @@ const Message = ({ message, type }) => {
         });
       }, 3000);
     }
-  }, [message, type]);
+  }, [message, type, trigger]);
 
   return (
     <div

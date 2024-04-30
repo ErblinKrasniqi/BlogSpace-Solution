@@ -3,8 +3,11 @@ import styles from "../Assets/scss/login.module.scss";
 import { Link } from "react-router-dom";
 import { useApiRegister } from "../Hooks/userHooks";
 import Message from "../components/Message";
+import { useEffect, useRef } from "react";
+import anime from "animejs";
 
 const Register = () => {
+  const formPopUp = useRef(null);
   const {
     setEmail,
     setPassword,
@@ -13,8 +16,30 @@ const Register = () => {
     handleSubmit,
     apiSuccess,
     apiError,
+    counter,
   } = useApiRegister();
 
+  //Animations
+
+  const submitAnimation = () => {
+    anime({
+      targets: formPopUp.current,
+      scale: [1, 1.1, 1],
+      opacity: [1, 1],
+      easing: "easeOutExpo",
+      duration: 1000,
+    });
+  };
+
+  useEffect(() => {
+    anime({
+      targets: formPopUp.current,
+      scale: [0, 1],
+      opacity: [0, 1],
+      easing: "easeOutExpo",
+      duration: 1000,
+    });
+  }, []);
   return (
     <Container
       className={`d-flex justify-content-center  mt-5 ${styles.container}`}
@@ -23,9 +48,10 @@ const Register = () => {
         <Message
           message={apiSuccess ? apiError : apiError}
           type={apiError ? "danger" : "success"}
+          trigger={counter}
         />
       ) : null}
-      <Col md={5} className={` rounded-4 ${styles.column}`}>
+      <Col ref={formPopUp} md={5} className={` rounded-4 ${styles.column}`}>
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Form.Group className="mb-3">
             <Form.Label>Email address</Form.Label>
@@ -75,7 +101,12 @@ const Register = () => {
             </Form.Text>
           </div>
 
-          <Button variant="primary" type="submit" className="py-2 px-4 mt-2">
+          <Button
+            onClick={() => submitAnimation()}
+            variant="primary"
+            type="submit"
+            className="py-2 px-4 mt-2"
+          >
             Register
           </Button>
           <div className="d-flex justify-content-center">

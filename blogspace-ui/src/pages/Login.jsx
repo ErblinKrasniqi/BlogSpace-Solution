@@ -27,11 +27,11 @@ const Login = () => {
 
     anime({
       targets: textAppear.current,
-      translateX: [-200, 0],
+      translateX: [-50, 0],
       opacity: [0, 1],
       easing: "linear",
       duration: 500,
-      delay: anime.stagger(50, { start: 1000 }),
+      delay: anime.stagger(50, { start: 500 }),
     });
   }, []);
 

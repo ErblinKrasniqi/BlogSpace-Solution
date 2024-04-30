@@ -2,8 +2,12 @@ import { Container, Form, Col, Button } from "react-bootstrap";
 import styles from "../../Assets/scss/login.module.scss";
 import { useApiCreatePost } from "../../Hooks/userHooks";
 import Message from "../../components/Message";
+import { useRef, useEffect } from "react";
+import anime from "animejs";
 
 const CreatePost = () => {
+  const formPopUp = useRef(null);
+
   const {
     setTitle,
     setDescription,
@@ -11,7 +15,30 @@ const CreatePost = () => {
     apiError,
     apiSuccess,
     handleSubmit,
+    counter,
   } = useApiCreatePost();
+
+  //Animations
+
+  const submitAnimation = () => {
+    anime({
+      targets: formPopUp.current,
+      scale: [1, 1.1, 1],
+      opacity: [1, 1],
+      easing: "easeOutExpo",
+      duration: 1000,
+    });
+  };
+
+  useEffect(() => {
+    anime({
+      targets: formPopUp.current,
+      scale: [0, 1],
+      opacity: [0, 1],
+      easing: "easeOutExpo",
+      duration: 1000,
+    });
+  }, []);
 
   return (
     <Container
@@ -21,10 +48,11 @@ const CreatePost = () => {
         <Message
           message={apiSuccess ? apiSuccess : apiError}
           type={apiSuccess ? "success" : "danger"}
+          trigger={counter}
         />
       ) : null}
 
-      <Col md={5} className={` rounded-4 ${styles.column}`}>
+      <Col ref={formPopUp} md={5} className={` rounded-4 ${styles.column}`}>
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Title</Form.Label>
@@ -52,7 +80,12 @@ const CreatePost = () => {
           </Form.Group>
           <Form.Text className="text-muted"></Form.Text>
 
-          <Button variant="primary" type="submit" className="py-2 px-4 mt-2">
+          <Button
+            onClick={() => submitAnimation()}
+            variant="primary"
+            type="submit"
+            className="py-2 px-4 mt-2"
+          >
             Submit
           </Button>
         </Form>

@@ -5,7 +5,7 @@ import anime from "animejs";
 import Message from "../../components/Message";
 
 const Dashboard = () => {
-  const { posts, loaded, apiError, apiSuccess, handleDelete } =
+  const { posts, loaded, apiError, apiSuccess, handleDelete, counter } =
     useApiFetchUserPosts();
 
   //Animations
@@ -25,8 +25,10 @@ const Dashboard = () => {
   }, [loaded]);
 
   return (
-    <section className="events-section section-padding" id="section_2">
-      {apiSuccess && <Message message={apiSuccess} type="success" />}
+    <section className="events-section section-padding vh-100" id="section_2">
+      {apiSuccess && (
+        <Message message={apiSuccess} type="success" trigger={counter} />
+      )}
       <div className="container">
         <div className="row ">
           <div className="col-lg-12 col-12 mt-5">

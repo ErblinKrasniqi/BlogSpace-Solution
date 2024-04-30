@@ -74,14 +74,12 @@ exports.login = async (req, res, next) => {
       "superdupersecret"
     );
 
-    res
-      .status(200)
-      .json({
-        token: token,
-        userName: loadedUser.name,
-        role: loadedUser.role,
-        userId: loadedUser._id,
-      });
+    res.status(200).json({
+      token: token,
+      userName: loadedUser.name,
+      role: loadedUser.role,
+      userId: loadedUser._id,
+    });
   } catch (err) {
     next(err);
   }

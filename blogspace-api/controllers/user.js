@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+const path = require("path");
+const fs = require("fs");
 
 exports.register = async (req, res, next) => {
   const email = req.body.email;
@@ -117,6 +119,16 @@ exports.deleteUser = async (req, res, next) => {
       throw error;
     }
 
+    const userToDelete = await User.findById(id);
+
+    if (userToDelete.posts) {
+      for (let postId of userToDelete.posts) {
+        const post = await Post.findById(postId);
+
+        clearImage(post.imageUrl);
+      }
+    }
+
     await Post.deleteMany({ creator: id });
 
     await Comment.deleteMany({ user: id });
@@ -127,4 +139,13 @@ exports.deleteUser = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+const clearImage = (filePath) => {
+  filePath = path.join(__dirname, "../images", filePath);
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 };

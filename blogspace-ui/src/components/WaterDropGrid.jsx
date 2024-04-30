@@ -12,7 +12,9 @@ const GRID_WIDTH = 35;
 const GRID_HEIGHT = 14;
 
 const DotGrid = () => {
+  const soundEffect = new Audio(require("../Assets/sounds/dots.mp3"));
   const handleDotClick = (e) => {
+    soundEffect.play();
     anime({
       targets: ".dot-point",
       scale: [

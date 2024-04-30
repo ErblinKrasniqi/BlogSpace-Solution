@@ -2,8 +2,10 @@ import { useParams } from "react-router-dom";
 import { useApiGetPost } from "../Hooks/userHooks";
 import Message from "../components/Message";
 import { Button, Form } from "react-bootstrap";
+import { useAuth } from "../Auth/is-auth";
 
 const Detials = () => {
+  const { isLoggedIn } = useAuth();
   let { id } = useParams();
   const {
     post,
@@ -171,18 +173,21 @@ const Detials = () => {
                   }}
                   className="mt-4  p-5 rounded-4"
                 >
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label className="fs-4">Comment</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter your comment"
-                      onChange={(e) => setContent(e.target.value)}
-                    />
-                  </Form.Group>
-
-                  <Button variant="primary" type="submit">
-                    Create
-                  </Button>
+                  {isLoggedIn ? (
+                    <>
+                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label className="fs-4">Comment</Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter your comment"
+                          onChange={(e) => setContent(e.target.value)}
+                        />
+                      </Form.Group>
+                      <Button variant="primary" type="submit">
+                        Create
+                      </Button>
+                    </>
+                  ) : null}
                 </Form>
               </div>
             </div>

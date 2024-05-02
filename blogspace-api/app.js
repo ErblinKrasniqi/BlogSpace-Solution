@@ -1,12 +1,18 @@
 //Express
 const express = require("express");
 const app = express();
+const cors = require("cors");
+
+// ...
+
+app.use(cors());
 
 //Middleware
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
 const path = require("path");
+
 //Routes
 const userRoute = require("./routes/user");
 const postRoute = require("./routes/post");
@@ -34,6 +40,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 app.use(bodyParser.json());
+
 app.use(
   multer({ storage: fileStroage, fileFilter: fileFilter }).single("image")
 );
@@ -66,8 +73,10 @@ mongoose
     "mongodb://127.0.0.1:27017/BlogSpace?retryWrites=true&authSource=admin"
   )
   .then(() => {
-    app.listen(8080);
-    console.log("Connected to mongoose");
+    const server = app.listen(8080);
+    const io = require("./socket").init(server);
+
+    io.on("connection", (Socket) => {});
   })
   .catch((error) => {
     console.log(error);

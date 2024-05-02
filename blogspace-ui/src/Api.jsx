@@ -48,6 +48,12 @@ export const deletePost = async (id) => {
   return response;
 };
 
+export const searchPost = async (query) => {
+  const response = axios.get(
+    `http://localhost:8080/api/search?search=${query}`
+  );
+  return response;
+};
 //User apis
 
 export const registerUser = async (data) => {

@@ -54,42 +54,50 @@ const Register = () => {
       <Col ref={formPopUp} md={5} className={` rounded-4 ${styles.column}`}>
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Form.Group className="mb-3">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label htmlFor="email">Email address</Form.Label>
             <Form.Control
               onChange={(e) => setEmail(e.target.value)}
               type="email"
+              autoComplete="email"
               placeholder="Enter email"
+              id="email"
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Name</Form.Label>
+            <Form.Label htmlFor="name">Name</Form.Label>
             <Form.Control
               onChange={(e) => {
                 setName(e.target.value);
               }}
               type="string"
+              autoComplete="name"
               placeholder="Enter name"
+              id="name"
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Password</Form.Label>
+            <Form.Label htmlFor="password">Password</Form.Label>
             <Form.Control
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              autoComplete="new-password"
               type="password"
               placeholder="Enter Password"
+              id="password"
             />
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Comfirm password</Form.Label>
+            <Form.Label htmlFor="comfirmPassword">Comfirm password</Form.Label>
             <Form.Control
               onChange={(e) => {
                 setComfirmPassword(e.target.value);
               }}
+              autoComplete="new-password"
               type="password"
               placeholder="Enter Password"
+              id="comfirmPassword"
             />
           </Form.Group>
 

@@ -1,0 +1,93 @@
+// Path: src/Assets/scss/chat.module.scss
+.container {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  width: 350px;
+  height: 400px;
+  background-color: #f1f1f1;
+  z-index: 30;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chatHeader {
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.chatTitle {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+}
+
+.chatBody {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.chatMessage {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.chatMessageContent {
+  padding: 10px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+}
+
+.chatMessageText {
+  margin: 0;
+  color: #333;
+}
+
+.chatFooter {
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+}
+
+.chatInput {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+.chatButton {
+  padding: 5px 10px;
+  margin-left: 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chatMessageB {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: flex-end;
+}
+.chatMessageContentB {
+  padding: 10px;
+  background-color: #007bff;
+  border-radius: 10px;
+  color: white;
+}
+
+.chatMessageTextB {
+  margin: 0;
+  color: white;
+}

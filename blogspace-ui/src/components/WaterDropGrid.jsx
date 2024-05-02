@@ -8,8 +8,8 @@ const WaterDropGrid = () => {
   );
 };
 
-const GRID_WIDTH = 35;
-const GRID_HEIGHT = 14;
+const GRID_WIDTH = 25;
+const GRID_HEIGHT = 12;
 
 const DotGrid = () => {
   const soundEffect = new Audio(require("../Assets/sounds/dots.mp3"));
@@ -53,7 +53,7 @@ const DotGrid = () => {
             style={{
               width: "0.5rem",
               height: "0.5rem",
-              backgroundColor: "rgb(61, 64, 91)",
+              backgroundColor: "pink",
               opacity: 0.9,
             }}
           />

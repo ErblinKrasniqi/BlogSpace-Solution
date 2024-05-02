@@ -1,5 +1,6 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+
 import {
   getPosts,
   getMyPosts,
@@ -13,6 +14,7 @@ import {
   getUsers,
   deleteComment,
   createComment,
+  searchPost,
 } from "../Api";
 import { useAuth } from "../Auth/is-auth";
 
@@ -92,6 +94,7 @@ export const useApiLogin = () => {
   const [password, setPassword] = useState("");
   const [apiError, setApiError] = useState("");
   const [apiSuccess, setApiSuccess] = useState("");
+  const [counter, setCounter] = useState(true);
   const navigate = useNavigate();
 
   const { setIsLoggedIn, setRole } = useAuth();
@@ -103,10 +106,12 @@ export const useApiLogin = () => {
     formData.append("password", password);
 
     if (!email) {
+      setCounter((counter) => !counter);
       setApiError("Please fill all the email address field ⛔");
       return;
     }
     if (!password) {
+      setCounter((counter) => !counter);
       setApiError("Please fill all the password field ⛔");
       return;
     }
@@ -122,6 +127,7 @@ export const useApiLogin = () => {
       setApiSuccess(results.data.message);
       navigate("/");
     } catch (err) {
+      setCounter((counter) => !counter);
       setApiError(err.response.data.message);
     }
   };
@@ -135,7 +141,7 @@ export const useApiLogin = () => {
     setEmail,
     password,
     setPassword,
-
+    counter,
     apiError,
     apiSuccess,
     handleSubmit,
@@ -192,6 +198,23 @@ export const useApiGetPosts = () => {
   const [error, setError] = useState("");
   const [totalPosts, setTotalPosts] = useState(0);
   const [page, setPage] = useState(1);
+  const [searchRsults, setSearchResults] = useState([]);
+
+  function useDebouncedCallback(callback, delay) {
+    const timeoutRef = useRef();
+
+    return useCallback(
+      (...args) => {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = setTimeout(() => {
+          callback(...args);
+        }, delay);
+      },
+      [callback, delay]
+    );
+  }
 
   const fetchPosts = useCallback(async () => {
     try {
@@ -206,6 +229,22 @@ export const useApiGetPosts = () => {
     }
   }, [page]);
 
+  const searchPosts = async (query) => {
+    try {
+      if (query === "") {
+        setSearchResults([]);
+        return;
+      }
+      const data = await searchPost(query);
+      setSearchResults(data.data.posts);
+    } catch (error) {
+      setSearchResults([]);
+      setError(error);
+    }
+  };
+
+  const debouncedSearchPosts = useDebouncedCallback(searchPosts, 500);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -214,7 +253,17 @@ export const useApiGetPosts = () => {
     fetchPosts();
   }, [fetchPosts]);
 
-  return { posts, loaded, error, setPage, totalPosts, page };
+  return {
+    posts,
+    loaded,
+    error,
+    setPage,
+    totalPosts,
+    page,
+    searchPosts,
+    searchRsults,
+    debouncedSearchPosts,
+  };
 };
 
 export const useApiGetPost = (id) => {
@@ -309,6 +358,7 @@ export const useApiCreatePost = () => {
 
     try {
       const results = await createPost(formData);
+
       setCounter((counter) => !counter);
       setApiSuccess(results.data.message);
       setApiError("");

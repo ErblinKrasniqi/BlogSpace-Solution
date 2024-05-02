@@ -54,17 +54,19 @@ const CreatePost = () => {
 
       <Col ref={formPopUp} md={5} className={` rounded-4 ${styles.column}`}>
         <Form onSubmit={(e) => handleSubmit(e)}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="email">
             <Form.Label>Title</Form.Label>
             <Form.Control
+              autoComplete="on"
               onChange={(e) => setTitle(e.target.value)}
               type="text"
               placeholder="Enter title"
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="description">
             <Form.Label>Description</Form.Label>
             <Form.Control
+              autoComplete="off"
               onChange={(e) => setDescription(e.target.value)}
               as="textarea"
               rows={4}

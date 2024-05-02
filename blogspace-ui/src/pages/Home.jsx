@@ -4,9 +4,21 @@ import { Link } from "react-router-dom";
 import { useApiGetPosts } from "../Hooks/userHooks";
 import anime from "animejs";
 import WaterDropGrid from "../components/WaterDropGrid";
+import styles from "../Assets/scss/home.module.scss";
+import Chat from "../components/Chat";
 
 const Home = () => {
-  const { posts, loaded, error, setPage, totalPosts, page } = useApiGetPosts();
+  const {
+    posts,
+    loaded,
+    error,
+    setPage,
+    totalPosts,
+    page,
+
+    searchRsults,
+    debouncedSearchPosts,
+  } = useApiGetPosts();
 
   //animations
   const [ref, inView] = useInView({
@@ -84,6 +96,7 @@ const Home = () => {
           className="hero-section d-flex justify-content-center align-items-center"
           id="section_1"
         >
+          <Chat />
           <div className="section-overlay"></div>
 
           <svg
@@ -129,14 +142,15 @@ const Home = () => {
 
               <div className="col-lg-6 col-12">
                 <div ref={videoSpin} className="ratio ratio-16x9">
-                  <iframe
+                  {/* <iframe
                     width="560"
                     height="315"
                     src="https://www.youtube.com/embed/MGNgbNGOzh8"
                     title="YouTube video player"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
-                  ></iframe>
+                  ></iframe> */}
+                  <WaterDropGrid />
                 </div>
               </div>
             </div>
@@ -155,6 +169,31 @@ const Home = () => {
           <div className="container">
             <div className="row ">
               <div className="col-lg-12 col-12 mt-5">
+                <div className="d-flex flex-column align-items-center my-5 rounded-5">
+                  <input
+                    onChange={(e) => {
+                      debouncedSearchPosts(e.target.value);
+                    }}
+                    autoComplete="off"
+                    id="search"
+                    type="text"
+                    className={`form-control ${styles.search}`}
+                    placeholder="Search"
+                    style={{ width: "50%" }}
+                  ></input>
+                  <div className={styles.titles}>
+                    {searchRsults.length !== 0 ? (
+                      searchRsults.map((result) => (
+                        <div key={result._id} className={`${styles.text}`}>
+                          <h4>{result.title}</h4>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-center">No posts found 🌵</p>
+                    )}
+                  </div>
+                </div>
+
                 <h2 ref={ref} className="mb-lg-5 mb-4">
                   Latest Posts
                 </h2>
@@ -330,6 +369,7 @@ const Home = () => {
                         pattern="[^ @]*@[^ @]*"
                         className="form-control"
                         placeholder="Email address"
+                        autoComplete="on"
                         required=""
                       ></input>
 
@@ -395,7 +435,7 @@ const Home = () => {
                           required=""
                         />
 
-                        <label htmlFor="floatingInput">Full Name</label>
+                        <label htmlFor="full-name">Full Name</label>
                       </div>
                     </div>
 
@@ -405,26 +445,28 @@ const Home = () => {
                           type="email"
                           name="email"
                           id="email"
+                          autoComplete="on"
                           pattern="[^ @]*@[^ @]*"
                           className="form-control"
                           placeholder="Email address"
                           required=""
                         />
 
-                        <label htmlFor="floatingInput">Email address</label>
+                        <label htmlFor="email">Email address</label>
                       </div>
                     </div>
 
                     <div className="col-lg-12 col-12">
                       <div className="form-floating">
                         <textarea
+                          autoComplete="off"
                           className="form-control"
                           id="message"
                           name="message"
                           placeholder="Describe message here"
                         ></textarea>
 
-                        <label htmlFor="floatingTextarea">Message</label>
+                        <label htmlFor="message">Message</label>
                       </div>
 
                       <button type="submit" className="form-control">
@@ -436,9 +478,7 @@ const Home = () => {
               </div>
 
               <div className="col-lg-6 col-12">
-                <div className="contact-info mt-5">
-                  <WaterDropGrid />
-                </div>
+                <div className="contact-info mt-5"></div>
               </div>
             </div>
           </div>

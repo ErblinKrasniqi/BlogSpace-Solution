@@ -89,7 +89,7 @@ exports.create = async (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      const error = new Error({ errors: errors.array() });
+      const error = new Error(errors.errors[0].msg);
       error.statusCode = 400;
       throw error;
     }
@@ -139,8 +139,7 @@ exports.edit = async (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      const error = new Error(errors);
-
+      const error = new Error(errors.errors[0].msg);
       error.statusCode = 400;
       throw error;
     }
@@ -199,6 +198,21 @@ exports.delete = async (req, res, next) => {
     res.status(200).json({
       message: "Deleted post 💀",
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.searchPost = async (req, res, next) => {
+  const search = req.query.search;
+  try {
+    const posts = await Post.find({ title: new RegExp(search, "i") });
+    if (posts.length === 0) {
+      const error = new Error("No post found 🌵");
+      error.statusCode = 400;
+      throw error;
+    }
+    res.status(200).json({ message: "Found posts 😁", posts: posts });
   } catch (error) {
     next(error);
   }

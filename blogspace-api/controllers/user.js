@@ -6,6 +6,7 @@ const Post = require("../models/post");
 const Comment = require("../models/comment");
 const path = require("path");
 const fs = require("fs");
+const io = require("../socket");
 
 exports.register = async (req, res, next) => {
   const email = req.body.email;
@@ -16,7 +17,7 @@ exports.register = async (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      const error = new Error(JSON.stringify(errors.errors));
+      const error = new Error(JSON.stringify(errors.errors[0].msg));
       error.statusCode = 400;
       throw error;
     }
@@ -139,6 +140,12 @@ exports.deleteUser = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+exports.sendMessage = (req, res, next) => {
+  const message = req.body.message;
+
+  io.getIO().emit("message", { user: req.userId, message: message });
 };
 
 const clearImage = (filePath) => {

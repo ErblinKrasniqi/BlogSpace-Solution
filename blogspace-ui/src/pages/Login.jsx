@@ -8,7 +8,7 @@ import Message from "../components/Message";
 import anime from "animejs";
 
 const Login = () => {
-  const { setEmail, setPassword, handleSubmit, apiError, apiSuccess } =
+  const { setEmail, setPassword, handleSubmit, apiError, apiSuccess, counter } =
     useApiLogin();
 
   const formPopUp = useRef(null);
@@ -38,12 +38,13 @@ const Login = () => {
   return (
     <Container
       fluid
-      className={`d-flex justify-content-center align-items-center    ${styles.container}`}
+      className={`d-flex justify-content-center align-items-center vh-100   ${styles.container}`}
     >
       {apiSuccess || apiError ? (
         <Message
           message={apiSuccess ? apiError : apiError}
           type={apiError ? "danger" : "success"}
+          trigger={counter}
         />
       ) : null}
       <Col ref={formPopUp} md={5} className={` rounded-4 ${styles.column}`}>
@@ -53,6 +54,7 @@ const Login = () => {
             <Form.Control
               onChange={(e) => setEmail(e.target.value)}
               type="email"
+              autoComplete="email"
               placeholder="Enter email"
             />
           </Form.Group>
@@ -62,6 +64,7 @@ const Login = () => {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              autoComplete="current-password"
               type="password"
               placeholder="Enter Password"
             />

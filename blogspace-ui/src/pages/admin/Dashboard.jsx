@@ -25,7 +25,7 @@ const Dashboard = () => {
   }, [loaded]);
 
   return (
-    <section className="events-section section-padding vh-100" id="section_2">
+    <section className="events-section section-padding  mb-5" id="section_2">
       {apiSuccess && (
         <Message message={apiSuccess} type="success" trigger={counter} />
       )}

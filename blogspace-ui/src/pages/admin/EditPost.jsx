@@ -3,13 +3,16 @@ import styles from "../../Assets/scss/login.module.scss";
 import { useApiEditPost } from "../../Hooks/userHooks";
 import { useParams } from "react-router-dom";
 import Message from "../../components/Message";
+import { useRef, useEffect } from "react";
+import anime from "animejs";
 
 const EditPost = () => {
+  const formPopUp = useRef(null);
   let { id } = useParams();
   const {
-    title,
+    title = "",
     setTitle,
-    description,
+    description = "",
     setDescription,
     setImage,
     apiError,
@@ -17,6 +20,26 @@ const EditPost = () => {
     handleSubmit,
     counter,
   } = useApiEditPost(id);
+
+  const submitAnimation = () => {
+    anime({
+      targets: formPopUp.current,
+      scale: [1, 1.1, 1],
+      opacity: [1, 1],
+      easing: "easeOutExpo",
+      duration: 1000,
+    });
+  };
+
+  useEffect(() => {
+    anime({
+      targets: formPopUp.current,
+      scale: [0, 1],
+      opacity: [0, 1],
+      easing: "easeOutExpo",
+      duration: 1000,
+    });
+  }, []);
 
   return (
     <Container
@@ -29,7 +52,7 @@ const EditPost = () => {
           trigger={counter}
         />
       ) : null}
-      <Col md={5} className={` rounded-4 ${styles.column}`}>
+      <Col ref={formPopUp} md={5} className={` rounded-4 ${styles.column}`}>
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Title</Form.Label>
@@ -59,7 +82,12 @@ const EditPost = () => {
           </Form.Group>
           <Form.Text className="text-muted"></Form.Text>
 
-          <Button variant="primary" type="submit" className="py-2 px-4 mt-2">
+          <Button
+            onClick={() => submitAnimation()}
+            variant="primary"
+            type="submit"
+            className="py-2 px-4 mt-2"
+          >
             Submit
           </Button>
         </Form>

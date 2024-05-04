@@ -24,7 +24,6 @@ const userSchema = new Schema({
 });
 
 userSchema.pre("remove", function (next) {
-  // This should delete all comments where user ID matches the current user being deleted
   this.model("Comment").deleteMany({ user: this._id }, next);
 });
 

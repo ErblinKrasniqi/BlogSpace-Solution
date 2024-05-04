@@ -54,16 +54,18 @@ export const searchPost = async (query) => {
   );
   return response;
 };
+
 //User apis
 
 export const registerUser = async (data) => {
-  const response = axios.post("http://localhost:8080/api/register", data);
-  return response;
+  const response = await axios.post("http://localhost:8080/graphql", data);
+  console.log(response);
+  return response.data.data.createUser;
 };
 
 export const loginUser = async (data) => {
-  const response = axios.post("http://localhost:8080/api/login", data);
-  return response;
+  const response = await axios.post("http://localhost:8080/graphql", data);
+  return response.data.data.login;
 };
 
 export const getUsers = async () => {

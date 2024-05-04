@@ -5,7 +5,6 @@ import { useApiGetPosts } from "../Hooks/userHooks";
 import anime from "animejs";
 import WaterDropGrid from "../components/WaterDropGrid";
 import styles from "../Assets/scss/home.module.scss";
-import Chat from "../components/Chat";
 
 const Home = () => {
   const {
@@ -96,7 +95,6 @@ const Home = () => {
           className="hero-section d-flex justify-content-center align-items-center"
           id="section_1"
         >
-          <Chat />
           <div className="section-overlay"></div>
 
           <svg

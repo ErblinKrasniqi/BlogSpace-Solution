@@ -46,7 +46,7 @@ const Register = () => {
     >
       {apiSuccess || apiError ? (
         <Message
-          message={apiSuccess ? apiError : apiError}
+          message={apiSuccess ? apiSuccess : apiError}
           type={apiError ? "danger" : "success"}
           trigger={counter}
         />

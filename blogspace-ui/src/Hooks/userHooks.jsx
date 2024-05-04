@@ -31,10 +31,18 @@ export const useApiRegister = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("name", name);
-    formData.append("password", password);
+
+    const graphqlQuery = {
+      query: `
+    mutation {
+    createUser(userInput: {email: "${email}", name: "${name}", password: "${password}"}) {
+    _id
+    email
+    message
+  }
+}
+      `,
+    };
     if (!email) {
       setCounter((counter) => !counter);
       setApiError("Please fill all the email address field ⛔");
@@ -56,17 +64,18 @@ export const useApiRegister = () => {
       return;
     }
     try {
-      const results = await registerUser(formData);
-      localStorage.setItem("token", results.data.token);
-      localStorage.setItem("userName", results.data.userName);
-      localStorage.setItem("role", results.data.role);
-
-      setApiSuccess(results.data.message);
+      const results = await registerUser(graphqlQuery);
+      if (results.errors) {
+        const error = new Error("NOT WORKING");
+        throw error;
+      }
+      setApiSuccess(results.message);
 
       navigate("/login");
     } catch (err) {
       setCounter((counter) => !counter);
-      setApiError(err.response.data.message);
+      console.log(err.response.data.errors[0].message);
+      setApiError(err.response.data.errors[0].message);
     }
   };
 
@@ -101,9 +110,13 @@ export const useApiLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
+    const graphqlQuery = {
+      query: `
+{
+  login(email: "erblini.kr@gmail.com", password: "123456"){userId userName role token message}
+}
+`,
+    };
 
     if (!email) {
       setCounter((counter) => !counter);
@@ -116,19 +129,21 @@ export const useApiLogin = () => {
       return;
     }
     try {
-      const results = await loginUser(formData);
-      localStorage.setItem("token", results.data.token);
-      localStorage.setItem("userName", results.data.userName);
-      localStorage.setItem("role", results.data.role);
-      localStorage.setItem("userId", results.data.userId);
+      const results = await loginUser(graphqlQuery);
+      console.log(results);
+      localStorage.setItem("token", results.token);
+      localStorage.setItem("userName", results.userName);
+      localStorage.setItem("role", results.role);
+      localStorage.setItem("userId", results.userId);
 
-      setRole(results.data.role);
+      setRole(results.role);
       setIsLoggedIn(true);
-      setApiSuccess(results.data.message);
+      setApiSuccess(results.message);
       navigate("/");
     } catch (err) {
       setCounter((counter) => !counter);
       setApiError(err.response.data.message);
+      console.log(err);
     }
   };
 

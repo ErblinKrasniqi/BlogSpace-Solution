@@ -6,7 +6,6 @@ const Post = require("../models/post");
 const Comment = require("../models/comment");
 const path = require("path");
 const fs = require("fs");
-const io = require("../socket");
 
 exports.register = async (req, res, next) => {
   const email = req.body.email;
@@ -82,6 +81,7 @@ exports.login = async (req, res, next) => {
       userName: loadedUser.name,
       role: loadedUser.role,
       userId: loadedUser._id,
+      message: "Created user 😁",
     });
   } catch (err) {
     next(err);
@@ -142,11 +142,11 @@ exports.deleteUser = async (req, res, next) => {
   }
 };
 
-exports.sendMessage = (req, res, next) => {
-  const message = req.body.message;
+// exports.sendMessage = (req, res, next) => {
+//   const message = req.body.message;
 
-  io.getIO().emit("message", { user: req.userId, message: message });
-};
+//   io.getIO().emit("message", { user: req.userId, message: message });
+// };
 
 const clearImage = (filePath) => {
   filePath = path.join(__dirname, "../images", filePath);

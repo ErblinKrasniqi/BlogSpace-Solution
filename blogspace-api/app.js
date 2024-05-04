@@ -2,8 +2,11 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const { graphqlHTTP } = require("express-graphql");
 
-// ...
+//graphql
+const graphqlSchema = require("./graphql/schema");
+const graphqlResolvers = require("./graphql/resolvers");
 
 app.use(cors());
 
@@ -12,11 +15,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
 const path = require("path");
-
-//Routes
-const userRoute = require("./routes/user");
-const postRoute = require("./routes/post");
-const commentRoute = require("./routes/comment");
 
 const fileStroage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -53,14 +51,31 @@ app.use((req, res, next) => {
     "OPTIONS, GET, POST, PUT, PATCH, DELETE"
   );
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
   next();
 });
 
-app.use("/api", userRoute);
-
-app.use("/api", postRoute);
-
-app.use("/api", commentRoute);
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: graphqlSchema,
+    rootValue: graphqlResolvers,
+    graphiql: true,
+    customFormatErrorFn(err) {
+      if (!err.originalError) {
+        return err;
+      }
+      const data = err.originalError.data;
+      const message = err.message || "Error occurred";
+      const code = err.originalError.code || 500;
+      return { message: message, status: code, data: data };
+    },
+  })
+);
 
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
@@ -73,10 +88,7 @@ mongoose
     "mongodb://127.0.0.1:27017/BlogSpace?retryWrites=true&authSource=admin"
   )
   .then(() => {
-    const server = app.listen(8080);
-    const io = require("./socket").init(server);
-
-    io.on("connection", (Socket) => {});
+    app.listen(8080);
   })
   .catch((error) => {
     console.log(error);

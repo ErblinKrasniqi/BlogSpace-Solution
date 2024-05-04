@@ -85,7 +85,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    "mongodb://127.0.0.1:27017/BlogSpace?retryWrites=true&authSource=admin"
+    "mongodb://127.0.0.1:27017/BlogGraphQl?retryWrites=true&authSource=admin"
   )
   .then(() => {
     app.listen(8080);

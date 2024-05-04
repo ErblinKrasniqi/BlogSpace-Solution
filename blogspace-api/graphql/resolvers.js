@@ -77,24 +77,17 @@ module.exports = {
       userName: loadedUser.name,
       role: loadedUser.role,
       userId: user._id.toString(),
+      message: "Logged In 😁",
     };
   },
 
-  getPosts: async function () {
-    const posts = await Post.find();
+  createPost: async function ({ postInput }, req) {
+    const post = new Post({
+      title: postInput.title,
+      description: postInput.description,
+    });
 
-    console.log(posts);
-
-    return {
-      posts: posts.map((p) => {
-        console.log(p);
-        return {
-          ...p._doc,
-          _id: p._id.toString(),
-          createdAt: p.createdAt.toString(),
-          updatedAt: p.updatedAt.toString(),
-        };
-      }),
-    };
+    const results = await post.save();
+    return { ...results._doc, _id: results._id };
   },
 };

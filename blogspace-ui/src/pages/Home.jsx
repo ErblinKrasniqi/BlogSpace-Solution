@@ -3,9 +3,9 @@ import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import { useApiGetPosts } from "../Hooks/userHooks";
 import anime from "animejs";
-import WaterDropGrid from "../components/WaterDropGrid";
+// import WaterDropGrid from "../components/WaterDropGrid";
 import styles from "../Assets/scss/home.module.scss";
-import Chat from "../components/Chat";
+import SpinningMoon from "../components/SpinningMoon";
 
 const Home = () => {
   const {
@@ -96,7 +96,7 @@ const Home = () => {
           className="hero-section d-flex justify-content-center align-items-center"
           id="section_1"
         >
-          <Chat />
+        
           <div className="section-overlay"></div>
 
           <svg
@@ -150,7 +150,9 @@ const Home = () => {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                   ></iframe> */}
-                  <WaterDropGrid />
+                  {/* <WaterDropGrid /> */}
+
+<SpinningMoon />
                 </div>
               </div>
             </div>

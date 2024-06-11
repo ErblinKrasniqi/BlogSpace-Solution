@@ -1,12 +1,21 @@
 import { Link } from "react-router-dom";
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useEffect } from "react";
 import { useApiFetchUserPosts } from "../../Hooks/userHooks";
 import anime from "animejs";
 import Message from "../../components/Message";
+import successSound from "../../Assets/sounds/success.mp3"; // Import the success sound
 
 const Dashboard = () => {
   const { posts, loaded, apiError, apiSuccess, handleDelete, counter } =
     useApiFetchUserPosts();
+
+  const audioRef = useRef(new Audio(successSound));
+
+  useEffect(() => {
+    if (apiSuccess) {
+      audioRef.current.play(); // Play the success sound
+    }
+  }, [apiSuccess]);
 
   //Animations
   const postAnimation = useRef([]);

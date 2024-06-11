@@ -6,6 +6,7 @@ import anime from "animejs";
 // import WaterDropGrid from "../components/WaterDropGrid";
 import styles from "../Assets/scss/home.module.scss";
 import SpinningMoon from "../components/SpinningMoon";
+import PixiCarousel from "../components/PixiCarousel";
 
 const Home = () => {
   const {
@@ -96,7 +97,6 @@ const Home = () => {
           className="hero-section d-flex justify-content-center align-items-center"
           id="section_1"
         >
-        
           <div className="section-overlay"></div>
 
           <svg
@@ -141,7 +141,10 @@ const Home = () => {
               </div>
 
               <div className="col-lg-6 col-12">
-                <div ref={videoSpin} className="ratio ratio-16x9">
+                <div
+                  ref={videoSpin}
+                  className="d-flex justify-content-center align-items-center"
+                >
                   {/* <iframe
                     width="560"
                     height="315"
@@ -150,9 +153,8 @@ const Home = () => {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                   ></iframe> */}
-                  {/* <WaterDropGrid /> */}
 
-<SpinningMoon />
+                  <SpinningMoon />
                 </div>
               </div>
             </div>
@@ -418,65 +420,7 @@ const Home = () => {
           <div className="container">
             <div className="row">
               <div className="col-lg-5 col-12">
-                <form
-                  action="#"
-                  method="post"
-                  className="custom-form contact-form"
-                >
-                  <h2 className="mb-4 pb-2">Contact Us</h2>
-
-                  <div className="row">
-                    <div className="col-lg-6 col-md-6 col-12">
-                      <div className="form-floating">
-                        <input
-                          type="text"
-                          name="full-name"
-                          id="full-name"
-                          className="form-control"
-                          placeholder="Full Name"
-                          required=""
-                        />
-
-                        <label htmlFor="full-name">Full Name</label>
-                      </div>
-                    </div>
-
-                    <div className="col-lg-6 col-md-6 col-12">
-                      <div className="form-floating">
-                        <input
-                          type="email"
-                          name="email"
-                          id="email"
-                          autoComplete="on"
-                          pattern="[^ @]*@[^ @]*"
-                          className="form-control"
-                          placeholder="Email address"
-                          required=""
-                        />
-
-                        <label htmlFor="email">Email address</label>
-                      </div>
-                    </div>
-
-                    <div className="col-lg-12 col-12">
-                      <div className="form-floating">
-                        <textarea
-                          autoComplete="off"
-                          className="form-control"
-                          id="message"
-                          name="message"
-                          placeholder="Describe message here"
-                        ></textarea>
-
-                        <label htmlFor="message">Message</label>
-                      </div>
-
-                      <button type="submit" className="form-control">
-                        Submit Form
-                      </button>
-                    </div>
-                  </div>
-                </form>
+                <PixiCarousel />
               </div>
 
               <div className="col-lg-6 col-12">

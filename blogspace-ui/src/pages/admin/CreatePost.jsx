@@ -3,6 +3,7 @@ import styles from "../../Assets/scss/login.module.scss";
 import { useApiCreatePost } from "../../Hooks/userHooks";
 import Message from "../../components/Message";
 import { useRef, useEffect } from "react";
+import successSound from "../../Assets/sounds/success.mp3"; // Import the success sound
 import anime from "animejs";
 
 const CreatePost = () => {
@@ -29,6 +30,14 @@ const CreatePost = () => {
       duration: 1000,
     });
   };
+
+  const audioRef = useRef(new Audio(successSound));
+
+  useEffect(() => {
+    if (apiSuccess) {
+      audioRef.current.play(); // Play the success sound
+    }
+  }, [apiSuccess]);
 
   useEffect(() => {
     anime({

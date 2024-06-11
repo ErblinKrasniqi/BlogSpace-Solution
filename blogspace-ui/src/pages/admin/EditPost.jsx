@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Message from "../../components/Message";
 import { useRef, useEffect } from "react";
 import anime from "animejs";
+import successSound from "../../Assets/sounds/success.mp3"; // Import the success sound
 
 const EditPost = () => {
   const formPopUp = useRef(null);
@@ -20,6 +21,14 @@ const EditPost = () => {
     handleSubmit,
     counter,
   } = useApiEditPost(id);
+
+  const audioRef = useRef(new Audio(successSound));
+
+  useEffect(() => {
+    if (apiSuccess) {
+      audioRef.current.play(); // Play the success sound
+    }
+  }, [apiSuccess]);
 
   const submitAnimation = () => {
     anime({

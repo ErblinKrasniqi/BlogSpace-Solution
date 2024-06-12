@@ -1,39 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { Carousel } from "react-bootstrap";
-import * as PIXI from "pixi.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import videoSrc from "../Assets/videoecom.mp4";
-import imageSrc from "../Assets/images/moon.png";
+import imageSrc from "../Assets/images/carosel1.jpg";
+import carosel2 from "../Assets/images/carosel.jpg";
 
-const PixiCarousel = () => {
-  const pixiContainer = useRef(null);
-
-  useEffect(() => {
-    const app = new PIXI.Application();
-    (async () => {
-      await app.init({ backgroundAlpha: 0 });
-      pixiContainer.current.appendChild(app.view);
-
-      // Add PixiJS effects or animations here
-      const texture = await PIXI.Assets.load(imageSrc);
-      const sprite = new PIXI.Sprite(texture);
-      sprite.anchor.set(0.5);
-      sprite.x = app.renderer.width / 2;
-      sprite.y = app.renderer.height / 2;
-      sprite.width = 400;
-      sprite.height = 300;
-      app.stage.addChild(sprite);
-
-      app.ticker.add(() => {
-        sprite.rotation += 0.01;
-      });
-    })();
-
-    return () => {
-      app.destroy(true, true);
-    };
-  }, []);
-
+const SimpleCarousel = () => {
   return (
     <Carousel>
       <Carousel.Item>
@@ -43,16 +15,13 @@ const PixiCarousel = () => {
         </video>
       </Carousel.Item>
       <Carousel.Item>
-        <div
-          ref={pixiContainer}
-          style={{ width: "100%", height: "300px" }}
-        ></div>
+        <img src={imageSrc} alt="Sample" width="100%" />
       </Carousel.Item>
       <Carousel.Item>
-        <img src={imageSrc} alt="Sample" width="100%" />
+        <img src={carosel2} alt="Sample" width="100%" />
       </Carousel.Item>
     </Carousel>
   );
 };
 
-export default PixiCarousel;
+export default SimpleCarousel;

@@ -135,6 +135,7 @@ const Detials = () => {
                   className="custom-block-image img-fluid"
                   alt=""
                 />
+                <FontAwesomeIcon icon="fa-regular fa-heart" />
               </div>
 
               <div className="custom-block-info">

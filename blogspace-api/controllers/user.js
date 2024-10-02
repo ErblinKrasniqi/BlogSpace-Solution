@@ -92,6 +92,7 @@ exports.getUsers = async (req, res, next) => {
   const userId = req.userId;
   try {
     const user = await User.findById(userId);
+    console.log(user);
 
     if (user.role !== "Admin") {
       const error = new Error("You are not authorized 🚫");

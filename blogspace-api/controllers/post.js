@@ -1,6 +1,7 @@
 const Post = require("../models/post");
 const User = require("../models/user");
 const Comment = require("../models/comment");
+const Like = require("../models/likes");
 const path = require("path");
 const fs = require("fs");
 const { validationResult } = require("express-validator");
@@ -215,6 +216,51 @@ exports.searchPost = async (req, res, next) => {
     res.status(200).json({ message: "Found posts 😁", posts: posts });
   } catch (error) {
     next(error);
+  }
+};
+
+exports.likePost = async (req, res, next) => {
+  try {
+    console.log("It hit the url !");
+    const postId = req.params.id; // Assuming the post ID is passed in the URL
+    const userId = req.userId; // Assuming you're using some auth middleware to get the user ID
+
+    console.log(postId, userId);
+
+    // Find if the user has already liked the post
+    const like = await Like.findOne({ post: postId, user: userId });
+
+    if (like) {
+      // If the like exists, unlike (remove the like)
+      await Like.findOneAndDelete({ _id: like._id });
+    } else {
+      // If no like exists, create a new like
+      const newLike = new Like({ user: userId, post: postId });
+      await newLike.save();
+    }
+
+    // Count the total number of likes for the post
+    const likeCount = await Like.countDocuments({ post: postId });
+
+    // Send success response with updated like count
+    res.status(200).json({ message: "Success!", likes: likeCount });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getLikePosts = async (req, res, next) => {
+  try {
+    let likes = await Like.find().populate("user", "name");
+
+    let users = likes.map((like) => ({
+      userId: like.user._id.toString(),
+      name: like.user.name,
+    }));
+
+    res.status(200).json({ users });
+  } catch (err) {
+    next(err);
   }
 };
 

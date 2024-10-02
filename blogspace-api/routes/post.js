@@ -18,4 +18,8 @@ router.delete("/post/:id", isAuth, validator.post, postController.delete);
 
 router.get("/search", postController.searchPost);
 
+router.get("/like/:id", isAuth, postController.likePost);
+
+router.get("/like", postController.getLikePosts);
+
 module.exports = router;

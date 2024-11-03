@@ -3,8 +3,8 @@ import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import { useApiGetPosts } from "../Hooks/userHooks";
 import anime from "animejs";
-import WaterDropGrid from "../components/WaterDropGrid";
 import styles from "../Assets/scss/home.module.scss";
+import { FaSearch } from "react-icons/fa";
 
 const Home = () => {
   const {
@@ -91,111 +91,33 @@ const Home = () => {
   return (
     <>
       <main>
-        <section
-          className="hero-section d-flex justify-content-center align-items-center"
-          id="section_1"
-        >
-          <div className="section-overlay"></div>
-
-          <svg
-            xlinkHref="http://www.w3.org/1999/xlink"
-            viewBox="0 0 1440 320"
-          ></svg>
-
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-6 col-12 mb-5 mb-lg-0">
-                <h1
-                  ref={(el) => (myElement.current[0] = el)}
-                  className="text-white"
-                >
-                  Keep up with
-                </h1>
-
-                <h1
-                  ref={(el) => (myElement.current[1] = el)}
-                  className="cd-headline rotate-1 text-white mb-4 pb-2"
-                >
-                  <span>the best</span>
-                  <span className="cd-words-wrapper">
-                    <b className="is-visible">News</b>
-                    <b>Creative</b>
-                    <b>Lifestyle</b>
-                  </span>
-                </h1>
-
-                <div className="custom-btn-group">
-                  <a
-                    href="#section_2"
-                    className="btn custom-btn smoothscroll me-3"
-                  >
-                    Read
-                  </a>
-
-                  <a href="#section_3" className="link smoothscroll">
-                    Become a member
-                  </a>
-                </div>
-              </div>
-
-              <div className="col-lg-6 col-12">
-                <div ref={videoSpin} className="ratio ratio-16x9">
-                  {/* <iframe
-                    width="560"
-                    height="315"
-                    src="https://www.youtube.com/embed/MGNgbNGOzh8"
-                    title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                  ></iframe> */}
-                  <WaterDropGrid />
-                </div>
+        <section className={styles.container}>
+          <div className={styles.searchBar}>
+            <div className={styles.boxes}>
+              <h2>Where</h2>
+              <h3>Search destinations</h3>
+            </div>
+            <div className={styles.line}></div>
+            <div className={styles.boxes}>
+              <h2>Where</h2>
+              <h3>Search destinations</h3>
+            </div>
+            <div className={styles.line}></div>
+            <div className={styles.boxes}>
+              <h2>Where</h2>
+              <h3>Search destinations</h3>
+            </div>
+            <div>
+              <div className={styles.circle}>
+                <FaSearch color="white" size={20} />
               </div>
             </div>
           </div>
-
-          <svg xlinkHref="http://www.w3.org/1999/xlink" viewBox="0 0 1440 320">
-            <path
-              fill="#ffffff"
-              fillOpacity="1"
-              d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"
-            ></path>
-          </svg>
         </section>
 
-        <section className="events-section section-padding" id="section_2">
+        <section className="events-section " id="section_2">
           <div className="container">
             <div className="row ">
-              <div className="col-lg-12 col-12 mt-5">
-                <div className="d-flex flex-column align-items-center my-5 rounded-5">
-                  <input
-                    onChange={(e) => {
-                      debouncedSearchPosts(e.target.value);
-                    }}
-                    autoComplete="off"
-                    id="search"
-                    type="text"
-                    className={`form-control ${styles.search}`}
-                    placeholder="Search"
-                    style={{ width: "50%" }}
-                  ></input>
-                  <div className={styles.titles}>
-                    {searchRsults.length !== 0 ? (
-                      searchRsults.map((result) => (
-                        <div key={result._id} className={`${styles.text}`}>
-                          <h4>{result.title}</h4>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-center">No posts found 🌵</p>
-                    )}
-                  </div>
-                </div>
-
-                <h2 ref={ref} className="mb-lg-5 mb-4">
-                  Latest Posts
-                </h2>
-              </div>
               {loaded ? (
                 posts.map((post, index) => (
                   <div

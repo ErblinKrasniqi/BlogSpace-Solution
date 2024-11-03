@@ -1,3 +1,40 @@
+.container {
+  display: flex;
+  height: 10rem;
+}
+
+.searchBar {
+  display: flex;
+  flex-direction: row;
+  width: 50vw;
+  background-color: white;
+  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.148);
+  margin: auto;
+  padding: 1rem 3rem;
+  border-radius: 40px;
+  justify-content: space-between;
+
+  .line {
+    border: 1px solid black;
+  }
+  h2 {
+    font-size: 1rem;
+  }
+  h3 {
+    font-size: 1rem;
+  }
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #333;
+  width: 50px;
+  height: 50px;
+}
+
 //on hover titles
 
 .titles {

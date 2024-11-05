@@ -1,27 +1,54 @@
 .container {
   display: flex;
+  flex-direction: column;
   height: 10rem;
 }
 
 .searchBar {
   display: flex;
   flex-direction: row;
-  width: 50vw;
+  width: 800px;
   background-color: white;
   box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.148);
   margin: auto;
-  padding: 1rem 3rem;
+  position: relative;
   border-radius: 40px;
   justify-content: space-between;
+  .boxes {
+    margin: auto;
+    width: 100%;
+    border-radius: 40px;
+    height: 100%;
+    padding: 1rem;
+    padding-left: 1.5rem;
+    cursor: pointer;
+  }
 
+  .boxes:hover {
+    background-color: #33333314;
+  }
   .line {
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.232);
+    height: 2rem;
+    margin: auto;
   }
   h2 {
     font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
   }
   h3 {
     font-size: 1rem;
+    color: #333333a3;
+    margin: 0;
+  }
+
+  .searchIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+    cursor: pointer;
   }
 }
 
@@ -33,6 +60,65 @@
   background-color: #333;
   width: 50px;
   height: 50px;
+}
+
+//end
+
+.sectionEndLine {
+  border: 1px solid rgba(0, 0, 0, 0.092);
+}
+
+//Category
+.categorySection {
+  padding: 1rem;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.categoryList {
+  display: flex;
+  gap: 1rem;
+}
+
+.categoryItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  color: #333;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.categoryItem:hover {
+  transform: scale(1.05);
+}
+
+.icon {
+  font-size: 24px;
+}
+
+.name {
+  font-size: 14px;
+  margin-top: 0.5rem;
+}
+
+.categorySection::-webkit-scrollbar {
+  height: 8px;
+}
+
+.categorySection::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
 }
 
 //on hover titles

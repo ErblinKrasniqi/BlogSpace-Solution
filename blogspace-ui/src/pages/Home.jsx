@@ -5,6 +5,13 @@ import { useApiGetPosts } from "../Hooks/userHooks";
 import anime from "animejs";
 import styles from "../Assets/scss/home.module.scss";
 import { FaSearch } from "react-icons/fa";
+import {
+  FaUmbrellaBeach,
+  FaMountain,
+  FaTree,
+  FaCity,
+  FaSnowflake,
+} from "react-icons/fa";
 
 const Home = () => {
   const {
@@ -88,6 +95,15 @@ const Home = () => {
     });
   }, [inView2, page]);
 
+  const CATEGORIES = [
+    { id: 1, name: "Beach", icon: <FaUmbrellaBeach /> },
+    { id: 2, name: "Mountain", icon: <FaMountain /> },
+    { id: 3, name: "Forest", icon: <FaTree /> },
+    { id: 4, name: "City", icon: <FaCity /> },
+    { id: 5, name: "Snow", icon: <FaSnowflake /> },
+    // Add more categories as needed
+  ];
+
   return (
     <>
       <main>
@@ -99,7 +115,7 @@ const Home = () => {
             </div>
             <div className={styles.line}></div>
             <div className={styles.boxes}>
-              <h2>Where</h2>
+              <h2>Check in</h2>
               <h3>Search destinations</h3>
             </div>
             <div className={styles.line}></div>
@@ -107,13 +123,34 @@ const Home = () => {
               <h2>Where</h2>
               <h3>Search destinations</h3>
             </div>
-            <div>
+            <div className={styles.searchIcon}>
               <div className={styles.circle}>
                 <FaSearch color="white" size={20} />
               </div>
             </div>
           </div>
+          <div className={styles.sectionEndLine}></div>
         </section>
+
+        <section className={styles.categorySection}>
+          <div className={styles.categoryList}>
+            {CATEGORIES.map((category) => (
+              <div key={category.id} className={styles.categoryItem}>
+                <span className={styles.icon}>{category.icon}</span>
+                <p className={styles.name}>{category.name}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* <section className={styles.category}>
+          <div className={styles.cateContainer}></div>
+          {DUMMY_DATA.map((categ) => (
+            <div className={styles.cateBox}>
+              <h4 key={categ.id}>{categ.name}</h4>
+            </div>
+          ))}
+        </section> */}
 
         <section className="events-section " id="section_2">
           <div className="container">

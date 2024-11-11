@@ -15,6 +15,7 @@ import {
   deleteComment,
   createComment,
   searchPost,
+  getCategoryPosts,
 } from "../Api";
 import { useAuth } from "../Auth/is-auth";
 
@@ -199,6 +200,7 @@ export const useApiGetPosts = () => {
   const [totalPosts, setTotalPosts] = useState(0);
   const [page, setPage] = useState(1);
   const [searchRsults, setSearchResults] = useState([]);
+  const [category, setCategory] = useState("");
 
   function useDebouncedCallback(callback, delay) {
     const timeoutRef = useRef();
@@ -243,6 +245,24 @@ export const useApiGetPosts = () => {
     }
   };
 
+  const fetchCategoryPosts = useCallback(async () => {
+    try {
+      const data = await getCategoryPosts({ category });
+      setPosts(data.data); // Assuming your API returns data in this format
+    } catch (error) {
+      setPosts([]);
+      setError(error);
+    } finally {
+      setLoaded(true);
+    }
+  }, [category]);
+
+  useEffect(() => {
+    if (category) {
+      fetchCategoryPosts();
+    }
+  }, [category, fetchCategoryPosts]);
+
   const debouncedSearchPosts = useDebouncedCallback(searchPosts, 500);
 
   useEffect(() => {
@@ -263,6 +283,8 @@ export const useApiGetPosts = () => {
     searchPosts,
     searchRsults,
     debouncedSearchPosts,
+    fetchCategoryPosts,
+    setCategory,
   };
 };
 
@@ -334,6 +356,7 @@ export const useApiCreatePost = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [category, setCategory] = useState("");
   const [apiError, setApiError] = useState("");
   const [apiSuccess, setApiSuccess] = useState("");
   const [counter, setCounter] = useState(true);
@@ -344,6 +367,7 @@ export const useApiCreatePost = () => {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("image", image);
+    formData.append("category", category);
 
     if (!title) {
       setCounter((counter) => !counter);
@@ -355,7 +379,11 @@ export const useApiCreatePost = () => {
       setApiError("Please fill all the description field ⛔");
       return;
     }
-
+    if (!category) {
+      setCounter((counter) => !counter);
+      setApiError("Please fill all the category field ⛔");
+      return;
+    }
     try {
       const results = await createPost(formData);
 
@@ -378,12 +406,14 @@ export const useApiCreatePost = () => {
     setTitle,
     description,
     setDescription,
+    setCategory,
     image,
     setImage,
     apiError,
     apiSuccess,
     handleSubmit,
     counter,
+    category,
   };
 };
 

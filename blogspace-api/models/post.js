@@ -24,6 +24,10 @@ const postSchema = new Schema(
       ref: "User",
       required: true,
     },
+    category: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );

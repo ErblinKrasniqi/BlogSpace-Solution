@@ -8,7 +8,7 @@ const { validationResult } = require("express-validator");
 
 exports.get = async (req, res, next) => {
   const page = req.query.page || 1;
-  const perPage = 2;
+  const perPage = 8;
 
   try {
     const totalItems = await Post.find().countDocuments();
@@ -73,9 +73,30 @@ exports.getMyPosts = async (req, res, next) => {
   }
 };
 
+exports.getCategoryPosts = async (req, res, next) => {
+  try {
+    let category = req.body.category;
+
+    console.log(req.body);
+
+    const posts = await Post.find({ category: category });
+
+    if (posts.length === 0) {
+      const error = new Error("No posts for this category 🥲");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.create = async (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
+  const category = req.body.category;
 
   let loadedPost;
   let creator;
@@ -101,6 +122,7 @@ exports.create = async (req, res, next) => {
       imageUrl: imageUrl,
       creatorName: req.userName,
       creator: req.userId,
+      category: category,
     });
 
     const results = await post.save();

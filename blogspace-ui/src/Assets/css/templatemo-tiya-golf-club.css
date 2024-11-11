@@ -834,7 +834,7 @@ strong {
 }
 
 .custom-block-image {
-  aspect-ratio: 3/2;
+  aspect-ratio: 2/2;
 
   object-fit: cover;
   transition: all 0.3s;
@@ -928,8 +928,8 @@ strong {
 }
 
 .events-title {
-  font-size: var(--h3-font-size);
-  font-weight: var(--font-weight-medium);
+  font-size: 1.2em;
+  font-weight: 600;
 }
 
 /*---------------------------------------

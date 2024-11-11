@@ -7,6 +7,12 @@ export const getPosts = async (page) => {
   return response;
 };
 
+export const getCategoryPosts = async (data) => {
+  const respons = axios.post(`http://localhost:8080/api/posts/category`, data);
+  console.log(data);
+  return respons;
+};
+
 export const getPost = async (id) => {
   const response = axios.get(`http://localhost:8080/api/post/${id}`);
   return response;

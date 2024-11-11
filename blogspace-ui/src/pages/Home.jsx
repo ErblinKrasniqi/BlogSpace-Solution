@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import { useApiGetPosts } from "../Hooks/userHooks";
@@ -6,12 +6,20 @@ import anime from "animejs";
 import styles from "../Assets/scss/home.module.scss";
 import { FaSearch } from "react-icons/fa";
 import {
-  FaUmbrellaBeach,
-  FaMountain,
-  FaTree,
-  FaCity,
-  FaSnowflake,
-} from "react-icons/fa";
+  BiBriefcaseAlt2,
+  BiAlarmAdd,
+  BiBasketball,
+  BiBook,
+  BiBuilding,
+  BiCool,
+  BiGhost,
+  BiTrophy,
+  BiTime,
+  BiPrinter,
+  BiPopsicle,
+  BiArrowBack,
+  BiArrowToRight,
+} from "react-icons/bi";
 
 const Home = () => {
   const {
@@ -21,16 +29,15 @@ const Home = () => {
     setPage,
     totalPosts,
     page,
-
-    searchRsults,
-    debouncedSearchPosts,
+    setCategory,
+    fetchCategoryPosts,
   } = useApiGetPosts();
+  const [scrolled, setScrolled] = useState(false);
 
   //animations
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-  });
+
   const [ref2, inView2] = useInView({ triggerOnce: true });
+  const [activeCategory, setActiveCategory] = useState(1);
 
   const totalPages = Math.ceil(totalPosts / 2);
 
@@ -39,6 +46,21 @@ const Home = () => {
   const videoSpin = useRef(null);
   const textEffect = useRef(null);
   const postsLoad = useRef([]);
+
+  const scrollContainer = useRef(null);
+
+  const handleScroll = (direction) => {
+    const scrollAmount = 400; // Adjust the scroll amount as needed
+
+    setScrolled(!scrolled);
+    if (scrollContainer.current) {
+      // Check if ref is not null
+      scrollContainer.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
 
   useLayoutEffect(() => {
     anime({
@@ -73,19 +95,6 @@ const Home = () => {
   }, []);
 
   useLayoutEffect(() => {
-    if (inView) {
-      anime({
-        targets: postsLoad.current,
-        scale: [0, 1],
-        opacity: [1],
-        easing: "easeInOutSine",
-        duration: 1000,
-        delay: anime.stagger(900, { start: 300 }),
-      });
-    }
-  }, [inView]);
-
-  useLayoutEffect(() => {
     anime({
       targets: iconsAnimation.current,
       opacity: [0, 1],
@@ -96,13 +105,26 @@ const Home = () => {
   }, [inView2, page]);
 
   const CATEGORIES = [
-    { id: 1, name: "Beach", icon: <FaUmbrellaBeach /> },
-    { id: 2, name: "Mountain", icon: <FaMountain /> },
-    { id: 3, name: "Forest", icon: <FaTree /> },
-    { id: 4, name: "City", icon: <FaCity /> },
-    { id: 5, name: "Snow", icon: <FaSnowflake /> },
-    // Add more categories as needed
+    { id: 1, name: "Beach", icon: <BiBriefcaseAlt2 /> },
+    { id: 2, name: "Mountain", icon: <BiAlarmAdd /> },
+    { id: 3, name: "Forest", icon: <BiBuilding /> },
+    { id: 4, name: "City", icon: <BiBasketball /> },
+    { id: 5, name: "Snow", icon: <BiBook /> },
+    { id: 6, name: "Snow", icon: <BiCool /> },
+    { id: 7, name: "Snow", icon: <BiGhost /> },
+    { id: 8, name: "Snow", icon: <BiTrophy /> },
+    { id: 9, name: "Snow", icon: <BiTime /> },
+    { id: 10, name: "Snow", icon: <BiPrinter /> },
+    { id: 11, name: "Snow", icon: <BiPopsicle /> },
+    { id: 12, name: "Snow", icon: <BiGhost /> },
+    { id: 13, name: "City", icon: <BiBasketball /> },
   ];
+
+  const handleCategoryClick = (id, name) => {
+    setActiveCategory(id);
+    setCategory(name);
+    fetchCategoryPosts();
+  };
 
   return (
     <>
@@ -133,24 +155,52 @@ const Home = () => {
         </section>
 
         <section className={styles.categorySection}>
-          <div className={styles.categoryList}>
+          {scrolled ? (
+            <button
+              className={styles.scroll}
+              onClick={() => handleScroll("left")}
+            >
+              <BiArrowBack />
+            </button>
+          ) : (
+            ""
+          )}
+
+          <div
+            ref={scrollContainer}
+            className={`container ${styles.categoryList}`}
+          >
             {CATEGORIES.map((category) => (
-              <div key={category.id} className={styles.categoryItem}>
+              <div
+                key={category.id}
+                className={`${styles.categoryItem} ${
+                  category.id === activeCategory ? styles.active : ""
+                }`}
+                onClick={() => handleCategoryClick(category.id, category.name)}
+              >
                 <span className={styles.icon}>{category.icon}</span>
-                <p className={styles.name}>{category.name}</p>
+                <p
+                  className={
+                    category.id === activeCategory
+                      ? styles.nameActive
+                      : styles.name
+                  }
+                >
+                  {category.name}
+                </p>
+                {category.id === activeCategory && (
+                  <div className={styles.line}></div>
+                )}
               </div>
             ))}
           </div>
+          <button
+            className={styles.scrollRight}
+            onClick={() => handleScroll("right")}
+          >
+            <BiArrowToRight />
+          </button>
         </section>
-
-        {/* <section className={styles.category}>
-          <div className={styles.cateContainer}></div>
-          {DUMMY_DATA.map((categ) => (
-            <div className={styles.cateBox}>
-              <h4 key={categ.id}>{categ.name}</h4>
-            </div>
-          ))}
-        </section> */}
 
         <section className="events-section " id="section_2">
           <div className="container">
@@ -160,7 +210,7 @@ const Home = () => {
                   <div
                     ref={(el) => (postsLoad.current[index] = el)}
                     key={post._id}
-                    className="col-lg-6 col-12 mb-5 mb-lg-0 mt-5"
+                    className="col-lg-3 col-12 mb-5 mb-lg-0 mt-5"
                   >
                     <div className="custom-block-image-wrap">
                       <Link to={`/details/${post._id}`}>
@@ -179,7 +229,9 @@ const Home = () => {
                         {post.title}
                       </a>
 
-                      <p className="mb-0">{post.description}</p>
+                      <p className={`mb-0 ${styles.postP}`}>
+                        {post.description}
+                      </p>
 
                       <div className="border-top mt-4 pt-3">
                         <div className="d-flex flex-wrap align-items-center mb-1">

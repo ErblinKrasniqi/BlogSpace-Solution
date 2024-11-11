@@ -24,14 +24,16 @@
     cursor: pointer;
   }
 
-  .boxes:hover {
-    background-color: #33333314;
-  }
   .line {
     border: 1px solid rgba(0, 0, 0, 0.232);
     height: 2rem;
     margin: auto;
   }
+
+  .boxes:hover {
+    background-color: #33333314;
+  }
+
   h2 {
     font-size: 1rem;
     font-weight: 400;
@@ -69,19 +71,50 @@
 }
 
 //Category
+
 .categorySection {
-  padding: 1rem;
+  position: relative;
   overflow-x: auto;
   display: flex;
   flex-direction: row;
   white-space: nowrap;
-  scrollbar-width: thin;
+
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  .scroll {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: none;
+    top: 50%;
+    left: 120px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+  }
+
+  .scrollRight {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: none;
+    top: 50%;
+    right: 90px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+  }
 }
 
 .categoryList {
   display: flex;
-  gap: 1rem;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 20%,
+    black 80%,
+    transparent
+  );
+  width: 80rem;
 }
 
 .categoryItem {
@@ -91,12 +124,25 @@
   justify-content: center;
   width: 80px;
   height: 80px;
-  border-radius: 50%;
-  background-color: #f0f0f0;
   color: #333;
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s ease;
+  margin: 0 2rem;
+}
+
+.categorySection {
+  padding: 1rem 2rem;
+  .line {
+    border: 1px solid rgb(0, 0, 0);
+    width: 2rem;
+  }
+  .nameActive {
+    color: #333;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 0.5rem;
+  }
 }
 
 .categoryItem:hover {
@@ -104,11 +150,13 @@
 }
 
 .icon {
-  font-size: 24px;
+  font-size: 22px;
 }
 
 .name {
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #33333357;
   margin-top: 0.5rem;
 }
 
@@ -157,4 +205,8 @@
   padding: 1rem;
   border: 1px solid black;
   border-radius: 14px;
+}
+
+.postP {
+  font-size: 15px;
 }

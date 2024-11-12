@@ -31,8 +31,8 @@ const Home = () => {
     page,
     setCategory,
     fetchCategoryPosts,
-    fetchLikedPosts,
     likedPosts,
+    setLikedPosts,
   } = useApiGetPosts();
   const [scrolled, setScrolled] = useState(false);
 
@@ -81,6 +81,14 @@ const Home = () => {
     setActiveCategory(id);
     setCategory(name);
     fetchCategoryPosts();
+  };
+
+  const handleLikedPost = (postId) => {
+    setLikedPosts((prevPostLike) =>
+      prevPostLike.includes(postId)
+        ? prevPostLike.filter((id) => id !== postId)
+        : [...prevPostLike, postId]
+    );
   };
 
   return (
@@ -174,9 +182,16 @@ const Home = () => {
                     >
                       <div className={styles.like}>
                         {likedPosts.includes(post._id) ? (
-                          <FaHeart size={24} className={styles.readHeart} />
+                          <FaHeart
+                            size={24}
+                            onClick={() => handleLikedPost(post._id)}
+                            className={styles.readHeart}
+                          />
                         ) : (
-                          <BiHeart size={24} />
+                          <BiHeart
+                            size={24}
+                            onClick={() => handleLikedPost(post._id)}
+                          />
                         )}
                       </div>
                       <Link to={`/details/${post._id}`}>

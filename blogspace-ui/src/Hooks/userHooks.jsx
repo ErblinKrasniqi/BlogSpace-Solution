@@ -204,9 +204,10 @@ export const useApiGetPosts = () => {
 
   const fetchLikedPosts = async () => {
     try {
-      const likedPostsApi = await getLikedPost();
-      setLikedPosts(likedPostsApi.data);
-      console.log(likedPosts);
+      const { data } = await getLikedPost();
+      const idLikePost = data.likedPosts.map((post) => post._id);
+      console.log(idLikePost);
+      setLikedPosts(idLikePost);
     } catch (err) {
       throw err;
     }
@@ -293,6 +294,7 @@ export const useApiGetPosts = () => {
     setCategory,
     fetchLikedPosts,
     likedPosts,
+    setLikedPosts,
   };
 };
 

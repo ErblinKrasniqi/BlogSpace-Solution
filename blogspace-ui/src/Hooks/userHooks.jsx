@@ -16,6 +16,7 @@ import {
   createComment,
   searchPost,
   getCategoryPosts,
+  getLikedPost,
 } from "../Api";
 import { useAuth } from "../Auth/is-auth";
 
@@ -195,12 +196,25 @@ export const useApiFetchUserPosts = () => {
 
 export const useApiGetPosts = () => {
   const [posts, setPosts] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState("");
   const [totalPosts, setTotalPosts] = useState(0);
   const [page, setPage] = useState(1);
   const [searchRsults, setSearchResults] = useState([]);
   const [category, setCategory] = useState("");
+  const [likedPosts, setLikedPosts] = useState([]);
+
+  const fetchLikedPosts = async () => {
+    try {
+      const likedPostsApi = await getLikedPost();
+      setLikedPosts(likedPostsApi.data);
+      console.log(likedPosts);
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    fetchLikedPosts();
+  }, []);
 
   function useDebouncedCallback(callback, delay) {
     const timeoutRef = useRef();
@@ -221,13 +235,11 @@ export const useApiGetPosts = () => {
   const fetchPosts = useCallback(async () => {
     try {
       const data = await getPosts(page);
+      fetchLikedPosts();
       setPosts(data.data.posts);
       setTotalPosts(data.data.totalItems);
     } catch (error) {
       setPosts([]);
-      setError(error);
-    } finally {
-      setLoaded(true);
     }
   }, [page]);
 
@@ -241,7 +253,6 @@ export const useApiGetPosts = () => {
       setSearchResults(data.data.posts);
     } catch (error) {
       setSearchResults([]);
-      setError(error);
     }
   };
 
@@ -251,9 +262,6 @@ export const useApiGetPosts = () => {
       setPosts(data.data); // Assuming your API returns data in this format
     } catch (error) {
       setPosts([]);
-      setError(error);
-    } finally {
-      setLoaded(true);
     }
   }, [category]);
 
@@ -275,8 +283,6 @@ export const useApiGetPosts = () => {
 
   return {
     posts,
-    loaded,
-    error,
     setPage,
     totalPosts,
     page,
@@ -285,6 +291,8 @@ export const useApiGetPosts = () => {
     debouncedSearchPosts,
     fetchCategoryPosts,
     setCategory,
+    fetchLikedPosts,
+    likedPosts,
   };
 };
 

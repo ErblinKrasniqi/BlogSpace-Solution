@@ -17,6 +17,7 @@ const path = require("path");
 const userRoute = require("./routes/user");
 const postRoute = require("./routes/post");
 const commentRoute = require("./routes/comment");
+const postLike = require("./routes/postLikes");
 
 const fileStroage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -61,6 +62,8 @@ app.use("/api", userRoute);
 app.use("/api", postRoute);
 
 app.use("/api", commentRoute);
+
+app.use("/api", postLike);
 
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;

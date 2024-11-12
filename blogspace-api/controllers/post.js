@@ -77,8 +77,6 @@ exports.getCategoryPosts = async (req, res, next) => {
   try {
     let category = req.body.category;
 
-    console.log(req.body);
-
     const posts = await Post.find({ category: category });
 
     if (posts.length === 0) {

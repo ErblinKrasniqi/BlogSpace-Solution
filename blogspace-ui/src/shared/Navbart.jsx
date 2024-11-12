@@ -1,17 +1,25 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../Auth/is-auth";
+import styles from "../Assets/scss/navbar.module.scss";
+import { FiMenu } from "react-icons/fi";
+import { CgProfile } from "react-icons/cg";
+import { useState } from "react";
 
 const Navbart = () => {
   const { isLoggedIn, setIsLoggedIn, role } = useAuth();
+  const [showList, setShowList] = useState(false);
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userName");
     localStorage.removeItem("role");
-
+    setShowList(false);
     setIsLoggedIn(false);
   };
 
+  const handleShowList = () => {
+    setShowList(!showList);
+  };
   return (
     <nav
       className="navbar navbar-expand-lg sticky-top"
@@ -81,54 +89,45 @@ const Navbart = () => {
                 Tech
               </a>
             </li>
-            {isLoggedIn && (
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#trick"
-                  id="navbarLightDropdownMenuLink"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Admin
-                </a>
+          </ul>
 
-                <ul
-                  className="dropdown-menu dropdown-menu-light"
-                  aria-labelledby="navbarLightDropdownMenuLink"
+          <div className="d-none d-lg-block ms-lg-3">
+            {isLoggedIn ? (
+              // <div
+              //   data-bs-toggle="offcanvas"
+              //   className="btn custom-btn custom-border-btn"
+              //   onClick={handleLogOut}
+              // >
+              //   Logout
+              // </div>
+              <div className={styles.mainContainer}>
+                <div
+                  className={`${styles.profile} ${
+                    showList ? styles.profileShadow : ""
+                  }`}
+                  onClick={handleShowList}
                 >
-                  <li>
-                    <Link to="/create" className="dropdown-item">
-                      Create post
+                  <FiMenu size={25} />
+                  <CgProfile className={styles.listIcon} size={25} />
+                </div>
+                {showList ? (
+                  <div className={styles.categories}>
+                    <Link to="/profile" className={styles.firstP}>
+                      Profile
                     </Link>
-                  </li>
-
-                  <li>
-                    <Link to="/dashboard" className="dropdown-item">
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
+                    <Link to="/saved">Saved posts</Link>
+                    <Link to="/create">Create post</Link>
+                    <Link to="/dashboard">Dashboard</Link>
                     {role === "Admin" && (
                       <Link to="/users" className="dropdown-item">
                         Users
                       </Link>
                     )}
-                  </li>
-                </ul>
-              </li>
-            )}
-          </ul>
-
-          <div className="d-none d-lg-block ms-lg-3">
-            {isLoggedIn ? (
-              <div
-                data-bs-toggle="offcanvas"
-                className="btn custom-btn custom-border-btn"
-                onClick={handleLogOut}
-              >
-                Logout
+                    <Link onClick={handleLogOut}>Logout</Link>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             ) : (
               <Link

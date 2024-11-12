@@ -1,10 +1,11 @@
-import { useRef, useLayoutEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
+import { useRef, useState } from "react";
+
 import { Link } from "react-router-dom";
 import { useApiGetPosts } from "../Hooks/userHooks";
-import anime from "animejs";
+
 import styles from "../Assets/scss/home.module.scss";
 import { FaSearch } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import {
   BiBriefcaseAlt2,
   BiAlarmAdd,
@@ -19,32 +20,30 @@ import {
   BiPopsicle,
   BiArrowBack,
   BiArrowToRight,
+  BiHeart,
 } from "react-icons/bi";
 
 const Home = () => {
   const {
     posts,
-    loaded,
-    error,
     setPage,
     totalPosts,
     page,
     setCategory,
     fetchCategoryPosts,
+    fetchLikedPosts,
+    likedPosts,
   } = useApiGetPosts();
   const [scrolled, setScrolled] = useState(false);
 
   //animations
 
-  const [ref2, inView2] = useInView({ triggerOnce: true });
   const [activeCategory, setActiveCategory] = useState(1);
 
   const totalPages = Math.ceil(totalPosts / 2);
 
-  const myElement = useRef([]);
   const iconsAnimation = useRef([]);
-  const videoSpin = useRef(null);
-  const textEffect = useRef(null);
+
   const postsLoad = useRef([]);
 
   const scrollContainer = useRef(null);
@@ -61,48 +60,6 @@ const Home = () => {
       });
     }
   };
-
-  useLayoutEffect(() => {
-    anime({
-      targets: myElement.current,
-      opacity: [0, 1],
-      translateY: [-250, 0],
-      duration: 2000,
-      delay: anime.stagger(100, { start: 300 }),
-    });
-
-    anime({
-      targets: videoSpin.current,
-      opacity: [0, 1],
-      translateY: [-250, 0],
-      easing: "easeOutBounce",
-      duration: 2000,
-      delay: 1000,
-    });
-  }, []);
-
-  useLayoutEffect(() => {
-    const animation = anime({
-      targets: textEffect.current,
-      translateX: ["-100%", "100%"],
-      duration: 20000,
-      loop: true,
-      easing: "linear",
-      direction: "reverse",
-    });
-
-    return () => animation.pause();
-  }, []);
-
-  useLayoutEffect(() => {
-    anime({
-      targets: iconsAnimation.current,
-      opacity: [0, 1],
-      translateY: [-200, 0],
-      duration: 5000,
-      delay: anime.stagger(300, { direction: "alternate", start: 300 }),
-    });
-  }, [inView2, page]);
 
   const CATEGORIES = [
     { id: 1, name: "Beach", icon: <BiBriefcaseAlt2 /> },
@@ -205,14 +162,23 @@ const Home = () => {
         <section className="events-section " id="section_2">
           <div className="container">
             <div className="row ">
-              {loaded ? (
+              {posts.length > 0 ? (
                 posts.map((post, index) => (
                   <div
                     ref={(el) => (postsLoad.current[index] = el)}
                     key={post._id}
                     className="col-lg-3 col-12 mb-5 mb-lg-0 mt-5"
                   >
-                    <div className="custom-block-image-wrap">
+                    <div
+                      className={`custom-block-image-wrap ${styles.postImage}`}
+                    >
+                      <div className={styles.like}>
+                        {likedPosts.includes(post._id) ? (
+                          <FaHeart size={24} className={styles.readHeart} />
+                        ) : (
+                          <BiHeart size={24} />
+                        )}
+                      </div>
                       <Link to={`/details/${post._id}`}>
                         <img
                           src={`http://localhost:8080/images/${post.imageUrl}`}
@@ -251,7 +217,7 @@ const Home = () => {
                 ))
               ) : (
                 <div className="d-flex justify-content-center">
-                  <h3>{error}</h3>
+                  <p>No post</p>
                 </div>
               )}
               {/*Pegination */}
@@ -288,7 +254,7 @@ const Home = () => {
           <div className="container">
             <div className="row  d-flex gap-4 justify-content-center">
               <div className="d-flex justify-content-center mb-5">
-                <h1 ref={ref2}>Technologies used</h1>
+                <h1>Technologies used</h1>
               </div>
               <img
                 style={{ width: "300px" }}

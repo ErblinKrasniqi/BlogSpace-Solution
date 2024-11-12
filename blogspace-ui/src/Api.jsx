@@ -60,6 +60,22 @@ export const searchPost = async (query) => {
   );
   return response;
 };
+
+//Likes api
+
+export const getLikedPost = async () => {
+  const response = axios.get(
+    `http://localhost:8080/api/users/${localStorage.getItem(
+      "name"
+    )}/likedPosts`,
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+  return response;
+};
 //User apis
 
 export const registerUser = async (data) => {

@@ -19,6 +19,7 @@ const userSchema = new Schema({
     type: String,
     default: "user",
   },
+  likedPosts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
 });

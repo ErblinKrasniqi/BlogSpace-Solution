@@ -22,6 +22,7 @@ import {
   BiArrowToRight,
   BiHeart,
 } from "react-icons/bi";
+import { postLikePost } from "../Api";
 
 const Home = () => {
   const {
@@ -84,16 +85,22 @@ const Home = () => {
   };
 
   const handleLikedPost = (postId) => {
-    setLikedPosts((prevPostLike) =>
-      prevPostLike.includes(postId)
-        ? prevPostLike.filter((id) => id !== postId)
-        : [...prevPostLike, postId]
-    );
+    if (localStorage.getItem("token")) {
+      postLikePost(postId);
+      setLikedPosts((prevPostLike) =>
+        prevPostLike.includes(postId)
+          ? prevPostLike.filter((id) => id !== postId)
+          : [...prevPostLike, postId]
+      );
+    }
   };
 
   return (
     <>
       <main>
+        {/* <div className={styles.backBlur}>
+          <div className={styles.saveScreen}></div>
+        </div> */}
         <section className={styles.container}>
           <div className={styles.searchBar}>
             <div className={styles.boxes}>

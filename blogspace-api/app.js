@@ -45,6 +45,7 @@ app.use(bodyParser.json());
 app.use(
   multer({ storage: fileStroage, fileFilter: fileFilter }).single("image")
 );
+
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use((req, res, next) => {

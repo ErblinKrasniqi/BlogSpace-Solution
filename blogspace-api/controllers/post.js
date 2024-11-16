@@ -241,11 +241,8 @@ exports.searchPost = async (req, res, next) => {
 
 exports.likePost = async (req, res, next) => {
   try {
-    console.log("It hit the url !");
     const postId = req.params.id; // Assuming the post ID is passed in the URL
     const userId = req.userId; // Assuming you're using some auth middleware to get the user ID
-
-    console.log(postId, userId);
 
     // Find if the user has already liked the post
     const like = await Like.findOne({ post: postId, user: userId });

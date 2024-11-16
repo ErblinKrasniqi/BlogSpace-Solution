@@ -17,6 +17,9 @@ import {
   searchPost,
   getCategoryPosts,
   getLikedPost,
+  postLikePost,
+  updatePost,
+  getUserProfile,
 } from "../Api";
 import { useAuth } from "../Auth/is-auth";
 
@@ -192,6 +195,53 @@ export const useApiFetchUserPosts = () => {
   return { posts, loaded, apiError, apiSuccess, handleDelete, counter };
 };
 
+export const useApiUpdateProfile = () => {
+  const handleUpdateProfile = async (e) => {
+    try {
+      e.preventDefault();
+      const file = e.target.files[0];
+      if (!file) {
+        console.error("No file selected");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("image", file); // Use "image" here to match the backend
+
+      const updatedData = await updatePost(formData);
+      console.log(updatedData, "this is a file");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { handleUpdateProfile };
+};
+
+export const useUserProfile = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        setLoading(true);
+        const data = await getUserProfile();
+        setUser(data);
+        console.log(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  return { user, loading, error };
+};
+
 //Post hooks
 
 export const useApiGetPosts = () => {
@@ -202,11 +252,19 @@ export const useApiGetPosts = () => {
   const [category, setCategory] = useState("");
   const [likedPosts, setLikedPosts] = useState([]);
 
+  const apiLikePost = async (postId) => {
+    try {
+      await postLikePost(postId);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const fetchLikedPosts = async () => {
     try {
       const { data } = await getLikedPost();
       const idLikePost = data.likedPosts.map((post) => post._id);
-      console.log(idLikePost);
+
       setLikedPosts(idLikePost);
     } catch (err) {
       throw err;
@@ -214,7 +272,9 @@ export const useApiGetPosts = () => {
   };
 
   useEffect(() => {
-    fetchLikedPosts();
+    if (localStorage.getItem("token")) {
+      fetchLikedPosts();
+    }
   }, []);
 
   function useDebouncedCallback(callback, delay) {
@@ -236,7 +296,9 @@ export const useApiGetPosts = () => {
   const fetchPosts = useCallback(async () => {
     try {
       const data = await getPosts(page);
-      fetchLikedPosts();
+      if (localStorage.getItem("token")) {
+        fetchLikedPosts();
+      }
       setPosts(data.data.posts);
       setTotalPosts(data.data.totalItems);
     } catch (error) {
@@ -295,6 +357,7 @@ export const useApiGetPosts = () => {
     fetchLikedPosts,
     likedPosts,
     setLikedPosts,
+    apiLikePost,
   };
 };
 

@@ -5,6 +5,7 @@ import { useAuth } from "./Auth/is-auth";
 import Wrapper from "./shared/Wrapper";
 import Loading from "./components/Loading";
 import Users from "./pages/admin/Users";
+import Profile from "./pages/admin/profile";
 
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
@@ -32,6 +33,7 @@ function App() {
               <Route path="/edit/:id" element={<EditPost />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/users" element={<Users />} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
           </Routes>
         </Suspense>

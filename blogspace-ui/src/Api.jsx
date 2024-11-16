@@ -61,6 +61,33 @@ export const searchPost = async (query) => {
   return response;
 };
 
+export const updatePost = async (data) => {
+  const response = axios.post("http://localhost:8080/api/user/profile", data, {
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+  return response;
+};
+
+export const getUserProfile = async () => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8080/api/user/${localStorage.getItem("userId")}`,
+      {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    return response.data.user;
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    throw error;
+  }
+};
+
 //Likes api
 
 export const getLikedPost = async () => {
@@ -76,6 +103,21 @@ export const getLikedPost = async () => {
   );
   return response;
 };
+
+export const postLikePost = async (postId) => {
+  const response = axios.post(
+    `http://localhost:8080/api/posts/${postId}/like`,
+    {},
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+    }
+  );
+
+  return response;
+};
+
 //User apis
 
 export const registerUser = async (data) => {

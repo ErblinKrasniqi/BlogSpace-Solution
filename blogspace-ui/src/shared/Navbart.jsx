@@ -93,13 +93,6 @@ const Navbart = () => {
 
           <div className="d-none d-lg-block ms-lg-3">
             {isLoggedIn ? (
-              // <div
-              //   data-bs-toggle="offcanvas"
-              //   className="btn custom-btn custom-border-btn"
-              //   onClick={handleLogOut}
-              // >
-              //   Logout
-              // </div>
               <div className={styles.mainContainer}>
                 <div
                   className={`${styles.profile} ${

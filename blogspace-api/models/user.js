@@ -3,6 +3,10 @@ const Comment = require("./comment");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+  profileImage: {
+    type: String,
+    required: false,
+  },
   email: {
     type: String,
     required: true,

@@ -12,9 +12,11 @@ const CreatePost = () => {
     setTitle,
     setDescription,
     setImage,
+    setCategory,
     apiError,
     apiSuccess,
     handleSubmit,
+    category,
     counter,
   } = useApiCreatePost();
 
@@ -39,6 +41,13 @@ const CreatePost = () => {
       duration: 1000,
     });
   }, []);
+
+  const CATEGORIES = [
+    { id: 1, name: "Snow" },
+    { id: 2, name: "Blue Skies" },
+    { id: 3, name: "Island" },
+    // Add more categories as needed
+  ];
 
   return (
     <Container
@@ -72,6 +81,20 @@ const CreatePost = () => {
               rows={4}
               placeholder="Description"
             />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="category">
+            <Form.Label>Category</Form.Label>
+            <Form.Select
+              onChange={(e) => setCategory(e.target.value)}
+              value={category}
+            >
+              <option value="">Select a category</option>
+              {CATEGORIES.map((cat) => (
+                <option key={cat.id} value={cat.name}>
+                  {cat.name}
+                </option>
+              ))}
+            </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicImage">
             <Form.Label>Image</Form.Label>

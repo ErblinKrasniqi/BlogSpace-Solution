@@ -92,7 +92,6 @@ exports.getUsers = async (req, res, next) => {
   const userId = req.userId;
   try {
     const user = await User.findById(userId);
-    console.log(user);
 
     if (user.role !== "Admin") {
       const error = new Error("You are not authorized 🚫");
@@ -140,6 +139,60 @@ exports.deleteUser = async (req, res, next) => {
     res.status(200).json({ message: "User has been delted 😁" });
   } catch (err) {
     next(err);
+  }
+};
+
+exports.updateProfile = async (req, res, next) => {
+  try {
+    console.log(req.file); // Log the file data for debugging
+    if (!req.file) {
+      const error = new Error("No file provided 🥲");
+      error.statusCode = 422;
+      throw error;
+    }
+
+    const userId = req.userId || req.params.userId;
+    if (!userId) {
+      const error = new Error("User ID not found 😔");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const imageUrl = `/images/${req.file.filename}`; // Save relative path
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { profileImage: imageUrl },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) {
+      const error = new Error("User not found 🥲");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    res.status(200).json({
+      message: "Profile updated successfully 🌟",
+      user: updatedUser,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getUserProfile = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+
+    const user = await User.findById(userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ user });
+  } catch (error) {
+    next(error);
   }
 };
 

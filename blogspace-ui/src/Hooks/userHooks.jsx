@@ -15,6 +15,11 @@ import {
   deleteComment,
   createComment,
   searchPost,
+  getCategoryPosts,
+  getLikedPost,
+  postLikePost,
+  updatePost,
+  getUserProfile,
 } from "../Api";
 import { useAuth } from "../Auth/is-auth";
 
@@ -190,15 +195,87 @@ export const useApiFetchUserPosts = () => {
   return { posts, loaded, apiError, apiSuccess, handleDelete, counter };
 };
 
+export const useApiUpdateProfile = () => {
+  const handleUpdateProfile = async (e) => {
+    try {
+      e.preventDefault();
+      const file = e.target.files[0];
+      if (!file) {
+        console.error("No file selected");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("image", file); // Use "image" here to match the backend
+
+      const updatedData = await updatePost(formData);
+      console.log(updatedData, "this is a file");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { handleUpdateProfile };
+};
+
+export const useUserProfile = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        setLoading(true);
+        const data = await getUserProfile();
+        setUser(data);
+        console.log(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  return { user, loading, error };
+};
+
 //Post hooks
 
 export const useApiGetPosts = () => {
   const [posts, setPosts] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState("");
   const [totalPosts, setTotalPosts] = useState(0);
   const [page, setPage] = useState(1);
   const [searchRsults, setSearchResults] = useState([]);
+  const [category, setCategory] = useState("");
+  const [likedPosts, setLikedPosts] = useState([]);
+
+  const apiLikePost = async (postId) => {
+    try {
+      await postLikePost(postId);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const fetchLikedPosts = async () => {
+    try {
+      const { data } = await getLikedPost();
+      const idLikePost = data.likedPosts.map((post) => post._id);
+
+      setLikedPosts(idLikePost);
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      fetchLikedPosts();
+    }
+  }, []);
 
   function useDebouncedCallback(callback, delay) {
     const timeoutRef = useRef();
@@ -219,13 +296,13 @@ export const useApiGetPosts = () => {
   const fetchPosts = useCallback(async () => {
     try {
       const data = await getPosts(page);
+      if (localStorage.getItem("token")) {
+        fetchLikedPosts();
+      }
       setPosts(data.data.posts);
       setTotalPosts(data.data.totalItems);
     } catch (error) {
       setPosts([]);
-      setError(error);
-    } finally {
-      setLoaded(true);
     }
   }, [page]);
 
@@ -239,9 +316,23 @@ export const useApiGetPosts = () => {
       setSearchResults(data.data.posts);
     } catch (error) {
       setSearchResults([]);
-      setError(error);
     }
   };
+
+  const fetchCategoryPosts = useCallback(async () => {
+    try {
+      const data = await getCategoryPosts({ category });
+      setPosts(data.data); // Assuming your API returns data in this format
+    } catch (error) {
+      setPosts([]);
+    }
+  }, [category]);
+
+  useEffect(() => {
+    if (category) {
+      fetchCategoryPosts();
+    }
+  }, [category, fetchCategoryPosts]);
 
   const debouncedSearchPosts = useDebouncedCallback(searchPosts, 500);
 
@@ -255,14 +346,18 @@ export const useApiGetPosts = () => {
 
   return {
     posts,
-    loaded,
-    error,
     setPage,
     totalPosts,
     page,
     searchPosts,
     searchRsults,
     debouncedSearchPosts,
+    fetchCategoryPosts,
+    setCategory,
+    fetchLikedPosts,
+    likedPosts,
+    setLikedPosts,
+    apiLikePost,
   };
 };
 
@@ -334,6 +429,7 @@ export const useApiCreatePost = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [category, setCategory] = useState("");
   const [apiError, setApiError] = useState("");
   const [apiSuccess, setApiSuccess] = useState("");
   const [counter, setCounter] = useState(true);
@@ -344,6 +440,7 @@ export const useApiCreatePost = () => {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("image", image);
+    formData.append("category", category);
 
     if (!title) {
       setCounter((counter) => !counter);
@@ -355,7 +452,11 @@ export const useApiCreatePost = () => {
       setApiError("Please fill all the description field ⛔");
       return;
     }
-
+    if (!category) {
+      setCounter((counter) => !counter);
+      setApiError("Please fill all the category field ⛔");
+      return;
+    }
     try {
       const results = await createPost(formData);
 
@@ -378,12 +479,14 @@ export const useApiCreatePost = () => {
     setTitle,
     description,
     setDescription,
+    setCategory,
     image,
     setImage,
     apiError,
     apiSuccess,
     handleSubmit,
     counter,
+    category,
   };
 };
 

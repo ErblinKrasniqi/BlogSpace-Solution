@@ -3,6 +3,10 @@ const Comment = require("./comment");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+  profileImage: {
+    type: String,
+    required: false,
+  },
   email: {
     type: String,
     required: true,
@@ -19,6 +23,7 @@ const userSchema = new Schema({
     type: String,
     default: "user",
   },
+  likedPosts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
 });

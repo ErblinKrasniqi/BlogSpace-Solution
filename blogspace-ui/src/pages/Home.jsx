@@ -1,209 +1,214 @@
-import { useRef, useLayoutEffect } from "react";
-import { useInView } from "react-intersection-observer";
+import { useRef, useState } from "react";
+
 import { Link } from "react-router-dom";
 import { useApiGetPosts } from "../Hooks/userHooks";
-import anime from "animejs";
-import WaterDropGrid from "../components/WaterDropGrid";
+
 import styles from "../Assets/scss/home.module.scss";
+import { FaSearch } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+import {
+  BiBriefcaseAlt2,
+  BiAlarmAdd,
+  BiBasketball,
+  BiBook,
+  BiBuilding,
+  BiCool,
+  BiGhost,
+  BiTrophy,
+  BiTime,
+  BiPrinter,
+  BiPopsicle,
+  BiArrowBack,
+  BiArrowToRight,
+  BiHeart,
+} from "react-icons/bi";
+import { postLikePost } from "../Api";
 
 const Home = () => {
   const {
     posts,
-    loaded,
-    error,
     setPage,
     totalPosts,
     page,
-
-    searchRsults,
-    debouncedSearchPosts,
+    setCategory,
+    fetchCategoryPosts,
+    likedPosts,
+    setLikedPosts,
   } = useApiGetPosts();
+  const [scrolled, setScrolled] = useState(false);
 
   //animations
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-  });
-  const [ref2, inView2] = useInView({ triggerOnce: true });
+
+  const [activeCategory, setActiveCategory] = useState(1);
 
   const totalPages = Math.ceil(totalPosts / 2);
 
-  const myElement = useRef([]);
   const iconsAnimation = useRef([]);
-  const videoSpin = useRef(null);
-  const textEffect = useRef(null);
+
   const postsLoad = useRef([]);
 
-  useLayoutEffect(() => {
-    anime({
-      targets: myElement.current,
-      opacity: [0, 1],
-      translateY: [-250, 0],
-      duration: 2000,
-      delay: anime.stagger(100, { start: 300 }),
-    });
+  const scrollContainer = useRef(null);
 
-    anime({
-      targets: videoSpin.current,
-      opacity: [0, 1],
-      translateY: [-250, 0],
-      easing: "easeOutBounce",
-      duration: 2000,
-      delay: 1000,
-    });
-  }, []);
+  const handleScroll = (direction) => {
+    const scrollAmount = 400; // Adjust the scroll amount as needed
 
-  useLayoutEffect(() => {
-    const animation = anime({
-      targets: textEffect.current,
-      translateX: ["-100%", "100%"],
-      duration: 20000,
-      loop: true,
-      easing: "linear",
-      direction: "reverse",
-    });
-
-    return () => animation.pause();
-  }, []);
-
-  useLayoutEffect(() => {
-    if (inView) {
-      anime({
-        targets: postsLoad.current,
-        scale: [0, 1],
-        opacity: [1],
-        easing: "easeInOutSine",
-        duration: 1000,
-        delay: anime.stagger(900, { start: 300 }),
+    setScrolled(!scrolled);
+    if (scrollContainer.current) {
+      // Check if ref is not null
+      scrollContainer.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
       });
     }
-  }, [inView]);
+  };
 
-  useLayoutEffect(() => {
-    anime({
-      targets: iconsAnimation.current,
-      opacity: [0, 1],
-      translateY: [-200, 0],
-      duration: 5000,
-      delay: anime.stagger(300, { direction: "alternate", start: 300 }),
-    });
-  }, [inView2, page]);
+  const CATEGORIES = [
+    { id: 1, name: "Work", icon: <BiBriefcaseAlt2 /> },
+    { id: 2, name: "Time", icon: <BiAlarmAdd /> },
+    { id: 3, name: "Bulding", icon: <BiBuilding /> },
+    { id: 4, name: "Basketball", icon: <BiBasketball /> },
+    { id: 5, name: "Book", icon: <BiBook /> },
+    { id: 6, name: "Cool", icon: <BiCool /> },
+    { id: 7, name: "Ghost", icon: <BiGhost /> },
+    { id: 8, name: "Trophy", icon: <BiTrophy /> },
+    { id: 9, name: "Time", icon: <BiTime /> },
+    { id: 10, name: "Printer", icon: <BiPrinter /> },
+    { id: 11, name: "Popsicle", icon: <BiPopsicle /> },
+    { id: 12, name: "Ghost", icon: <BiGhost /> },
+    { id: 13, name: "Basketball", icon: <BiBasketball /> },
+  ];
+
+  const handleCategoryClick = (id, name) => {
+    setActiveCategory(id);
+    setCategory(name);
+    fetchCategoryPosts();
+  };
+
+  const handleLikedPost = (postId) => {
+    if (localStorage.getItem("token")) {
+      postLikePost(postId);
+      setLikedPosts((prevPostLike) =>
+        prevPostLike.includes(postId)
+          ? prevPostLike.filter((id) => id !== postId)
+          : [...prevPostLike, postId]
+      );
+    }
+  };
 
   return (
     <>
       <main>
-        <section
-          className="hero-section d-flex justify-content-center align-items-center"
-          id="section_1"
-        >
-          <div className="section-overlay"></div>
-
-          <svg
-            xlinkHref="http://www.w3.org/1999/xlink"
-            viewBox="0 0 1440 320"
-          ></svg>
-
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-6 col-12 mb-5 mb-lg-0">
-                <h1
-                  ref={(el) => (myElement.current[0] = el)}
-                  className="text-white"
-                >
-                  Keep up with
-                </h1>
-
-                <h1
-                  ref={(el) => (myElement.current[1] = el)}
-                  className="cd-headline rotate-1 text-white mb-4 pb-2"
-                >
-                  <span>the best</span>
-                  <span className="cd-words-wrapper">
-                    <b className="is-visible">News</b>
-                    <b>Creative</b>
-                    <b>Lifestyle</b>
-                  </span>
-                </h1>
-
-                <div className="custom-btn-group">
-                  <a
-                    href="#section_2"
-                    className="btn custom-btn smoothscroll me-3"
-                  >
-                    Read
-                  </a>
-
-                  <a href="#section_3" className="link smoothscroll">
-                    Become a member
-                  </a>
+        {/* <div className={styles.backBlur}>
+          <div className={styles.saveScreen}>
+            <div className={styles.ParentCat}>
+              {DUMMY_CATEGORY.map((categories) => (
+                <div className={styles.categorie}>
+                  <h1>{categories.name}</h1>
                 </div>
-              </div>
-
-              <div className="col-lg-6 col-12">
-                <div ref={videoSpin} className="ratio ratio-16x9">
-                  {/* <iframe
-                    width="560"
-                    height="315"
-                    src="https://www.youtube.com/embed/MGNgbNGOzh8"
-                    title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                  ></iframe> */}
-                  <WaterDropGrid />
-                </div>
+              ))}
+            </div>
+          </div>
+        </div> */}
+        <section className={styles.container}>
+          <div className={styles.searchBar}>
+            <div className={styles.boxes}>
+              <h2>Where</h2>
+              <h3>Search destinations</h3>
+            </div>
+            <div className={styles.line}></div>
+            <div className={styles.boxes}>
+              <h2>Time</h2>
+              <h3>Filter time</h3>
+            </div>
+            <div className={styles.line}></div>
+            <div className={styles.boxes}>
+              <h2>Author</h2>
+              <h3>Search Authors</h3>
+            </div>
+            <div className={styles.searchIcon}>
+              <div className={styles.circle}>
+                <FaSearch color="white" size={20} />
               </div>
             </div>
           </div>
-
-          <svg xlinkHref="http://www.w3.org/1999/xlink" viewBox="0 0 1440 320">
-            <path
-              fill="#ffffff"
-              fillOpacity="1"
-              d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"
-            ></path>
-          </svg>
+          <div className={styles.sectionEndLine}></div>
         </section>
 
-        <section className="events-section section-padding" id="section_2">
+        <section className={styles.categorySection}>
+          {scrolled ? (
+            <button
+              className={styles.scroll}
+              onClick={() => handleScroll("left")}
+            >
+              <BiArrowBack />
+            </button>
+          ) : (
+            ""
+          )}
+
+          <div
+            ref={scrollContainer}
+            className={`container ${styles.categoryList}`}
+          >
+            {CATEGORIES.map((category) => (
+              <div
+                key={category.id}
+                className={`${styles.categoryItem} ${
+                  category.id === activeCategory ? styles.active : ""
+                }`}
+                onClick={() => handleCategoryClick(category.id, category.name)}
+              >
+                <span className={styles.icon}>{category.icon}</span>
+                <p
+                  className={
+                    category.id === activeCategory
+                      ? styles.nameActive
+                      : styles.name
+                  }
+                >
+                  {category.name}
+                </p>
+                {category.id === activeCategory && (
+                  <div className={styles.line}></div>
+                )}
+              </div>
+            ))}
+          </div>
+          <button
+            className={styles.scrollRight}
+            onClick={() => handleScroll("right")}
+          >
+            <BiArrowToRight />
+          </button>
+        </section>
+
+        <section className="events-section " id="section_2">
           <div className="container">
             <div className="row ">
-              <div className="col-lg-12 col-12 mt-5">
-                <div className="d-flex flex-column align-items-center my-5 rounded-5">
-                  <input
-                    onChange={(e) => {
-                      debouncedSearchPosts(e.target.value);
-                    }}
-                    autoComplete="off"
-                    id="search"
-                    type="text"
-                    className={`form-control ${styles.search}`}
-                    placeholder="Search"
-                    style={{ width: "50%" }}
-                  ></input>
-                  <div className={styles.titles}>
-                    {searchRsults.length !== 0 ? (
-                      searchRsults.map((result) => (
-                        <div key={result._id} className={`${styles.text}`}>
-                          <h4>{result.title}</h4>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-center">No posts found 🌵</p>
-                    )}
-                  </div>
-                </div>
-
-                <h2 ref={ref} className="mb-lg-5 mb-4">
-                  Latest Posts
-                </h2>
-              </div>
-              {loaded ? (
+              {posts.length > 0 ? (
                 posts.map((post, index) => (
                   <div
                     ref={(el) => (postsLoad.current[index] = el)}
                     key={post._id}
-                    className="col-lg-6 col-12 mb-5 mb-lg-0 mt-5"
+                    className="col-lg-3 col-12 mb-5 mb-lg-0 mt-5"
                   >
-                    <div className="custom-block-image-wrap">
+                    <div
+                      className={`custom-block-image-wrap ${styles.postImage}`}
+                    >
+                      <div className={styles.like}>
+                        {likedPosts.includes(post._id) ? (
+                          <FaHeart
+                            size={24}
+                            onClick={() => handleLikedPost(post._id)}
+                            className={styles.readHeart}
+                          />
+                        ) : (
+                          <BiHeart
+                            size={24}
+                            onClick={() => handleLikedPost(post._id)}
+                          />
+                        )}
+                      </div>
                       <Link to={`/details/${post._id}`}>
                         <img
                           src={`http://localhost:8080/images/${post.imageUrl}`}
@@ -220,7 +225,9 @@ const Home = () => {
                         {post.title}
                       </a>
 
-                      <p className="mb-0">{post.description}</p>
+                      <p className={`mb-0 ${styles.postP}`}>
+                        {post.description}
+                      </p>
 
                       <div className="border-top mt-4 pt-3">
                         <div className="d-flex flex-wrap align-items-center mb-1">
@@ -240,7 +247,7 @@ const Home = () => {
                 ))
               ) : (
                 <div className="d-flex justify-content-center">
-                  <h3>{error}</h3>
+                  <p>No post</p>
                 </div>
               )}
               {/*Pegination */}
@@ -277,7 +284,7 @@ const Home = () => {
           <div className="container">
             <div className="row  d-flex gap-4 justify-content-center">
               <div className="d-flex justify-content-center mb-5">
-                <h1 ref={ref2}>Technologies used</h1>
+                <h1>Technologies used</h1>
               </div>
               <img
                 style={{ width: "300px" }}

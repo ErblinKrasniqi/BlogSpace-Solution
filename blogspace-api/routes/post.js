@@ -8,6 +8,8 @@ router.get("/post", postController.get);
 
 router.get("/post/:id", postController.getOne);
 
+router.post("/posts/category", postController.getCategoryPosts);
+
 router.get("/posts", isAuth, postController.getMyPosts);
 
 router.post("/post", isAuth, validator.post, postController.create);

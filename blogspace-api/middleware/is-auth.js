@@ -6,9 +6,11 @@ module.exports = (req, res, next) => {
   if (!authHeader) {
     const error = new Error("You are not authoricated 🚫");
     error.statusCode = 403;
+
     throw error;
   }
   let decodedToken;
+
   try {
     decodedToken = jwt.verify(authHeader, "superdupersecret");
   } catch (err) {
@@ -20,6 +22,7 @@ module.exports = (req, res, next) => {
     error.statusCode = 401;
     throw error;
   }
+
   req.userId = decodedToken.userId;
   req.userName = decodedToken.userName;
   req.role = decodedToken.role;

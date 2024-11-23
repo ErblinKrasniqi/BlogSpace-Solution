@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.profileCard {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 500px;
+  text-align: center;
+}
+
+.profilePicture {
+  position: relative;
+
+  margin: auto;
+}
+
+.profileImage {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  border-radius: 50%; /* Makes the image round */
+  object-fit: cover; /* Ensures the image fills the circular area */
+  border: 2px solid #ddd; /* Optional: Adds a border around the image */
+}
+
+.fileInput {
+  position: absolute;
+  left: 160px;
+  width: 120px;
+  height: 120px;
+  opacity: 0%;
+  cursor: pointer;
+}
+
+.picturePlaceholder {
+  width: 120px;
+  height: 120px;
+  border: 2px dashed #ddd;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #777;
+  cursor: pointer;
+  margin: auto;
+
+  &:hover {
+    border-color: #aaa;
+    color: #555;
+  }
+}
+
+.uploadText {
+  font-size: 14px;
+  margin-top: 10px;
+  color: #777;
+}
+
+.profileInfo {
+  .profileName {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .profileEmail {
+    font-size: 16px;
+    color: #666;
+  }
+}
+
+.profileActions {
+  margin-top: 20px;
+
+  .actionButton {
+    margin: 5px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+
+    &.btn-primary {
+      background: #007bff;
+      border: none;
+    }
+
+    &.btn-secondary {
+      background: #6c757d;
+      border: none;
+    }
+  }
+}

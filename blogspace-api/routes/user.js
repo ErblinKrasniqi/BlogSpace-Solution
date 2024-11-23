@@ -10,6 +10,10 @@ router.post("/login", userController.login);
 
 router.get("/users", isAuth, userController.getUsers);
 
+router.get("/user/:id", isAuth, userController.getUserProfile);
+
+router.post("/user/profile", isAuth, userController.updateProfile);
+
 router.delete("/user/:id", isAuth, userController.deleteUser);
 
 router.post("/message", isAuth, userController.sendMessage);

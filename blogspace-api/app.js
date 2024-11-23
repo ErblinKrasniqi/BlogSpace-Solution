@@ -17,6 +17,7 @@ const path = require("path");
 const userRoute = require("./routes/user");
 const postRoute = require("./routes/post");
 const commentRoute = require("./routes/comment");
+const postLike = require("./routes/postLikes");
 
 const fileStroage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -44,6 +45,7 @@ app.use(bodyParser.json());
 app.use(
   multer({ storage: fileStroage, fileFilter: fileFilter }).single("image")
 );
+
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use((req, res, next) => {
@@ -62,21 +64,26 @@ app.use("/api", postRoute);
 
 app.use("/api", commentRoute);
 
+app.use("/api", postLike);
+
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
   const message = error.message;
   res.status(status).json({ message: message });
 });
 
+const MONGODB_URI = `mongodb+srv://dummyuser:<db_password>@cluster0.jtxd4hp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
 mongoose
   .connect(
     "mongodb://127.0.0.1:27017/BlogSpace?retryWrites=true&authSource=admin"
   )
   .then(() => {
-    const server = app.listen(8080);
-    const io = require("./socket").init(server);
+    // const server =
+    app.listen(8080);
+    // const io = require("./socket").init(server);
 
-    io.on("connection", (Socket) => {});
+    // io.on("connection", (Socket) => {});
   })
   .catch((error) => {
     console.log(error);

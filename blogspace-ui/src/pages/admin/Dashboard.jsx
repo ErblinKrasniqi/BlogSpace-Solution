@@ -40,7 +40,7 @@ const Dashboard = () => {
               <div
                 ref={(el) => (postAnimation.current[index] = el)}
                 key={post._id}
-                className="col-lg-6 col-12 mb-5 mb-lg-0 mt-5"
+                className="col-lg-3 col-12 mb-5 mb-lg-0 mt-5"
               >
                 <div className="custom-block-image-wrap">
                   <Link to={`/details/${post._id}`}>

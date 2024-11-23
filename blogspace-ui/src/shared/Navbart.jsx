@@ -4,7 +4,7 @@ import styles from "../Assets/scss/navbar.module.scss";
 import { FiMenu } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { useState } from "react";
-import moon from "../Assets/images/mike-petrucci-uIf6H1or1nE-unsplash.jpg";
+import moon from "../Assets/images/pngwing.com (4).png";
 
 const Navbart = () => {
   const { isLoggedIn, setIsLoggedIn, role } = useAuth();
@@ -28,11 +28,7 @@ const Navbart = () => {
     >
       <div className="container">
         <Link to="/" className="navbar-brand d-flex align-items-center">
-          <img
-            src={moon}
-            className="navbar-brand-image img-fluid"
-            alt="Blog Space"
-          ></img>
+          <img src={moon} className=" img-fluid" alt="Blog Space"></img>
           <span className="navbar-brand-text">
             Blog Space
             <small className="mt-1">Posting blogs</small>

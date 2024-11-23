@@ -72,15 +72,18 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
+const MONGODB_URI = `mongodb+srv://dummyuser:<db_password>@cluster0.jtxd4hp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
 mongoose
   .connect(
     "mongodb://127.0.0.1:27017/BlogSpace?retryWrites=true&authSource=admin"
   )
   .then(() => {
-    const server = app.listen(8080);
-    const io = require("./socket").init(server);
+    // const server =
+    app.listen(8080);
+    // const io = require("./socket").init(server);
 
-    io.on("connection", (Socket) => {});
+    // io.on("connection", (Socket) => {});
   })
   .catch((error) => {
     console.log(error);

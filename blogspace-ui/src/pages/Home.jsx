@@ -63,19 +63,19 @@ const Home = () => {
   };
 
   const CATEGORIES = [
-    { id: 1, name: "Beach", icon: <BiBriefcaseAlt2 /> },
-    { id: 2, name: "Mountain", icon: <BiAlarmAdd /> },
-    { id: 3, name: "Forest", icon: <BiBuilding /> },
-    { id: 4, name: "City", icon: <BiBasketball /> },
-    { id: 5, name: "Snow", icon: <BiBook /> },
-    { id: 6, name: "Snow", icon: <BiCool /> },
-    { id: 7, name: "Snow", icon: <BiGhost /> },
-    { id: 8, name: "Snow", icon: <BiTrophy /> },
-    { id: 9, name: "Snow", icon: <BiTime /> },
-    { id: 10, name: "Snow", icon: <BiPrinter /> },
-    { id: 11, name: "Snow", icon: <BiPopsicle /> },
-    { id: 12, name: "Snow", icon: <BiGhost /> },
-    { id: 13, name: "City", icon: <BiBasketball /> },
+    { id: 1, name: "Work", icon: <BiBriefcaseAlt2 /> },
+    { id: 2, name: "Time", icon: <BiAlarmAdd /> },
+    { id: 3, name: "Bulding", icon: <BiBuilding /> },
+    { id: 4, name: "Basketball", icon: <BiBasketball /> },
+    { id: 5, name: "Book", icon: <BiBook /> },
+    { id: 6, name: "Cool", icon: <BiCool /> },
+    { id: 7, name: "Ghost", icon: <BiGhost /> },
+    { id: 8, name: "Trophy", icon: <BiTrophy /> },
+    { id: 9, name: "Time", icon: <BiTime /> },
+    { id: 10, name: "Printer", icon: <BiPrinter /> },
+    { id: 11, name: "Popsicle", icon: <BiPopsicle /> },
+    { id: 12, name: "Ghost", icon: <BiGhost /> },
+    { id: 13, name: "Basketball", icon: <BiBasketball /> },
   ];
 
   const handleCategoryClick = (id, name) => {
@@ -99,7 +99,15 @@ const Home = () => {
     <>
       <main>
         {/* <div className={styles.backBlur}>
-          <div className={styles.saveScreen}></div>
+          <div className={styles.saveScreen}>
+            <div className={styles.ParentCat}>
+              {DUMMY_CATEGORY.map((categories) => (
+                <div className={styles.categorie}>
+                  <h1>{categories.name}</h1>
+                </div>
+              ))}
+            </div>
+          </div>
         </div> */}
         <section className={styles.container}>
           <div className={styles.searchBar}>
@@ -109,13 +117,13 @@ const Home = () => {
             </div>
             <div className={styles.line}></div>
             <div className={styles.boxes}>
-              <h2>Check in</h2>
-              <h3>Search destinations</h3>
+              <h2>Time</h2>
+              <h3>Filter time</h3>
             </div>
             <div className={styles.line}></div>
             <div className={styles.boxes}>
-              <h2>Where</h2>
-              <h3>Search destinations</h3>
+              <h2>Author</h2>
+              <h3>Search Authors</h3>
             </div>
             <div className={styles.searchIcon}>
               <div className={styles.circle}>

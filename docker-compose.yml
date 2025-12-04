@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: blogspace-mongo
+    restart: always
+    ports:
+      - "27017:27017" # So you can still use MongoDB Compass if you want
+    volumes:
+      - mongo-data:/data/db
+
+  api:
+    build: ./blogspace-api
+    container_name: blogspace-api
+    restart: always
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/BlogSpace?retryWrites=true&authSource=admin
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./blogspace-api/images:/app/images
+
+volumes:
+  mongo-data:

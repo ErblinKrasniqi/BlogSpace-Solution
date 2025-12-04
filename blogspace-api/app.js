@@ -3,8 +3,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-// ...
-
 app.use(cors());
 
 //Middleware
@@ -72,18 +70,19 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
-const MONGODB_URI = `mongodb+srv://dummyuser:<db_password>@cluster0.jtxd4hp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+// const MONGODB_URI = `mongodb+srv://dummyuser:<db_password>@cluster0.jtxd4hp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
+const DEFAULT_MONGO_URI =
+  "mongodb://127.0.0.1:27017/BlogSpace?retryWrites=true&authSource=admin";
+
+const MONGODB_URI = process.env.MONGO_URI || DEFAULT_MONGO_URI;
 
 mongoose
-  .connect(
-    "mongodb://127.0.0.1:27017/BlogSpace?retryWrites=true&authSource=admin"
-  )
+  .connect(MONGODB_URI)
   .then(() => {
-    // const server =
-    app.listen(8080);
-    // const io = require("./socket").init(server);
-
-    // io.on("connection", (Socket) => {});
+    app.listen(8080, () => {
+      console.log("Server running on port 8080");
+    });
   })
   .catch((error) => {
     console.log(error);
